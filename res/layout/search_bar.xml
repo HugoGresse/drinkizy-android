@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/searchBar"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:animateLayoutChanges="true" >
+	
+	<AutoCompleteTextView
+	    android:id="@+id/homeSearchField"
+	    android:layout_width="match_parent"
+	    android:layout_height="wrap_content"
+	    android:layout_above="@id/centerView"
+	    android:ems="10"
+	    android:hint="@string/research_placeholder"
+	    android:inputType="text"
+	    android:lines="1"
+	    android:maxLines="1"
+	    android:paddingRight="45dp" >
+	
+	    <requestFocus />
+	</AutoCompleteTextView>
+	
+	<ImageButton
+	    android:id="@+id/searchIcon"
+	    android:layout_width="40dp"
+	    android:layout_height="wrap_content"
+	    android:layout_alignBottom="@+id/homeSearchField"
+	    android:layout_alignParentRight="true"
+	    android:layout_marginBottom="5dp"
+	    android:background="@android:color/transparent"
+	    android:contentDescription="@string/research_loupe"
+	    android:src="@android:drawable/ic_menu_search" />
+
+</RelativeLayout>
