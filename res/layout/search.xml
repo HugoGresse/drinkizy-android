@@ -30,6 +30,15 @@
         android:contentDescription="@string/research_loupe"
         android:src="@android:drawable/ic_menu_search" />
 
+    <TextView
+        android:id="@+id/let_you_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/homeSearchField"
+        android:layout_marginTop="20dp"
+        android:text="@string/let_you_guide"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
@@ -38,7 +47,7 @@
         android:layout_marginTop="20dp" >
 
         <Button
-            android:id="@+id/button1"
+            android:id="@+id/barTheme"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -48,7 +57,7 @@
             android:text="@string/bar_theme" />
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/happyHour"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -58,7 +67,7 @@
             android:text="@string/happy_hour" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/closeToMe"
             style="?android:attr/buttonBarButtonStyle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -66,16 +75,6 @@
             android:background="@color/orange_drinkizy"
             android:text="@string/closer_to_me" />
     </LinearLayout>
-
-    <TextView
-        android:id="@+id/let_you_guide"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/homeSearchField"
-        android:layout_below="@+id/homeSearchField"
-        android:layout_marginTop="40dp"
-        android:text="@string/let_you_guide"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
         android:id="@+id/not_miss"
