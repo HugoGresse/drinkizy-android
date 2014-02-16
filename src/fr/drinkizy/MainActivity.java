@@ -5,6 +5,7 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
@@ -30,7 +31,8 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
-				
+		
+		
 //        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
 		mPlanetTitles = new String[]{"hello","bonjour","c"};
 		
@@ -72,11 +74,20 @@ public class MainActivity extends Activity {
 
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
-
         
         if (savedInstanceState == null) {
-            selectItem(0);
+        	selectItem(0);
+        	Handler handler = new Handler(); 
+        	handler.postDelayed(new Runnable() { 
+                public void run() { 
+                	selectItem(1);
+                } 
+           }, 1500); 
+            
         }
+       
+        
+        
 	};
 	
 	@Override
@@ -101,6 +112,7 @@ public class MainActivity extends Activity {
 	 */
 	private void changeFragment(Fragment frag, int position){
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();
 	}
@@ -109,15 +121,18 @@ public class MainActivity extends Activity {
 	private void selectItem(int position) {
 		
 		switch (position) {
-		case 0:
-			 // Insert the fragment by replacing any existing fragment
-		    // Create new fragment from our own Fragment class
-		    changeFragment(new HomeFragment(), position);
-			break;
-
-		default:
-			Log.w("Fragment", "No Fragment to change on selectItem");
-			break;
+			case 0:
+				 // Insert the fragment by replacing any existing fragment
+			    // Create new fragment from our own Fragment class
+			    changeFragment(new HomeFragment(), position);
+				break;
+			case 1:
+			    changeFragment(new SearchFragment(), position);
+				break;
+			
+			default:
+				Log.w("Fragment", "No Fragment to change on selectItem");
+				break;
 		}
 	   
 	    // Highlight the selected item, update the title, and close the drawer

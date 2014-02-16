@@ -60,64 +60,12 @@ public class HomeFragment extends Fragment {
 		searchBar = (RelativeLayout)currentView.findViewById(R.id.searchBar);
 		textView = (TextView)currentView.findViewById(R.id.homeSearchField);
 		centerView = currentView.findViewById(R.id.centerView);
-		connectButton = (Button)currentView.findViewById(R.id.connectButton);
+//		connectButton = (Button)currentView.findViewById(R.id.connectButton);
 		
-		centerViewLayoutParam = (RelativeLayout.LayoutParams) centerView.getLayoutParams();
-		searchBarLP = (RelativeLayout.LayoutParams) searchBar.getLayoutParams();
-		
-		animator = ObjectAnimator.ofFloat(logo, "alpha", 0);
-		animator.addListener(new AnimatorListenerAdapter() {
-		    @Override
-		    public void onAnimationEnd(Animator animation) {
-		    	((RelativeLayout)logo.getParent()).removeView(logo);
-		    	((RelativeLayout)centerView.getParent()).removeView(centerView);
-		    	((RelativeLayout)connectButton.getParent()).removeView(connectButton);
-		    	
-		    	heightPosition = (int)(searchBar.getY());
-		    	
-		    	searchBarLP.addRule(RelativeLayout.ABOVE, 0);
-		    	searchBar.setY(heightPosition);
-		    	
-		    	Log.i("DEV", Float.toString(heightPosition));
-		    	
-		    	TranslateAnimation anim = new TranslateAnimation( 0, 0, heightPosition - searchBar.getMeasuredHeight(), 0);
-		        anim.setDuration(400);
-		        anim.setFillAfter( true );
-		        
-		        anim.setAnimationListener(new AnimationListener() {
-		            @Override
-		            public void onAnimationEnd(Animation arg0) {
-		            	searchBarLP.addRule(RelativeLayout.ALIGN_PARENT_TOP, 1);
-		            }
-					@Override
-					public void onAnimationRepeat(Animation animation) {}
-					@Override
-					public void onAnimationStart(Animation animation) {}
-		        });
-		        searchBar.startAnimation(anim);
-		    	
-		        animator.removeAllListeners();
-		    }
-		});
-		
-		
-		textView.setOnTouchListener(new View.OnTouchListener() {
-			@Override
-	        public boolean onTouch(View v, MotionEvent event) {
-	            if(MotionEvent.ACTION_DOWN == event.getAction()) {
-	            	animator.start();
-	            }
-	            return false; // return is important...
-	        }
-		});
 		
 		
 
 	}
 	
-	private int dipsToPixels(int dips){
-	    final float scale = getResources().getDisplayMetrics().density;
-	    return (int)(dips * scale + 0.5f);
-	}
 	
 }
