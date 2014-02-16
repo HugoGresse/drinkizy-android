@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin" >
+
+    <AutoCompleteTextView
+        android:id="@+id/homeSearchField"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:ems="10"
+        android:paddingRight="45dp"
+        android:text="@string/research_placeholder" >
+
+        <requestFocus />
+    </AutoCompleteTextView>
+
+    <ImageButton
+        android:id="@+id/searchIcon"
+        android:layout_width="40dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/homeSearchField"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="5dp"
+        android:background="@android:color/transparent"
+        android:contentDescription="@string/research_loupe"
+        android:src="@android:drawable/ic_menu_search" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/let_you_guide"
+        android:layout_marginTop="20dp" >
+
+        <Button
+            android:id="@+id/button1"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:text="@string/bar_theme" />
+
+        <Button
+            android:id="@+id/button2"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:text="@string/happy_hour" />
+
+        <Button
+            android:id="@+id/button3"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:text="@string/closer_to_me" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/let_you_guide"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/homeSearchField"
+        android:layout_below="@+id/homeSearchField"
+        android:layout_marginTop="40dp"
+        android:text="@string/let_you_guide"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <TextView
+        android:id="@+id/not_miss"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/linearLayout1"
+        android:layout_centerVertical="true"
+        android:text="@string/to_not_miss"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+    <ListView
+        android:id="@+id/starred_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/not_miss"
+        android:layout_below="@+id/not_miss"
+        android:layout_marginTop="22dp" >
+    </ListView>
+
+</RelativeLayout>
