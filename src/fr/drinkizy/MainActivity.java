@@ -16,6 +16,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import fr.drinkizy.rest.DrinkizyRestClient;
+
+
 public class MainActivity extends Activity {
 	
 	private String[] mPlanetTitles;
@@ -24,6 +30,7 @@ public class MainActivity extends Activity {
     private ListView mDrawerList;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    String jsonResponse;
 
     
 	@Override
@@ -31,6 +38,10 @@ public class MainActivity extends Activity {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
+		
+		
+
+		getDrinkizyBars();
 		
 		
 //        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
@@ -145,6 +156,7 @@ public class MainActivity extends Activity {
 	public void setTitle(CharSequence title) {
 	    mTitle = title;
 	    getActionBar().setTitle(mTitle);
+	    Log.d("DrinkizyBarsResponse", title.toString());
 	}
 	
 	@Override
@@ -172,7 +184,22 @@ public class MainActivity extends Activity {
     }
     
     
+    public void getDrinkizyBars(){
+    	
+    	RequestParams params = new RequestParams();
+    	params.put("format", "json");
+    	
+    	DrinkizyRestClient.get("bar/", params, new AsyncHttpResponseHandler() {
+		    @Override
+		    public void onSuccess(String response) {
+		    	setTitle(response);
+		    }
+		});
+    	
+        //new JSONObject("{\"phonetype\":\"N95\",\"cat\":\"WP\"}")
 
+    }
+    
 }
 
 
