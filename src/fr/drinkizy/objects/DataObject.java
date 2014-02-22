@@ -5,7 +5,7 @@ import java.util.List;
 public class DataObject<T> {
 	private List<T> objects;
 
-	public List<T> getBars() {
+	public List<T> getObjects() {
 		return objects;
 	}
 
