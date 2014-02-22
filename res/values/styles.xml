@@ -22,5 +22,10 @@
     <style name="ActionBarAppTheme" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/orange_drinkizy</item>
     </style>
-
+	
+    <style name="drinkizyRatingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingstar</item>
+        <item name="android:minHeight">25dip</item>
+        <item name="android:maxHeight">25dip</item>
+    </style>
 </resources>

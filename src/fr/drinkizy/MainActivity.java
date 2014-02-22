@@ -1,9 +1,12 @@
 package fr.drinkizy;
 
+import java.util.ArrayList;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
+import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -13,18 +16,21 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
+import fr.drinkizy.navdrawer.adapter.NavDrawerItem;
+import fr.drinkizy.navdrawer.adapter.NavigationDrawerAdapter;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
 
 public class MainActivity extends Activity {
 	
-	private String[] mPlanetTitles;
+	private ArrayList<NavDrawerItem> mDrawerItems;
+	private String[] mNavMenuTitles;
+	private TypedArray mNavMenuIcons;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
     private ListView mDrawerList;
@@ -39,19 +45,23 @@ public class MainActivity extends Activity {
 
 		setContentView(R.layout.activity_main);
 		
-		
-
 		getDrinkizyBars();
 		
-		
-//        mPlanetTitles = getResources().getStringArray(R.array.planets_array);
-		mPlanetTitles = new String[]{"hello","bonjour","c"};
+		mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
+        mNavMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
+        
+        mDrawerItems = new ArrayList<NavDrawerItem>();
+        for (int i = 0; i < mNavMenuTitles.length; ++i) {
+        	mDrawerItems.add(new NavDrawerItem(mNavMenuTitles[i], mNavMenuIcons.getResourceId(i, -1), true, "22"));
+        }
 		
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navigation_drawer);
 
         // Set the adapter for the list view
-        mDrawerList.setAdapter(new ArrayAdapter<String>(this, R.layout.navigation_drawer_list_item,  R.id.text_item, mPlanetTitles));
+        mDrawerList.setAdapter(new NavigationDrawerAdapter(getApplicationContext(), mDrawerItems));
+        
+        mNavMenuIcons.recycle();
         
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -148,7 +158,7 @@ public class MainActivity extends Activity {
 	   
 	    // Highlight the selected item, update the title, and close the drawer
 	    mDrawerList.setItemChecked(position, true);
-	    setTitle(mPlanetTitles[position]);
+	    setTitle(mNavMenuTitles[position]);
 	    mDrawerLayout.closeDrawer(mDrawerList);
 	}
 	

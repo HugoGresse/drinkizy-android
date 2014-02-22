@@ -53,8 +53,6 @@ public class HomeFragment extends Fragment {
 	public void onActivityCreated (Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		currentView = getView();
-		
-		Log.i("DEV", "onActivityCreated");
 
 		logo = (ImageView)currentView.findViewById(R.id.logo);
 		searchBar = (RelativeLayout)currentView.findViewById(R.id.searchBar);
@@ -64,7 +62,7 @@ public class HomeFragment extends Fragment {
 		
 		
 		
-
+		
 	}
 	
 	

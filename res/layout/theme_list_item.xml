@@ -2,12 +2,15 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:orientation="vertical"
+    android:padding="10dp" >
 
     <ImageView
         android:id="@+id/image"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitCenter"
         android:src="@drawable/blank" />
 
     <TextView
@@ -16,7 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/image"
         android:layout_centerHorizontal="true"
-        android:text="Medium Text"
+        android:text="@string/titre"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -25,6 +28,6 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_centerInParent="true"
-        android:text="TextView" />
+        android:text="@string/description" />
 
 </RelativeLayout>
