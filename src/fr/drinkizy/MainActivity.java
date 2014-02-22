@@ -18,11 +18,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import fr.drinkizy.navdrawer.adapter.NavDrawerItem;
 import fr.drinkizy.navdrawer.adapter.NavigationDrawerAdapter;
+import fr.drinkizy.objects.Bar;
+import fr.drinkizy.objects.DataObject;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
 
@@ -37,6 +40,8 @@ public class MainActivity extends Activity {
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
     String jsonResponse;
+    
+    private DataObject<Bar> mBarsObjects;
 
     
 	@Override
@@ -166,8 +171,9 @@ public class MainActivity extends Activity {
 	public void setTitle(CharSequence title) {
 	    mTitle = title;
 	    getActionBar().setTitle(mTitle);
-	    Log.d("DrinkizyBarsResponse", title.toString());
 	}
+	
+	
 	
 	@Override
     protected void onPostCreate(Bundle savedInstanceState) {
@@ -193,6 +199,10 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
     
+
+	public void setBarsObject(DataObject<Bar> barsObject) {
+    	mBarsObjects = barsObject;
+	}
     
     public void getDrinkizyBars(){
     	
@@ -202,7 +212,9 @@ public class MainActivity extends Activity {
     	DrinkizyRestClient.get("bar/", params, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
-		    	setTitle(response);
+		    	Gson gson = new Gson();
+		    	DataObject<Bar> barsObject = gson.fromJson(response, DataObject.class);
+		    	setBarsObject(barsObject);
 		    }
 		});
     	
