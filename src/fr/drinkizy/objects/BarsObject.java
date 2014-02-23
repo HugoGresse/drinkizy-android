@@ -2,10 +2,10 @@ package fr.drinkizy.objects;
 
 import java.util.List;
 
-public class DataObject<T> {
-	private List<T> objects;
+public class BarsObject {
+	private List<Bar> objects;
 
-	public List<T> getObjects() {
+	public List<Bar> getObjects() {
 		return objects;
 	}
 

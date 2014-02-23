@@ -24,8 +24,7 @@ import com.loopj.android.http.RequestParams;
 
 import fr.drinkizy.navdrawer.adapter.NavDrawerItem;
 import fr.drinkizy.navdrawer.adapter.NavigationDrawerAdapter;
-import fr.drinkizy.objects.Bar;
-import fr.drinkizy.objects.DataObject;
+import fr.drinkizy.objects.BarsObject;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
 
@@ -41,7 +40,7 @@ public class MainActivity extends Activity {
     private CharSequence mTitle;
     String jsonResponse;
     
-    private DataObject<Bar> mBarsObjects;
+    private BarsObject mBarsObjects;
 
     
 	@Override
@@ -200,7 +199,7 @@ public class MainActivity extends Activity {
     }
     
 
-	public void setBarsObject(DataObject<Bar> barsObject) {
+	public void setBarsObject(BarsObject barsObject) {
     	mBarsObjects = barsObject;
 	}
     
@@ -213,7 +212,7 @@ public class MainActivity extends Activity {
 		    @Override
 		    public void onSuccess(String response) {
 		    	Gson gson = new Gson();
-		    	DataObject<Bar> barsObject = gson.fromJson(response, DataObject.class);
+		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
 		    	setBarsObject(barsObject);
 		    }
 		});
