@@ -8,6 +8,7 @@ public class BarsObject {
 	public List<Bar> getObjects() {
 		return objects;
 	}
+	
 
 	@Override
 	public String toString() {

@@ -56,7 +56,7 @@ public class MainActivity extends Activity {
         
         mDrawerItems = new ArrayList<NavDrawerItem>();
         for (int i = 0; i < mNavMenuTitles.length; ++i) {
-        	mDrawerItems.add(new NavDrawerItem(mNavMenuTitles[i], mNavMenuIcons.getResourceId(i, -1), true, "22"));
+        	mDrawerItems.add(new NavDrawerItem(mNavMenuTitles[i], mNavMenuIcons.getResourceId(i, -1)));
         }
 		
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
