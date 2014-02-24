@@ -31,21 +31,12 @@
         android:text="TextView" />
 
     <TextView
-        android:id="@+id/open_hour"
+        android:id="@+id/theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/adress"
         android:layout_below="@+id/adress"
         android:text="TextView" />
 
-    <RatingBar
-        android:id="@+id/ratingBar1"
-        style="@style/drinkizyRatingBar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:numStars="5"
-        android:stepSize="1" />
     
 </RelativeLayout>
