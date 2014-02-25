@@ -56,9 +56,7 @@ public class BarListAdapter extends BaseAdapter {
         TextView txtName = (TextView) convertView.findViewById(R.id.name);
         TextView txtAdress = (TextView) convertView.findViewById(R.id.adress);
         TextView txtTheme = (TextView) convertView.findViewById(R.id.theme);
-        
-        //http://stackoverflow.com/questions/2471935/how-to-load-an-imageview-by-url-in-android
-//        imgIcon.setImageDrawable(barItems.get(position).getSlug());       
+           
         //absListViews
         txtName.setText(barItems.get(position).getName());
         txtAdress.setText(barItems.get(position).getAddress());

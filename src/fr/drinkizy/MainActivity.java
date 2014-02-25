@@ -2,14 +2,14 @@ package fr.drinkizy;
 
 import java.util.ArrayList;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -28,7 +28,7 @@ import fr.drinkizy.objects.BarsObject;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends FragmentActivity {
 	
 	private ArrayList<NavDrawerItem> mDrawerItems;
 	private String[] mNavMenuTitles;
@@ -107,7 +107,7 @@ public class MainActivity extends Activity {
                 public void run() { 
                 	selectItem(1);
                 } 
-           }, 1500); 
+           }, 2000); 
             
         }
        
@@ -136,7 +136,7 @@ public class MainActivity extends Activity {
 	 * @param position
 	 */
 	private void changeFragment(Fragment frag, int position){
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
 		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();
@@ -171,8 +171,6 @@ public class MainActivity extends Activity {
 	    mTitle = title;
 	    getActionBar().setTitle(mTitle);
 	}
-	
-	
 	
 	@Override
     protected void onPostCreate(Bundle savedInstanceState) {

@@ -6,26 +6,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public class HomeFragment extends Fragment {
+public class BarBoissonsFragment extends Fragment {
 
-	private View currentView;
-	
+	public BarBoissonsFragment() {}
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
-		
-	    // Inflate the layout for this fragment
-	    View rootView = inflater.inflate(R.layout.home_content, container, false);
+		// Inflate the layout for this fragment
+	    View rootView = inflater.inflate(R.layout.bar_single_boissons, container, false);	
 	    
 	    return rootView;
 	}
-	
-	@Override
-	public void onActivityCreated (Bundle savedInstanceState){
-		super.onActivityCreated(savedInstanceState);
-		
-	}
-	
-	
+
 }

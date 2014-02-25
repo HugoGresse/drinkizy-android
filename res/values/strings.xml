@@ -22,6 +22,10 @@
     <string name="description">description courte du bar</string>
     <string name="titre">Titre du bar</string>
     
+    <string name="infos_bar">Infos</string>
+    <string name="menu_bar">Boissons</string>
+    <string name="avis_bar">Avis</string>
+    <string name="plan_bar">Plan</string>
     
     
     
