@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-
+	
+    <string name="app_static_url">http://drinkizy.alwaysdata.net/static/medias/bars/</string>
+    
     <string name="app_name">Drinkizy</string>
     <string name="action_settings">Settings</string>
     <string name="hello_world">Hello world!</string>

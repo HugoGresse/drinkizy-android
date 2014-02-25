@@ -21,6 +21,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.nostra13.universalimageloader.core.ImageLoader;
 
 import fr.drinkizy.navdrawer.adapter.NavDrawerItem;
 import fr.drinkizy.navdrawer.adapter.NavigationDrawerAdapter;
@@ -41,15 +42,14 @@ public class MainActivity extends FragmentActivity {
     String jsonResponse;
     
     private BarsObject mBarsObjects;
-
+    
+	protected ImageLoader imageLoader = ImageLoader.getInstance();
     
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		setContentView(R.layout.activity_main);
-		
-		getDrinkizyBars();
 		
 		mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         mNavMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
@@ -107,12 +107,10 @@ public class MainActivity extends FragmentActivity {
                 public void run() { 
                 	selectItem(1);
                 } 
-           }, 2000); 
+           }, 200); 
             
         }
        
-        
-        
 	};
 	
 	@Override
@@ -194,29 +192,6 @@ public class MainActivity extends FragmentActivity {
         }
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
-    }
-    
-
-	public void setBarsObject(BarsObject barsObject) {
-    	mBarsObjects = barsObject;
-	}
-    
-    public void getDrinkizyBars(){
-    	
-    	RequestParams params = new RequestParams();
-    	params.put("format", "json");
-    	
-    	DrinkizyRestClient.get("bar/", params, new AsyncHttpResponseHandler() {
-		    @Override
-		    public void onSuccess(String response) {
-		    	Gson gson = new Gson();
-		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
-		    	setBarsObject(barsObject);
-		    }
-		});
-    	
-        //new JSONObject("{\"phonetype\":\"N95\",\"cat\":\"WP\"}")
-
     }
     
 }
