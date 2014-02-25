@@ -16,9 +16,7 @@ public class BarInfoFragment extends Fragment {
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 	    View rootView = inflater.inflate(R.layout.bar_single_info, container, false);	
-	    args = getArguments();
-	    	
-	    Log.i("DEV", args.toString());
+
 	    
 	    return rootView;
 	}

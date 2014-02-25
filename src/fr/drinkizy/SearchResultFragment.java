@@ -76,7 +76,6 @@ public class SearchResultFragment extends Fragment {
 				mBarItems = new ArrayList<Bar>();
 				mBarItems.addAll(bars);
 				
-				
 		        // Set the adapter for the list view
 				searchResult.setAdapter(new BarListAdapter(getActivity(), mBarItems));
 		        

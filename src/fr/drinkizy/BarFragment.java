@@ -41,8 +41,6 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
         mAdapter = new BarTabsPagerAdapter(getActivity().getSupportFragmentManager());
         viewPager.setAdapter(mAdapter);
         
-        actionBar.setHomeButtonEnabled(false);
-
 	    // Specify that tabs should be displayed in the action bar.
 	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
 	    	    
