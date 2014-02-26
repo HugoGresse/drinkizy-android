@@ -18,6 +18,7 @@ import android.widget.ImageButton;
 import android.widget.ListView;
 
 import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
@@ -88,10 +89,12 @@ public class SearchFragment extends Fragment {
     	RequestParams params = new RequestParams();
     	params.put("format", "json");
     	
-    	DrinkizyRestClient.get("bar/", params, new AsyncHttpResponseHandler() {
+    	DrinkizyRestClient.get("/api/v1/bar/", params, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
+		    	
 		    	Gson gson = new Gson();
+		        
 		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
 		    	
 		    	List<Bar> bars = barsObject.getObjects();
@@ -105,8 +108,6 @@ public class SearchFragment extends Fragment {
 		        
 		    }
 		});
-    	
-        //new JSONObject("{\"phonetype\":\"N95\",\"cat\":\"WP\"}")
 
     }
 }

@@ -1,6 +1,7 @@
 package fr.drinkizy.listbar.adapter;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Context;
@@ -16,6 +17,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import fr.drinkizy.R;
 import fr.drinkizy.objects.Bar;
+import fr.drinkizy.objects.Theme;
 
 public class BarListAdapter extends BaseAdapter {
 	
@@ -68,7 +70,14 @@ public class BarListAdapter extends BaseAdapter {
         //absListViews
         txtName.setText(barItems.get(position).getName());
         txtAdress.setText(barItems.get(position).getAddress());
-        txtTheme.setText(barItems.get(position).getTheme());
+        
+        
+        Iterator<Theme> it_themes = barItems.get(position).getThemes().iterator();
+        StringBuilder sb = new StringBuilder();
+		while (it_themes.hasNext()) {
+			sb.append(it_themes.next().getName()+", ");
+		}
+		txtTheme.setText(sb.toString());
         
         return convertView;
 	}

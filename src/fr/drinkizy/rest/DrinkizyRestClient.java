@@ -6,7 +6,7 @@ import com.loopj.android.http.RequestParams;
 
 public class DrinkizyRestClient {
 
-	private static final String BASE_URL = "http://drinkizy.alwaysdata.net/api/v1/"; //"http://drinkizy.alwaysdata.net/api/v1/bar/?format=json"
+	private static final String BASE_URL = "http://drinkizy.alwaysdata.net"; //"http://drinkizy.alwaysdata.net/api/v1/bar/?format=json"
 	private static AsyncHttpClient client = new AsyncHttpClient();
 
 	public static void get(String url, RequestParams params, AsyncHttpResponseHandler responseHandler) {

@@ -1,5 +1,18 @@
 package fr.drinkizy.objects;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import fr.drinkizy.listbar.adapter.BarListAdapter;
+import fr.drinkizy.rest.DrinkizyRestClient;
+
 public class Bar {
 	private String address;
 	private int approval;
@@ -17,8 +30,10 @@ public class Bar {
 	private String resource_uri;
 	private String slug;
 	
-	private String theme;
+	private List<String> themes;
 	private String website;
+	
+	private transient List<Theme> themes_list = new ArrayList<Theme>();
 	
 	public String getAddress() {
 		return address;
@@ -56,13 +71,24 @@ public class Bar {
 	public String getSlug() {
 		return slug;
 	}
-	public String getTheme() {
-		return theme;
+	public List<String> getThemesResUris() {
+		return themes;
 	}
 	public String getWebsite() {
 		return website;
 	}
 	
+	public void setThemes(List<Theme> themes){
+		themes_list = themes;
+	}
+	
+	public List<Theme> getThemes() {
+    	return themes_list;
+	}
+	
+	public void addTheme(Theme theme){
+		themes_list.add(theme);
+	}
 	
 	@Override
 	public String toString() {
