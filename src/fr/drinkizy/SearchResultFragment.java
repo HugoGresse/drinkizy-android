@@ -154,9 +154,9 @@ public class SearchResultFragment extends Fragment {
 					    	Gson gson = new Gson();
 					    	Bar bar = gson.fromJson(response, Bar.class);
 					    	
-					    	for(Drinkbar drinkbar : drinksForBars.get(barUri)){
-					    		bar.addDrink(drinkbar);
-					    	}
+//					    	for(Drinkbar drinkbar : drinksForBars.get(barUri)){
+//					    		bar.addDrink(drinkbar);
+//					    	}
 					    	
 					    	mBarsItems.add(bar);
 
