@@ -78,7 +78,7 @@ public class SearchResultFragment extends Fragment {
     	RequestParams paramsBars = new RequestParams();
     	paramsBars.put("format", "json");
     	String urlBars = "/api/v1/bar/";
-    	if(mSearchQuery != ""){
+    	if(!mSearchQuery.isEmpty()){
     		paramsBars.put("q", mSearchQuery);
     		urlBars = "/api/v1/bar/search";
     	}

@@ -1,7 +1,5 @@
 package fr.drinkizy;
 
-import java.util.List;
-
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
@@ -17,7 +15,6 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import fr.drinkizy.objects.Bar;
-import fr.drinkizy.objects.BarsObject;
 import fr.drinkizy.pageradapter.BarTabsPagerAdapter;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
@@ -78,7 +75,8 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
         
 	    // Specify that tabs should be displayed in the action bar.
 	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-	    	    
+	    
+	    
 	    // Adding Tabs
         for (int tab_name_id : tabs) {
             actionBar.addTab(actionBar.newTab().setText(tab_name_id)
@@ -93,6 +91,8 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
                     	actionBar.setSelectedNavigationItem(position);
                     }
                 });
+        
+        
 	}
 	
     public void loadBar(){
@@ -100,17 +100,16 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
     	RequestParams params = new RequestParams();
     	params.put("format", "json");
     	
+    	Log.i("DEV", barUri);
+    	
     	DrinkizyRestClient.get(barUri, params, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
 		    	Gson gson = new Gson();
-		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
-		    	
-		    	List<Bar> bars = barsObject.getObjects();
-		    	bar = bars.get(0);
-		    	
-				Log.i("DEV", bars.toString());
+		    	bar = gson.fromJson(response, Bar.class);
 				
+		    	((MainActivity) getActivity()).setCurrentBar(bar);
+		    	
 				initViewPager();
 		        
 		    }
@@ -120,7 +119,7 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
 
     }
     
-    protected Bar getBar(){
+    public Bar getBar(){
     	if(bar != null){
     		return bar;
     	} else return new Bar();
