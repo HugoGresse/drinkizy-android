@@ -33,6 +33,9 @@ public class SearchResultFragment extends Fragment {
 	private ArrayList<Bar> mBarsItems;
 	private ArrayList<Theme> mThemesItems;
 	
+	private String mSearchQuery = "";
+	
+	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
@@ -41,6 +44,10 @@ public class SearchResultFragment extends Fragment {
 	    
 	    searchResult = (ListView)rootView.findViewById(R.id.search_result);
 	    
+	    Bundle bundle = this.getArguments();
+	    if(bundle.containsKey(MainActivity.SEARCH_QUERY)){
+	    	mSearchQuery = bundle.getString(MainActivity.SEARCH_QUERY);
+	    }
 	    
 	    return rootView;
 	}
@@ -68,18 +75,26 @@ public class SearchResultFragment extends Fragment {
 	
     public void getDrinkizyBars(){
 
-    	final RequestParams params = new RequestParams();
-    	params.put("format", "json");
+    	RequestParams paramsBars = new RequestParams();
+    	paramsBars.put("format", "json");
+    	String urlBars = "/api/v1/bar/";
+    	if(mSearchQuery != ""){
+    		paramsBars.put("q", mSearchQuery);
+    		urlBars = "/api/v1/bar/search";
+    	}
     	
-    	DrinkizyRestClient.get("/api/v1/bar/", params, new AsyncHttpResponseHandler() {
+    	DrinkizyRestClient.get(urlBars, paramsBars, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
 		    	
 		    	Gson gson = new Gson();
 		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
 		    	mBarsItems = (ArrayList<Bar>) barsObject.getObjects();
-	    	    	
-	    		DrinkizyRestClient.get("/api/v1/theme/", params, new AsyncHttpResponseHandler() {
+	    	    
+		    	
+		    	RequestParams paramsThemes = new RequestParams();
+		    	paramsThemes.put("format", "json");
+	    		DrinkizyRestClient.get("/api/v1/theme/", paramsThemes, new AsyncHttpResponseHandler() {
 	    		    		
 				    @Override
 				    public void onSuccess(String response) {  	
@@ -101,7 +116,6 @@ public class SearchResultFragment extends Fragment {
 		for(Bar bar : mBarsItems){
 			for(Theme theme : mThemesItems){
 				for(String theme_uri : bar.getThemesResUris()){
-					Log.d("BAR", bar.getName());
 					if(theme_uri.equals(theme.getResource_uri())){
 						bar.addTheme(theme);
 					}

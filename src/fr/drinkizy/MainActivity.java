@@ -18,18 +18,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import fr.drinkizy.navdrawer.adapter.NavDrawerItem;
 import fr.drinkizy.navdrawer.adapter.NavigationDrawerAdapter;
 import fr.drinkizy.objects.BarsObject;
-import fr.drinkizy.rest.DrinkizyRestClient;
 
 
 public class MainActivity extends FragmentActivity {
+	
+	public static final String SEARCH_QUERY = "search_query";
 	
 	private ArrayList<NavDrawerItem> mDrawerItems;
 	private String[] mNavMenuTitles;
