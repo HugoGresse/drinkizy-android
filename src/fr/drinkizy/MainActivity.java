@@ -22,6 +22,7 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import fr.drinkizy.navdrawer.adapter.NavDrawerItem;
 import fr.drinkizy.navdrawer.adapter.NavigationDrawerAdapter;
+import fr.drinkizy.objects.Bar;
 import fr.drinkizy.objects.BarsObject;
 
 
@@ -39,7 +40,8 @@ public class MainActivity extends FragmentActivity {
     private CharSequence mTitle;
     String jsonResponse;
     
-    private BarsObject mBarsObjects;
+    protected BarsObject mBarsObjects;
+    protected Bar currentBar;
     
 	protected ImageLoader imageLoader = ImageLoader.getInstance();
     
@@ -191,6 +193,15 @@ public class MainActivity extends FragmentActivity {
         // Handle your other action bar items...
         return super.onOptionsItemSelected(item);
     }
+
+	public Bar getCurrentBar() {
+		return currentBar;
+	}
+
+	public void setCurrentBar(Bar currentBar) {
+		this.currentBar = currentBar;
+	}
+    
     
 }
 

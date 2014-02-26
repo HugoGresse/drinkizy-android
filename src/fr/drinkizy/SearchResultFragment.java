@@ -94,6 +94,7 @@ public class SearchResultFragment extends Fragment {
     		getDrinkizyDrinkbars(params, url);
     	}else{
     		getDrinkizyBars(params, url);
+
     	}
     	
     }
