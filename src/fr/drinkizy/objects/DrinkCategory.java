@@ -1,18 +1,18 @@
 package fr.drinkizy.objects;
 
-import com.google.gson.annotations.Expose;
-
-public class Theme {
-	private String name;
+public class DrinkCategory {
+	
 	private String description;
+	private String name;
 	private String slug;
 	private String resource_uri;
 	
-	public String getName() {
-		return name;
-	}
+	
 	public String getDescription() {
 		return description;
+	}
+	public String getName() {
+		return name;
 	}
 	public String getSlug() {
 		return slug;
@@ -22,13 +22,10 @@ public class Theme {
 	}
 	
 	
-	
-	
 	@Override
 	public String toString() {
-	   return "Theme [name=" + name + ", description=" + description +"]";
+		return "DrinkCategory [name=" + name + ", description=" + description
+				+ "]";
 	}
-
-	
 	
 }
