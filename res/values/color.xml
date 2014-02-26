@@ -2,4 +2,5 @@
 <resources>
     <color name="background_drawer">#2F2F2F</color>
     <color name="orange_drinkizy">#F2B219</color>
+    <color name="separator">#BBBBBB</color>
 </resources>

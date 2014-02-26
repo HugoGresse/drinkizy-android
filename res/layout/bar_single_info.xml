@@ -3,32 +3,81 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/bar_image"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blank" />
+
+    <TextView
+        android:id="@+id/bar_rating"
+        android:layout_width="@dimen/rating_width"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bar_image"
+        android:text="TextView" />
+
     <TextView
         android:id="@+id/bar_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
+        android:layout_below="@id/bar_image"
+        android:layout_toRightOf="@id/bar_rating"
         android:text="Large Text"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
-        android:id="@+id/textView2"
+        android:id="@+id/bar_theme"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_below="@+id/bar_name"
+        android:layout_toRightOf="@id/bar_rating"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <ImageView
-        android:id="@+id/imageView1"
+    <TextView
+        android:id="@+id/bar_price"
         android:layout_width="wrap_content"
-        android:layout_height="100dp"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/bar_theme"
+        android:layout_toRightOf="@+id/bar_name"
+        android:text="TextView" />
+
+    <View
+        android:id="@+id/sep_1"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
         android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
+        android:layout_below="@+id/bar_theme"
+        android:background="@color/separator" />
+
+    <View
+        android:id="@+id/sep_2"
+        android:layout_width="fill_parent"
+        android:layout_height="2dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:background="@color/separator" />
+
+    <ImageView
+        android:id="@+id/image_adress"
+        android:layout_width="@dimen/rating_width"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_below="@+id/sep_1"
         android:adjustViewBounds="true"
-        android:scaleType="centerCrop"
+        android:padding="15dp"
         android:src="@drawable/blank" />
+
+    <TextView
+        android:id="@+id/textView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/image_adress"
+        android:layout_alignTop="@+id/image_adress"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/image_adress"
+        android:text="TextView" />
     
 </RelativeLayout>

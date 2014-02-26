@@ -56,7 +56,7 @@ public class BarListAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.bar_list_item, null);
         }
         
-		ImageView image = (ImageView) convertView.findViewById(R.id.image);
+		ImageView image = (ImageView) convertView.findViewById(R.id.bar_image);
 		String url = context.getResources().getString(R.string.app_static_url)+barItems.get(position).getSlug()+".jpg";
 		imageLoader.displayImage(url, image);
 		
@@ -64,7 +64,7 @@ public class BarListAdapter extends BaseAdapter {
 
         TextView txtName = (TextView) convertView.findViewById(R.id.name);
         TextView txtAdress = (TextView) convertView.findViewById(R.id.adress);
-        TextView txtTheme = (TextView) convertView.findViewById(R.id.theme);
+        TextView txtTheme = (TextView) convertView.findViewById(R.id.bar_theme);
            
         //absListViews
         txtName.setText(barItems.get(position).getName());
