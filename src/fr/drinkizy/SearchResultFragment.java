@@ -1,6 +1,7 @@
 package fr.drinkizy;
 
 import java.util.ArrayList;
+import java.util.Set;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -13,6 +14,8 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -34,7 +37,8 @@ public class SearchResultFragment extends Fragment {
 	private ArrayList<Theme> mThemesItems;
 	private ArrayList<Drinkbar> mDrinkbars;
 	
-	private ArrayList<String> mBarsUriOfDrinkbars;
+	private Set<String> mBarsUriOfDrinkbars;
+	private Multimap<String, Drinkbar> drinksForBars;
 	
 	private int barsCount;
 	
@@ -114,28 +118,31 @@ public class SearchResultFragment extends Fragment {
     
     
     public void getDrinkizyDrinkbars(RequestParams paramsDrinkbars, String urlDrinkbars){
-    	Log.d("DRINKBARS_GET_METHOD", urlDrinkbars+" "+paramsDrinkbars.toString());
+    	
     	DrinkizyRestClient.get(urlDrinkbars, paramsDrinkbars, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
-		    	Log.d("DRINKBARS_ON_SUCCESS", response);
+
 		    	Gson gson = new Gson();
 		    	DrinkbarsObject drinkbarsObject = gson.fromJson(response, DrinkbarsObject.class);
 		    	mDrinkbars = (ArrayList<Drinkbar>) drinkbarsObject.getObjects();
 	    	    
-		    	mBarsUriOfDrinkbars = new ArrayList<String>();
 		    	mBarsItems = new ArrayList<Bar>();
 		    	
+		    	// create multimap to store bar_uris as keys and drinkbars associated as values
+		    	drinksForBars = ArrayListMultimap.create();
+		    	
 		    	for(Drinkbar drinkbar : mDrinkbars){
-		    		mBarsUriOfDrinkbars.add(drinkbar.getBarUri());
+		    		drinksForBars.put(drinkbar.getBarUri(), drinkbar);
 		    	}
-		    	
+
+		    	mBarsUriOfDrinkbars = drinksForBars.keySet();
 		    	barsCount = mBarsUriOfDrinkbars.size();
-		    	
+
 		    	RequestParams paramsBar = new RequestParams();
 		    	paramsBar.put("format", "json");
 		    	
-		    	for(String barUri : mBarsUriOfDrinkbars){
+		    	for(final String barUri : mBarsUriOfDrinkbars){
 		    		
 		    		DrinkizyRestClient.get(barUri, paramsBar, new AsyncHttpResponseHandler() {
 		    		    		
@@ -145,8 +152,13 @@ public class SearchResultFragment extends Fragment {
 					    	
 					    	Gson gson = new Gson();
 					    	Bar bar = gson.fromJson(response, Bar.class);
-					    	mBarsItems.add(bar);
 					    	
+					    	for(Drinkbar drinkbar : drinksForBars.get(barUri)){
+					    		bar.addDrink(drinkbar);
+					    	}
+					    	
+					    	mBarsItems.add(bar);
+
 					    	if(barsCount == 0)
 					    		getThemesAndSetAdapter();
 	    				}

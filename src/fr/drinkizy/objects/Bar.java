@@ -34,6 +34,7 @@ public class Bar {
 	private String website;
 	
 	private transient List<Theme> themes_list = new ArrayList<Theme>();
+	private transient List<Drinkbar> drinks_list = new ArrayList<Drinkbar>();
 	
 	public String getAddress() {
 		return address;
@@ -86,8 +87,16 @@ public class Bar {
     	return themes_list;
 	}
 	
+	public List<Drinkbar> getDrinks() {
+    	return drinks_list;
+	}
+	
 	public void addTheme(Theme theme){
 		themes_list.add(theme);
+	}
+	
+	public void addDrink(Drinkbar drinkbar){
+		drinks_list.add(drinkbar);
 	}
 	
 	@Override
