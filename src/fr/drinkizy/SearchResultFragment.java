@@ -51,10 +51,6 @@ public class SearchResultFragment extends Fragment {
 			
 		    @Override 
 		    public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){ 
-		    	Bundle bundle = new Bundle();
-		        // Our object is just an integer :-P
-//		        bundle.putInt("BAR", mBarItems.get(position));
-
 		    	changeFragment(new BarFragment(), 1, R.string.search_result);
 		    }
 		});

@@ -1,15 +1,25 @@
 package fr.drinkizy;
 
+import java.util.List;
+
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import fr.drinkizy.objects.Bar;
+import fr.drinkizy.objects.BarsObject;
 import fr.drinkizy.pageradapter.BarTabsPagerAdapter;
+import fr.drinkizy.rest.DrinkizyRestClient;
 
 public class BarFragment extends Fragment implements ActionBar.TabListener  {
 	
@@ -78,4 +88,25 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
 		
 	}
 	
+    public void getBar(int id){
+    	
+    	RequestParams params = new RequestParams();
+    	params.put("format", "json");
+    	
+    	DrinkizyRestClient.get("bar/"+id, params, new AsyncHttpResponseHandler() {
+		    @Override
+		    public void onSuccess(String response) {
+		    	Gson gson = new Gson();
+		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
+		    	
+		    	List<Bar> bars = barsObject.getObjects();
+		    	
+				Log.i("DEV", bars.toString());
+		        
+		    }
+		});
+    	
+        //new JSONObject("{\"phonetype\":\"N95\",\"cat\":\"WP\"}")
+
+    }
 }
