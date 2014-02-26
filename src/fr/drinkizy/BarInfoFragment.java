@@ -6,10 +6,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import fr.drinkizy.objects.Bar;
 
 public class BarInfoFragment extends Fragment {
-
-	private Bundle args;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -20,5 +19,16 @@ public class BarInfoFragment extends Fragment {
 	    
 	    return rootView;
 	}
+	
+	@Override
+	public void onActivityCreated (Bundle savedInstanceState){
+		super.onActivityCreated(savedInstanceState);
+		
+		Bar myBar = ((BarFragment) getParentFragment()).getBar();
+		
+		Log.i("DEV", myBar.getName());
+	}
+	
+	
 	
 }

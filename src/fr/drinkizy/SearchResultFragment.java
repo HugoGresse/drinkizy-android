@@ -51,7 +51,11 @@ public class SearchResultFragment extends Fragment {
 			
 		    @Override 
 		    public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){ 
-		    	changeFragment(new BarFragment(), 1, R.string.search_result);
+		    	BarFragment myBarFrag = new BarFragment();
+		    	Bundle bundle = new Bundle();
+		    	bundle.putString("res_uri", mBarItems.get(position).getResource_uri());
+		    	myBarFrag.setArguments(bundle);
+		    	changeFragment(myBarFrag, 1, R.string.search_result);
 		    }
 		});
 	}
