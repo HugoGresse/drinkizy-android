@@ -15,7 +15,7 @@
         android:layout_alignParentTop="true"
         android:ems="10"
         android:paddingRight="45dp"
-        android:text="@string/research_placeholder" >
+        android:hint="@string/research_placeholder" >
 
         <requestFocus />
     </AutoCompleteTextView>
