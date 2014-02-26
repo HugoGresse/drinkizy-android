@@ -1,6 +1,6 @@
 <resources>
 
-        <style name="Theme.Drinkizy" parent="@android:style/Theme.Holo.Light">
+	<style name="Theme.Drinkizy" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarItemBackground">@drawable/selectable_background_drinkizy</item>
         <item name="android:popupMenuStyle">@style/PopupMenu.Drinkizy</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Drinkizy</item>
