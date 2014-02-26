@@ -50,7 +50,12 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
         barUri = bundle.getString("res_uri", "");
         loadBar();
 	}
-
+	
+	public void onDestroyView(){
+		super.onDestroyView();
+		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+	}
+	
 	@Override
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
 		
@@ -66,6 +71,7 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
 		// TODO Auto-generated method stub
 		
 	}
+	
 	
 	/**
 	 * Init ViewPager when BarDatas is loaded
