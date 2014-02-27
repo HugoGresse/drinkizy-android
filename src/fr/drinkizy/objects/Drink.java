@@ -8,10 +8,9 @@ public class Drink {
 		private String slug;
 		private String resource_uri;
 		
-		private String subcategory;
-		private String creator;
+		private DrinkSubcategory subcategory;
 		
-		private transient DrinkSubcategory mSubcategory;
+
 		//private transient User mCreator;
 		
 		
@@ -24,27 +23,23 @@ public class Drink {
 		public String getSlug() {
 			return slug;
 		}
-		public String getCreatorUri() {
-			return creator;
-		}
-		public String getSubcategoryUri() {
+
+		public DrinkSubcategory getSubcategory() {
 			return subcategory;
 		}
 		public String getResource_uri() {
 			return resource_uri;
 		}
 		
-//		public User getCreator() {
-//			return mCreator;
-//		}
-		public DrinkSubcategory getSubcategory() {
-			return mSubcategory;
+		public String getCategoryChain() {
+			return subcategory.getCategory().getName()+" > "+subcategory.getName();
 		}
+
 		
 		@Override
 		public String toString() {
 			return "Drink [name=" + name + ", description=" + description
-					+ ", mSubcategory=" + mSubcategory + "]";
+					+ ", mSubcategory=" + subcategory + "]";
 		}
 		
 		

@@ -2,15 +2,20 @@ package fr.drinkizy;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import fr.drinkizy.objects.Bar;
+import fr.drinkizy.rest.DrinkizyRestClient;
 
 public class BarInfoFragment extends Fragment {
 	
@@ -68,7 +73,7 @@ public class BarInfoFragment extends Fragment {
 		ImageLoader.getInstance().displayImage(url, image);
 		
 		name.setText(bar.getName());
-		themes.setText(bar.getThemes().toString());
+		themes.setText(bar.getThemesAsAString());
 		
 		text_adress.setText(bar.getAddress());
 		text_tel.setText(bar.getPhone());
@@ -77,7 +82,6 @@ public class BarInfoFragment extends Fragment {
 		
 		description.setText(bar.getDescription());
 	}
-	
 	
 	
 }

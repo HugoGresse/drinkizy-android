@@ -1,46 +1,42 @@
-package fr.drinkizy.listbar.adapter;
+package fr.drinkizy.listdrink.adapter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
 
 import fr.drinkizy.R;
-import fr.drinkizy.objects.Bar;
-import fr.drinkizy.objects.Theme;
+import fr.drinkizy.objects.Drinkbar;
 
-public class BarListAdapter extends BaseAdapter {
+public class DrinkListAdapter extends BaseAdapter {
 	
 	private Context context;
-	private ArrayList<Bar> barItems;
+	private ArrayList<Drinkbar> drinkItems;
 	LayoutInflater inflater; // inflater pour charger le XML pour l'item
 	
 	ImageLoader imageLoader;
 	
-	public BarListAdapter(Context context, ArrayList<Bar> barItems){
+	public DrinkListAdapter(Context context, ArrayList<Drinkbar> drinkItems){
         this.context = context;
-        this.barItems = barItems;
+        this.drinkItems = drinkItems;
         imageLoader = ImageLoader.getInstance();
     }
 	
 	@Override
 	public int getCount() {
-		return barItems.size();
+		return drinkItems.size();
 	}
 
 	@Override
 	public Object getItem(int position) {
-		return barItems.get(position);
+		return drinkItems.get(position);
 	}
 
 	@Override
@@ -53,23 +49,21 @@ public class BarListAdapter extends BaseAdapter {
 		if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
-            convertView = mInflater.inflate(R.layout.bar_list_item, null);
+            convertView = mInflater.inflate(R.layout.drink_list_item, null);
         }
         
-		ImageView image = (ImageView) convertView.findViewById(R.id.bar_image);
-		String url = context.getResources().getString(R.string.app_static_url)+barItems.get(position).getSlug()+".jpg";
-		imageLoader.displayImage(url, image);
+//		ImageView image = (ImageView) convertView.findViewById(R.id.bar_image);
+//		String url = context.getResources().getString(R.string.app_static_url)+drinkItems.get(position).getSlug()+".jpg";
+//		imageLoader.displayImage(url, image);
 		
 		
 
         TextView txtName = (TextView) convertView.findViewById(R.id.name);
-        TextView txtAdress = (TextView) convertView.findViewById(R.id.adress);
-        TextView txtTheme = (TextView) convertView.findViewById(R.id.bar_theme);
+        TextView txtCategory = (TextView) convertView.findViewById(R.id.category);
            
         //absListViews
-        txtName.setText(barItems.get(position).getName());
-        txtAdress.setText(barItems.get(position).getAddress());
-		txtTheme.setText(barItems.get(position).getThemesAsAString());
+        txtName.setText(drinkItems.get(position).getDrink().getName());
+        txtCategory.setText(drinkItems.get(position).getDrink().getCategoryChain());
         
         return convertView;
 	}

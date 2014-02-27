@@ -6,7 +6,7 @@ public class Drinkbar {
 	private int approval;
 	private int disapproval;
 
-	private String drink;
+	private Drink drink;
 	private String bar;
 	
 	private double price;
@@ -14,7 +14,6 @@ public class Drinkbar {
 	
 	private String resource_uri;
 	
-	private transient Drink mDrink;
 	private transient Bar mBar;
 	
 	
@@ -24,7 +23,7 @@ public class Drinkbar {
 	public int getDisapproval() {
 		return disapproval;
 	}
-	public String getDrinkUri() {
+	public Drink getDrink() {
 		return drink;
 	}
 	public String getBarUri() {
@@ -40,10 +39,7 @@ public class Drinkbar {
 		return resource_uri;
 	}
 	
-	
-	public Drink getDrink() {
-		return mDrink;
-	}
+
 	public Bar getBar() {
 		return mBar;
 	}

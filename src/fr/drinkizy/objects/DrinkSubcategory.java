@@ -6,9 +6,8 @@ public class DrinkSubcategory {
 	private String name;
 	private String slug;
 	private String resource_uri;
-	private String category;
 	
-	private transient DrinkCategory mCategory;
+	private DrinkCategory category;
 	
 	
 	public String getDescription() {
@@ -23,12 +22,9 @@ public class DrinkSubcategory {
 	public String getResource_uri() {
 		return resource_uri;
 	}
-	public String getCategoryUri() {
-		return category;
-	}
-	
+
 	public DrinkCategory getCategory() {
-		return mCategory;
+		return category;
 	}
 	
 	

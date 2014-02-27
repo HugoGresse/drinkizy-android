@@ -105,30 +105,4 @@ public class SearchFragment extends Fragment {
 	    getActivity().getActionBar().setTitle(actionBarTitle);
 	}
 	
-    public void getDrinkizyBars(){
-    	
-    	RequestParams params = new RequestParams();
-    	params.put("format", "json");
-    	
-    	DrinkizyRestClient.get("/api/v1/bar/", params, new AsyncHttpResponseHandler() {
-		    @Override
-		    public void onSuccess(String response) {
-		    	
-		    	Gson gson = new Gson();
-		        
-		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
-		    	
-		    	List<Bar> bars = barsObject.getObjects();
-		    	
-				ArrayList<Bar> mBarItems = new ArrayList<Bar>();
-				mBarItems.addAll(bars);
-				
-				
-		        // Set the adapter for the list view
-				starredListBar.setAdapter(new BarListAdapter(getActivity(), mBarItems));
-		        
-		    }
-		});
-
-    }
 }

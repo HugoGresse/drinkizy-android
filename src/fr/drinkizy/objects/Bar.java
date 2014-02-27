@@ -30,10 +30,9 @@ public class Bar {
 	private String resource_uri;
 	private String slug;
 	
-	private List<String> themes;
 	private String website;
 	
-	private transient List<Theme> themes_list = new ArrayList<Theme>();
+	private List<Theme> themes;
 	private transient List<Drinkbar> drinks_list = new ArrayList<Drinkbar>();
 	
 	public String getAddress() {
@@ -72,28 +71,29 @@ public class Bar {
 	public String getSlug() {
 		return slug;
 	}
-	public List<String> getThemesResUris() {
-		return themes;
-	}
 	public String getWebsite() {
 		return website;
 	}
 	
-	public void setThemes(List<Theme> themes){
-		themes_list = themes;
+	public List<Theme> getThemes() {
+    	return themes;
 	}
 	
-	public List<Theme> getThemes() {
-    	return themes_list;
+	public String getThemesAsAString() {
+		Iterator<Theme> it_themes = themes.iterator();
+        StringBuilder sb = new StringBuilder();
+		while (it_themes.hasNext()) {
+			sb.append(it_themes.next().getName());
+			if(it_themes.hasNext())
+				sb.append(" / ");
+		}
+		return sb.toString();
 	}
 	
 	public List<Drinkbar> getDrinks() {
     	return drinks_list;
 	}
 	
-	public void addTheme(Theme theme){
-		themes_list.add(theme);
-	}
 	
 	public void addDrink(Drinkbar drinkbar){
 		drinks_list.add(drinkbar);

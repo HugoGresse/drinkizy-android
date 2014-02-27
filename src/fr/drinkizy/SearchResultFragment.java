@@ -34,7 +34,6 @@ public class SearchResultFragment extends Fragment {
 	private ListView searchResult;
 	
 	private ArrayList<Bar> mBarsItems;
-	private ArrayList<Theme> mThemesItems;
 	private ArrayList<Drinkbar> mDrinkbars;
 	
 	private Set<String> mBarsUriOfDrinkbars;
@@ -67,7 +66,7 @@ public class SearchResultFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		
 		
-		getDrinkizyResults();
+		loadDrinkizyResults();
 		
 		searchResult.setOnItemClickListener(new OnItemClickListener(){
 			
@@ -82,7 +81,7 @@ public class SearchResultFragment extends Fragment {
 		});
 	}
 	
-    public void getDrinkizyResults(){
+    public void loadDrinkizyResults(){
     	
     	RequestParams params = new RequestParams();
     	params.put("format", "json");
@@ -91,16 +90,16 @@ public class SearchResultFragment extends Fragment {
     	if(!mSearchQuery.isEmpty()){
     		params.put("q", mSearchQuery);
     		url = "/api/v1/drinkbar/search/";
-    		getDrinkizyDrinkbars(params, url);
+    		loadDrinkizyDrinkbars(params, url);
     	}else{
-    		getDrinkizyBars(params, url);
+    		loadDrinkizyBars(params, url);
 
     	}
     	
     }
     
     
-    public void getDrinkizyBars(RequestParams paramsBars, String urlBars){
+    public void loadDrinkizyBars(RequestParams paramsBars, String urlBars){
     	
     	DrinkizyRestClient.get(urlBars, paramsBars, new AsyncHttpResponseHandler() {
 		    @Override
@@ -110,7 +109,7 @@ public class SearchResultFragment extends Fragment {
 		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
 		    	mBarsItems = (ArrayList<Bar>) barsObject.getObjects();
 	    	    
-		    	getThemesAndSetAdapter();
+		    	searchResult.setAdapter(new BarListAdapter(getActivity(), mBarsItems));
 	
 		    }
 		});
@@ -118,7 +117,7 @@ public class SearchResultFragment extends Fragment {
     }
     
     
-    public void getDrinkizyDrinkbars(RequestParams paramsDrinkbars, String urlDrinkbars){
+    public void loadDrinkizyDrinkbars(RequestParams paramsDrinkbars, String urlDrinkbars){
     	
     	DrinkizyRestClient.get(urlDrinkbars, paramsDrinkbars, new AsyncHttpResponseHandler() {
 		    @Override
@@ -154,14 +153,10 @@ public class SearchResultFragment extends Fragment {
 					    	Gson gson = new Gson();
 					    	Bar bar = gson.fromJson(response, Bar.class);
 					    	
-//					    	for(Drinkbar drinkbar : drinksForBars.get(barUri)){
-//					    		bar.addDrink(drinkbar);
-//					    	}
-					    	
 					    	mBarsItems.add(bar);
 
 					    	if(barsCount == 0)
-					    		getThemesAndSetAdapter();
+					    		searchResult.setAdapter(new BarListAdapter(getActivity(), mBarsItems));
 	    				}
 	    			});
 		    	}
@@ -170,36 +165,6 @@ public class SearchResultFragment extends Fragment {
     }
 
     
-    public void getThemesAndSetAdapter(){
-    	RequestParams paramsThemes = new RequestParams();
-    	paramsThemes.put("format", "json");
-		DrinkizyRestClient.get("/api/v1/theme/", paramsThemes, new AsyncHttpResponseHandler() {
-		    		
-		    @Override
-		    public void onSuccess(String response) {  	
-		    	Gson gson = new Gson();
-		    	ThemesObject themesObject = gson.fromJson(response, ThemesObject.class);
-		    	mThemesItems = (ArrayList<Theme>) themesObject.getObjects();
-		    	
-		    	setBarsAdapter();
-			}
-		});
-    }
-    
-	public void setBarsAdapter(){
-	
-		for(Bar bar : mBarsItems){
-			for(Theme theme : mThemesItems){
-				for(String theme_uri : bar.getThemesResUris()){
-					if(theme_uri.equals(theme.getResource_uri())){
-						bar.addTheme(theme);
-					}
-				}
-			}
-		}
-		
-		searchResult.setAdapter(new BarListAdapter(getActivity(), mBarsItems));
-	}
     
 	private void changeFragment(Fragment frag, int position, int actionBarTitle){
 		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
