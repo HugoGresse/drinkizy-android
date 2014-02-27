@@ -2,11 +2,10 @@ package fr.drinkizy;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
+import android.app.Fragment;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,6 @@ import com.loopj.android.http.RequestParams;
 import fr.drinkizy.listdrink.adapter.DrinkListAdapter;
 import fr.drinkizy.listdrink.adapter.SectionListAdapter;
 import fr.drinkizy.objects.Bar;
-import fr.drinkizy.objects.DrinkCategory;
 import fr.drinkizy.objects.Drinkbar;
 import fr.drinkizy.objects.DrinkbarsObject;
 import fr.drinkizy.rest.DrinkizyRestClient;

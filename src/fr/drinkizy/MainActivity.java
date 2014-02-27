@@ -2,14 +2,15 @@ package fr.drinkizy;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -26,7 +27,7 @@ import fr.drinkizy.objects.Bar;
 import fr.drinkizy.objects.BarsObject;
 
 
-public class MainActivity extends FragmentActivity {
+public class MainActivity extends Activity {
 	
 	public static final String SEARCH_QUERY = "search_query";
 	
@@ -134,7 +135,7 @@ public class MainActivity extends FragmentActivity {
 	 * @param position
 	 */
 	private void changeFragment(Fragment frag, int position){
-		FragmentTransaction ft = getSupportFragmentManager().beginTransaction();
+		FragmentTransaction ft = getFragmentManager().beginTransaction();
 		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();

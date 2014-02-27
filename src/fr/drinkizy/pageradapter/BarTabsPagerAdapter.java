@@ -1,8 +1,8 @@
 package fr.drinkizy.pageradapter;
 
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.support.v13.app.FragmentPagerAdapter;
 import fr.drinkizy.BarAvisFragment;
 import fr.drinkizy.BarBoissonsFragment;
 import fr.drinkizy.BarInfoFragment;

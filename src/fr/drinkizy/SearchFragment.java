@@ -3,9 +3,9 @@
  */
 package fr.drinkizy;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -85,7 +85,7 @@ public class SearchFragment extends Fragment {
 	}
 	
 	private void changeFragment(Fragment frag, int position, int actionBarTitle){
-		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
 		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();

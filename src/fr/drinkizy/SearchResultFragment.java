@@ -3,10 +3,9 @@ package fr.drinkizy;
 import java.util.ArrayList;
 import java.util.Set;
 
+import android.app.Fragment;
+import android.app.FragmentTransaction;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,8 +24,6 @@ import fr.drinkizy.objects.Bar;
 import fr.drinkizy.objects.BarsObject;
 import fr.drinkizy.objects.Drinkbar;
 import fr.drinkizy.objects.DrinkbarsObject;
-import fr.drinkizy.objects.Theme;
-import fr.drinkizy.objects.ThemesObject;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
 public class SearchResultFragment extends Fragment {
@@ -167,7 +164,7 @@ public class SearchResultFragment extends Fragment {
     
     
 	private void changeFragment(Fragment frag, int position, int actionBarTitle){
-		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
+		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
 		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();
