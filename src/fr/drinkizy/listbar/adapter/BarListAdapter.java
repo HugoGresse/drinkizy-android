@@ -1,11 +1,9 @@
 package fr.drinkizy.listbar.adapter;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,7 +15,6 @@ import com.nostra13.universalimageloader.core.ImageLoader;
 
 import fr.drinkizy.R;
 import fr.drinkizy.objects.Bar;
-import fr.drinkizy.objects.Theme;
 
 public class BarListAdapter extends BaseAdapter {
 	

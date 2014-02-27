@@ -1,4 +1,5 @@
 package fr.drinkizy;
+
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.InflateException;

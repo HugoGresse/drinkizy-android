@@ -3,9 +3,6 @@
  */
 package fr.drinkizy;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
@@ -18,15 +15,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import fr.drinkizy.listbar.adapter.BarListAdapter;
-import fr.drinkizy.objects.Bar;
-import fr.drinkizy.objects.BarsObject;
-import fr.drinkizy.rest.DrinkizyRestClient;
 
 /**
  * @author Hugo
@@ -97,7 +85,7 @@ public class SearchFragment extends Fragment {
 	}
 	
 	private void changeFragment(Fragment frag, int position, int actionBarTitle){
-		FragmentTransaction ft = getFragmentManager().beginTransaction();
+		FragmentTransaction ft = getActivity().getSupportFragmentManager().beginTransaction();
 		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();
