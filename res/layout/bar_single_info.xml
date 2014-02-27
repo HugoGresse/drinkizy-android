@@ -5,79 +5,163 @@
 
     <ImageView
         android:id="@+id/bar_image"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="100dp"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/blank" />
-
-    <TextView
-        android:id="@+id/bar_rating"
-        android:layout_width="@dimen/rating_width"
-        android:layout_height="wrap_content"
+	
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@id/bar_image"
-        android:text="TextView" />
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp" >
+        
+        <TextView
+	        android:id="@+id/bar_rating"
+	        android:layout_width="40dp"
+	        android:layout_height="wrap_content"
+	        android:layout_marginRight="10dp"
+	        android:background="@color/orange_drinkizy"
+	        android:padding="5dp"
+	        android:text="--"
+	        android:textColor="@android:color/white" />
+	
+	    <TextView
+	        android:id="@+id/bar_name"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_toRightOf="@id/bar_rating"
+	        android:text="Large Text"
+	        android:textAppearance="?android:attr/textAppearanceLarge" />
+	
+	    <TextView
+	        android:id="@+id/bar_theme"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/bar_name"
+	        android:layout_toRightOf="@id/bar_rating"
+	        android:text="Medium Text"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/bar_price"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBaseline="@+id/bar_theme"
+	        android:layout_toRightOf="@+id/bar_name"
+	        android:text="TextView" />
+	
+	    <View
+	        android:id="@+id/sep_1"
+	        android:layout_width="fill_parent"
+	        android:layout_height="2dp"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/bar_theme"
+	        android:layout_marginBottom="5dp"
+	        android:layout_marginTop="10dp"
+	        android:background="@color/separator" />
+	
+	    <ImageView
+	        android:id="@+id/image_adress"
+	        android:layout_width="@dimen/rating_width"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/sep_1"
+	        android:adjustViewBounds="true"
+	        android:padding="@dimen/padding_glyphicon"
+	        android:src="@drawable/blank" />
+	
+	    <TextView
+	        android:id="@+id/text_adress"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@+id/image_adress"
+	        android:layout_alignTop="@+id/image_adress"
+	        android:layout_centerVertical="true"
+	        android:layout_toRightOf="@+id/image_adress"
+	        android:gravity="center_vertical"
+	        android:text="TextView" />
+	
+	    <ImageView
+	        android:id="@+id/image_tel"
+	        android:layout_width="@dimen/rating_width"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/image_adress"
+	        android:adjustViewBounds="true"
+	        android:padding="@dimen/padding_glyphicon"
+	        android:src="@drawable/blank" />
+	
+	    <TextView
+	        android:id="@+id/text_tel"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@id/image_tel"
+	        android:layout_alignTop="@id/image_tel"
+	        android:layout_toRightOf="@id/image_tel"
+	        android:gravity="center_vertical"
+	        android:text="TextView" />
+	
+	    <ImageView
+	        android:id="@+id/image_email"
+	        android:layout_width="@dimen/rating_width"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/image_tel"
+	        android:adjustViewBounds="true"
+	        android:padding="@dimen/padding_glyphicon"
+	        android:src="@drawable/blank" />
+	
+	    <TextView
+	        android:id="@+id/text_email"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@id/image_email"
+	        android:layout_alignTop="@id/image_email"
+	        android:layout_toRightOf="@id/image_email"
+	        android:gravity="center_vertical"
+	        android:text="TextView" />
+	
+	    <ImageView
+	        android:id="@+id/image_site"
+	        android:layout_width="@dimen/rating_width"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/image_email"
+	        android:adjustViewBounds="true"
+	        android:padding="@dimen/padding_glyphicon"
+	        android:src="@drawable/blank" />
+	
+	    <TextView
+	        android:id="@+id/text_site"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignBottom="@id/image_site"
+	        android:layout_alignTop="@id/image_site"
+	        android:layout_toRightOf="@id/image_site"
+	        android:gravity="center_vertical"
+	        android:text="TextView" />
+	
+	    <View
+	        android:id="@+id/sep_2"
+	        android:layout_width="fill_parent"
+	        android:layout_height="2dp"
+	        android:layout_below="@id/text_site"
+	        android:layout_marginBottom="10dp"
+	        android:layout_marginTop="5dp"
+	        android:background="@color/separator" />
 
-    <TextView
-        android:id="@+id/bar_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/bar_image"
-        android:layout_toRightOf="@id/bar_rating"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
+	    <TextView
+	        android:id="@+id/text_description"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@id/sep_2"
+	        android:text="TextView" />
 
-    <TextView
-        android:id="@+id/bar_theme"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/bar_name"
-        android:layout_toRightOf="@id/bar_rating"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/bar_price"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/bar_theme"
-        android:layout_toRightOf="@+id/bar_name"
-        android:text="TextView" />
-
-    <View
-        android:id="@+id/sep_1"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/bar_theme"
-        android:background="@color/separator" />
-
-    <View
-        android:id="@+id/sep_2"
-        android:layout_width="fill_parent"
-        android:layout_height="2dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:background="@color/separator" />
-
-    <ImageView
-        android:id="@+id/image_adress"
-        android:layout_width="@dimen/rating_width"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/sep_1"
-        android:adjustViewBounds="true"
-        android:padding="15dp"
-        android:src="@drawable/blank" />
-
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/image_adress"
-        android:layout_alignTop="@+id/image_adress"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/image_adress"
-        android:text="TextView" />
+    </RelativeLayout>
+    
     
 </RelativeLayout>
