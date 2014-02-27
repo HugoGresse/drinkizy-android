@@ -12,6 +12,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
@@ -83,27 +85,15 @@ public class BarBoissonsFragment extends Fragment {
         // create our list and custom adapter  
 		SectionListAdapter adapter = new SectionListAdapter(getActivity()); 
 		
-		Map<String, ArrayList<Drinkbar>> categoryDrinkMap = new HashMap<String, ArrayList<Drinkbar>>();
-		
+		Multimap<String, Drinkbar> categoryDrinkMap = ArrayListMultimap.create();
+	
 		for (Drinkbar drinkbar : mDrinkbarItems) {
-			String cat = drinkbar.getDrink().getSubcategory().getCategory().getName();
-			
-			if(!categoryDrinkMap.containsKey(cat) ){
-				ArrayList<Drinkbar> drinkBarList = new ArrayList<Drinkbar>();
-				drinkBarList.add(drinkbar);
-				categoryDrinkMap.put(cat, drinkBarList);
-			} else {
-				ArrayList<Drinkbar> drinkBarList = categoryDrinkMap.get(cat);
-				drinkBarList.add(drinkbar);
-				categoryDrinkMap.put(cat, drinkBarList);
-			}
-			
+			categoryDrinkMap.put(drinkbar.getDrink().getSubcategory().getCategory().getName(), drinkbar);
 		}
 		
-		for (Map.Entry<String, ArrayList<Drinkbar>> entry : categoryDrinkMap.entrySet()) {
-			String cat = entry.getKey();
-			ArrayList<Drinkbar> values = entry.getValue();
-			adapter.addSection(cat, new DrinkListAdapter(getActivity(), values));  
+		for (String cat : categoryDrinkMap.keySet()) {
+			ArrayList<Drinkbar> drinkItems = new ArrayList<Drinkbar>(categoryDrinkMap.get(cat));
+			adapter.addSection(cat, new DrinkListAdapter(getActivity(), drinkItems));  
 		}
 		
 		Log.i("DEV", categoryDrinkMap.toString());
