@@ -105,9 +105,7 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
     	
     	RequestParams params = new RequestParams();
     	params.put("format", "json");
-    	
-    	Log.i("DEV", barUri);
-    	
+    	    	
     	DrinkizyRestClient.get(barUri, params, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {

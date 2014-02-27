@@ -51,19 +51,13 @@ public class DrinkListAdapter extends BaseAdapter {
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.drink_list_item, null);
         }
-        
-//		ImageView image = (ImageView) convertView.findViewById(R.id.bar_image);
-//		String url = context.getResources().getString(R.string.app_static_url)+drinkItems.get(position).getSlug()+".jpg";
-//		imageLoader.displayImage(url, image);
-		
-		
 
         TextView txtName = (TextView) convertView.findViewById(R.id.name);
-        TextView txtCategory = (TextView) convertView.findViewById(R.id.category);
+        TextView txtPrice = (TextView) convertView.findViewById(R.id.drinkbar_price);
            
         //absListViews
         txtName.setText(drinkItems.get(position).getDrink().getName());
-        txtCategory.setText(drinkItems.get(position).getDrink().getCategoryChain());
+        txtPrice.setText( String.valueOf(drinkItems.get(position).getPrice())+ " €"   );
         
         return convertView;
 	}

@@ -2,34 +2,27 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp" >
-
-    <ImageView
-        android:id="@+id/drink_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginRight="10dp"
-        android:src="@drawable/blank" />
+    android:layout_marginBottom="10dp"
+    android:paddingBottom="3dp"
+    android:paddingTop="3dp" >
 
     <TextView
         android:id="@+id/name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/drink_image"
-        android:text="TextView"
+        android:maxWidth="250dp"
+        android:text="TextView dza dza dza dza dza dza dza"
         android:textSize="20sp" />
 
     <TextView
-        android:id="@+id/category"
+        android:id="@+id/drinkbar_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:layout_toRightOf="@+id/drink_image"
-        android:text="TextView" />
+        android:layout_alignBaseline="@id/name"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:text="TextView"
+        android:textSize="16sp" />
 
-
-    
 </RelativeLayout>

@@ -1,6 +1,9 @@
 package fr.drinkizy;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -15,7 +18,9 @@ import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
 
 import fr.drinkizy.listdrink.adapter.DrinkListAdapter;
+import fr.drinkizy.listdrink.adapter.SectionListAdapter;
 import fr.drinkizy.objects.Bar;
+import fr.drinkizy.objects.DrinkCategory;
 import fr.drinkizy.objects.Drinkbar;
 import fr.drinkizy.objects.DrinkbarsObject;
 import fr.drinkizy.rest.DrinkizyRestClient;
@@ -34,7 +39,8 @@ public class BarBoissonsFragment extends Fragment {
 	                         Bundle savedInstanceState) {
 		// Inflate the layout for this fragment
 	    View rootView = inflater.inflate(R.layout.bar_single_boissons, container, false);	
-	    Log.d("LIST_BOISSONS", "onCreateView");
+	    
+	    
 	    drinksList = (ListView)rootView.findViewById(R.id.drinks_list);
 	    
 	    return rootView;
@@ -44,7 +50,7 @@ public class BarBoissonsFragment extends Fragment {
 	@Override
 	public void onActivityCreated (Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
-		Log.d("LIST_BOISSONS", "onActivityCreated");
+		
 		bar = ((MainActivity) getActivity()).getCurrentBar();
 		
 		loadDrinksOfBar();
@@ -53,7 +59,7 @@ public class BarBoissonsFragment extends Fragment {
 	
 	
 	public void loadDrinksOfBar(){
-    	Log.d("LIST_BOISSONS", "entered method loadDrinksOfBar");
+    	
     	RequestParams params = new RequestParams();
     	params.put("format", "json");
     	params.put("bar__slug", bar.getSlug());
@@ -66,11 +72,52 @@ public class BarBoissonsFragment extends Fragment {
 		    	DrinkbarsObject drinkbarsObject = gson.fromJson(response, DrinkbarsObject.class);
 		    	mDrinkbarItems = (ArrayList<Drinkbar>) drinkbarsObject.getObjects();
 		    	
-		    	drinksList.setAdapter(new DrinkListAdapter(getActivity(), mDrinkbarItems));
-		        
+		    	displayDrink();
 		    }
 		});
 
     }
+	
+	public void displayDrink(){
+		
+//		drinksList.setAdapter();
+        
+        // create our list and custom adapter  
+		SectionListAdapter adapter = new SectionListAdapter(getActivity()); 
+		
+		Map<String, ArrayList<Drinkbar>> categoryDrinkMap = new HashMap<String, ArrayList<Drinkbar>>();
+		
+		for (Drinkbar drinkbar : mDrinkbarItems) {
+			String cat = drinkbar.getDrink().getSubcategory().getCategory().getName();
+			
+			if(!categoryDrinkMap.containsKey(cat) ){
+				ArrayList<Drinkbar> drinkBarList = new ArrayList<Drinkbar>();
+				drinkBarList.add(drinkbar);
+				categoryDrinkMap.put(cat, drinkBarList);
+			} else {
+				ArrayList<Drinkbar> drinkBarList = categoryDrinkMap.get(cat);
+				drinkBarList.add(drinkbar);
+				categoryDrinkMap.put(cat, drinkBarList);
+			}
+			
+		}
+		
+		for (Map.Entry<String, ArrayList<Drinkbar>> entry : categoryDrinkMap.entrySet()) {
+			String cat = entry.getKey();
+			ArrayList<Drinkbar> values = entry.getValue();
+			adapter.addSection(cat, new DrinkListAdapter(getActivity(), values));  
+		}
+		
+		Log.i("DEV", categoryDrinkMap.toString());
+		
+		drinksList.setAdapter(adapter);  
+	}
+	
+	
+	
+	
+	
+	
+	
 
 }

@@ -15,8 +15,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@id/bar_image"
-        android:layout_marginLeft="5dp"
-        android:layout_marginRight="5dp" >
+        android:layout_marginLeft="@dimen/padding_barsingle"
+        android:layout_marginRight="@dimen/padding_barsingle" >
         
         <TextView
 	        android:id="@+id/bar_rating"
@@ -50,8 +50,9 @@
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignBaseline="@+id/bar_theme"
-	        android:layout_toRightOf="@+id/bar_name"
-	        android:text="TextView" />
+	        android:layout_toRightOf="@+id/bar_theme"
+	        android:text="TextView"
+	        android:visibility="invisible" />
 	
 	    <View
 	        android:id="@+id/sep_1"
@@ -159,7 +160,8 @@
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
 	        android:layout_below="@id/sep_2"
-	        android:text="TextView" />
+	        android:text="TextView"
+	        android:textSize="18sp" />
 
     </RelativeLayout>
     
