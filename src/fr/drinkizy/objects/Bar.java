@@ -4,15 +4,6 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
-import com.google.gson.annotations.Expose;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
-
-import fr.drinkizy.listbar.adapter.BarListAdapter;
-import fr.drinkizy.rest.DrinkizyRestClient;
-
 public class Bar {
 	private String address;
 	private int approval;
@@ -24,7 +15,6 @@ public class Bar {
 	private String mail;
 	
 	private String name;
-	private int nb_pictures;
 	private String phone;
 	
 	private String resource_uri;
@@ -33,6 +23,7 @@ public class Bar {
 	private String website;
 	
 	private List<Theme> themes;
+	private List<BarImage> images;
 	private transient List<Drinkbar> drinks_list = new ArrayList<Drinkbar>();
 	
 	public String getAddress() {
@@ -59,9 +50,6 @@ public class Bar {
 	public String getName() {
 		return name;
 	}
-	public int getNb_pictures() {
-		return nb_pictures;
-	}
 	public String getPhone() {
 		return phone;
 	}
@@ -77,6 +65,19 @@ public class Bar {
 	
 	public List<Theme> getThemes() {
     	return themes;
+	}
+	
+	public List<BarImage> getImages() {
+    	return images;
+	}
+	
+	public ArrayList<String> getImagesUrls() {
+		Iterator<BarImage> it = images.iterator();
+		ArrayList<String> imagesUrls = new ArrayList<String>();
+		while(it.hasNext()){
+			imagesUrls.add(it.next().getImageUrl());
+		}
+    	return imagesUrls;
 	}
 	
 	public String getThemesAsAString() {

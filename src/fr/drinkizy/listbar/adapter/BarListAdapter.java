@@ -54,8 +54,10 @@ public class BarListAdapter extends BaseAdapter {
         }
         
 		ImageView image = (ImageView) convertView.findViewById(R.id.bar_image);
-		String url = context.getResources().getString(R.string.app_static_url)+barItems.get(position).getSlug()+".jpg";
-		imageLoader.displayImage(url, image);
+		if(!barItems.get(position).getImagesUrls().isEmpty()){
+			String url = context.getResources().getString(R.string.app_url)+barItems.get(position).getImagesUrls().get(0);
+			imageLoader.displayImage(url, image);
+		}
 		
 		
 
