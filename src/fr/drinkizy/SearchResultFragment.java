@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.Set;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -69,11 +69,11 @@ public class SearchResultFragment extends Fragment {
 			
 		    @Override 
 		    public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){ 
-		    	BarFragment myBarFrag = new BarFragment();
-		    	Bundle bundle = new Bundle();
-		    	bundle.putString("res_uri", mBarsItems.get(position).getResource_uri());
-		    	myBarFrag.setArguments(bundle);
-		    	changeFragment(myBarFrag, 1, R.string.search_result);
+
+		        Intent intentBarSingle = new Intent(getActivity(), BarActivity.class);
+		        intentBarSingle.putExtra("bar_uri", mBarsItems.get(position).getResource_uri());
+		        startActivity(intentBarSingle);
+		        getActivity().overridePendingTransition(R.anim.hold, R.anim.hold);
 		    }
 		});
 	}
@@ -163,12 +163,4 @@ public class SearchResultFragment extends Fragment {
 
     
     
-	private void changeFragment(Fragment frag, int position, int actionBarTitle){
-		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
-		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
-	    ft.commit();
-	    
-	    getActivity().getActionBar().setTitle(actionBarTitle);
-	}
 }

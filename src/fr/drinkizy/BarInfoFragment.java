@@ -62,7 +62,7 @@ public class BarInfoFragment extends Fragment {
 		super.onActivityCreated(savedInstanceState);
 		
 //		Bar myBar = ((BarFragment) getParentFragment()).getBar();
-		bar = ((MainActivity) getActivity()).getCurrentBar();
+		bar =  ((BarActivity) getActivity()).getBar();
 		
 		String url = getActivity().getResources().getString(R.string.app_static_url)+bar.getSlug()+".jpg";
 		ImageLoader.getInstance().displayImage(url, image);

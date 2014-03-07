@@ -10,7 +10,6 @@ import android.content.res.TypedArray;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.app.FragmentActivity;
 import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
 import android.view.Menu;
@@ -134,9 +133,9 @@ public class MainActivity extends Activity {
 	 * @param frag
 	 * @param position
 	 */
-	private void changeFragment(Fragment frag, int position){
+	private void changeFragment(Fragment frag, int position, int animIn, int animOut){
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
-		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+		ft.setCustomAnimations(animIn, animOut);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();
 	}
@@ -148,10 +147,10 @@ public class MainActivity extends Activity {
 			case 0:
 				 // Insert the fragment by replacing any existing fragment
 			    // Create new fragment from our own Fragment class
-			    changeFragment(new HomeFragment(), position);
+			    changeFragment(new HomeFragment(), position, R.anim.fade_in, R.anim.fade_out);
 				break;
 			case 1:
-			    changeFragment(new SearchFragment(), position);
+			    changeFragment(new SearchFragment(), position, R.anim.fade_in, R.anim.fade_out);
 				break;
 			
 			default:

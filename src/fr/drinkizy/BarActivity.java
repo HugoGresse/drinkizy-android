@@ -2,12 +2,10 @@ package fr.drinkizy;
 
 import android.app.ActionBar;
 import android.app.ActionBar.Tab;
-import android.app.Fragment;
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -17,7 +15,7 @@ import fr.drinkizy.objects.Bar;
 import fr.drinkizy.pageradapter.BarTabsPagerAdapter;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
-public class BarFragment extends Fragment implements ActionBar.TabListener  {
+public class BarActivity extends Activity implements ActionBar.TabListener  {
 	
 	private ActionBar actionBar;
 	// Tab titles
@@ -29,30 +27,35 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
     
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	                         Bundle savedInstanceState) {
-	    // Inflate the layout for this fragment
-	    View rootView = inflater.inflate(R.layout.bar_single, container, false);
-	    viewPager = (ViewPager) rootView.findViewById(R.id.pager);
-	    return rootView;
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.bar_single);
+		
+		overridePendingTransition(R.anim.slide_in_translate, R.anim.hold);
+		
+		
+	    viewPager = (ViewPager) findViewById(R.id.pager);
+	    actionBar = getActionBar();
+        mAdapter = new BarTabsPagerAdapter(getFragmentManager());
+        
+        Intent intent = getIntent();
+        barUri = intent.getStringExtra("bar_uri");;
+        loadBar();
+                
 	}
 	
 	@Override
-	public void onActivityCreated (Bundle savedInstanceState){
-		super.onActivityCreated(savedInstanceState);
-		
-		actionBar = getActivity().getActionBar();
-		
-        mAdapter = new BarTabsPagerAdapter(getActivity().getFragmentManager());
-        
-        Bundle bundle = this.getArguments();
-        barUri = bundle.getString("res_uri", "");
-        loadBar();
+	public void onDestroy(){
+		super.onDestroy();
+//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 	}
 	
-	public void onDestroyView(){
-		super.onDestroyView();
-		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+	@Override
+	public void onResume(){
+		super.onResume();
+		
+		
 	}
 	
 	@Override
@@ -111,7 +114,7 @@ public class BarFragment extends Fragment implements ActionBar.TabListener  {
 		    	Gson gson = new Gson();
 		    	bar = gson.fromJson(response, Bar.class);
 				
-		    	((MainActivity) getActivity()).setCurrentBar(bar);
+//		    	((MainActivity) getCallingActivity()).setCurrentBar(bar);
 		    	
 				initViewPager();
 		        

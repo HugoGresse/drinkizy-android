@@ -64,9 +64,9 @@ public class SearchFragment extends Fragment {
 					bundle.putString(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
 					SearchResultFragment fragment = new SearchResultFragment();
 					fragment.setArguments(bundle);
-					changeFragment(fragment, 1, R.string.search_result);
+					changeFragment(fragment, 1, R.string.search_result, R.anim.slide_in, R.anim.slide_out);
 				}else{
-					changeFragment(new SearchResultFragment(), 1, R.string.search_result);
+					changeFragment(new SearchResultFragment(), 1, R.string.search_result, R.anim.slide_in, R.anim.slide_out);
 				}
 				
 			}
@@ -84,9 +84,9 @@ public class SearchFragment extends Fragment {
 
 	}
 	
-	private void changeFragment(Fragment frag, int position, int actionBarTitle){
+	private void changeFragment(Fragment frag, int position, int actionBarTitle, int animIn, int animOut){
 		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-		ft.setCustomAnimations(R.anim.fade_in, R.anim.fade_out);
+		ft.setCustomAnimations(animIn, animOut);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
 	    ft.commit();
 	    
