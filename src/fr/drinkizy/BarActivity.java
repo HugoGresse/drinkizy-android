@@ -34,14 +34,13 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 		
 		setContentView(R.layout.bar_single);
 		
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
-		
 		
 	    viewPager = (ViewPager) findViewById(R.id.pager);
 	    actionBar = getActionBar();
         mAdapter = new BarTabsPagerAdapter(getFragmentManager());
+        
+        actionBar.setDisplayHomeAsUpEnabled(true);
         
         Intent intent = getIntent();
         barUri = intent.getStringExtra("bar_uri");;
@@ -132,8 +131,9 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 		    public void onSuccess(String response) {
 		    	Gson gson = new Gson();
 		    	bar = gson.fromJson(response, Bar.class);
-				
-//		    	((MainActivity) getCallingActivity()).setCurrentBar(bar);
+		    	
+		    	actionBar.setTitle(bar.getName());
+		    	actionBar.setSubtitle(bar.getAddress()); 
 		    	
 				initViewPager();
 		        

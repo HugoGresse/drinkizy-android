@@ -112,6 +112,8 @@ public class MainActivity extends Activity {
                 } 
            }, 600); 
             
+        }else if(!drinkLogo){
+        	selectItem(1);
         }
        
 	};

@@ -46,6 +46,7 @@ public class SearchResultActivity extends Activity {
 		setContentView(R.layout.search_result);
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		getActionBar().setDisplayHomeAsUpEnabled(true);
+		getActionBar().setTitle(R.string.search_result);
 	    
 	    searchResult = (ListView)findViewById(R.id.search_result);
 	    
