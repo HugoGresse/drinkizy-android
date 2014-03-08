@@ -30,6 +30,7 @@ import fr.drinkizy.objects.BarsObject;
 public class MainActivity extends Activity {
 	
 	public static final String SEARCH_QUERY = "search_query";
+	public static boolean drinkLogo = true;
 	
 	private ArrayList<NavDrawerItem> mDrawerItems;
 	private String[] mNavMenuTitles;
@@ -101,14 +102,15 @@ public class MainActivity extends Activity {
         // Set the drawer toggle as the DrawerListener
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         
-        if (savedInstanceState == null) {
+        if (savedInstanceState == null && drinkLogo) {
         	selectItem(0);
         	Handler handler = new Handler(); 
         	handler.postDelayed(new Runnable() { 
                 public void run() { 
                 	selectItem(1);
+                	drinkLogo = false;
                 } 
-           }, 200); 
+           }, 600); 
             
         }
        
@@ -226,13 +228,6 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
-	public Bar getCurrentBar() {
-		return currentBar;
-	}
-
-	public void setCurrentBar(Bar currentBar) {
-		this.currentBar = currentBar;
-	}
     
     
 }

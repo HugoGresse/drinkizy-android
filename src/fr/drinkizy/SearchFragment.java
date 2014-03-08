@@ -5,6 +5,7 @@ package fr.drinkizy;
 
 import android.app.Fragment;
 import android.app.FragmentTransaction;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -58,16 +59,14 @@ public class SearchFragment extends Fragment {
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-			
+				
+				Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+				
 				if(autoCompleteTextView.getText().toString() != ""){
-					Bundle bundle = new Bundle();
-					bundle.putString(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
-					SearchResultFragment fragment = new SearchResultFragment();
-					fragment.setArguments(bundle);
-					changeFragment(fragment, 1, R.string.search_result, R.anim.slide_in, R.anim.slide_out);
-				}else{
-					changeFragment(new SearchResultFragment(), 1, R.string.search_result, R.anim.slide_in, R.anim.slide_out);
+					intent.putExtra(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
 				}
+				
+				startActivity(intent);
 				
 			}
 		});

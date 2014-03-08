@@ -41,9 +41,18 @@
         </activity>
         
         <activity 
-            android:name="fr.drinkizy.BarActivity"
+            android:name="fr.drinkizy.SearchResultActivity"
             android:label="@string/app_name"
             android:parentActivityName="fr.drinkizy.MainActivity" 
+            
+            >
+            
+        </activity>
+        
+        <activity 
+            android:name="fr.drinkizy.BarActivity"
+            android:label="@string/app_name"
+            android:parentActivityName="fr.drinkizy.SearchResultActivity" 
             
             >
             

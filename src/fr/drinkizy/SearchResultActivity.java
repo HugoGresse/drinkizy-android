@@ -3,12 +3,10 @@ package fr.drinkizy;
 import java.util.ArrayList;
 import java.util.Set;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -26,7 +24,7 @@ import fr.drinkizy.objects.Drinkbar;
 import fr.drinkizy.objects.DrinkbarsObject;
 import fr.drinkizy.rest.DrinkizyRestClient;
 
-public class SearchResultFragment extends Fragment {
+public class SearchResultActivity extends Activity {
 	
 	private ListView searchResult;
 	
@@ -42,39 +40,40 @@ public class SearchResultFragment extends Fragment {
 	
 	
 	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-	                         Bundle savedInstanceState) {
-		// Inflate the layout for this fragment
-	    View rootView = inflater.inflate(R.layout.search_result, container, false);
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		
+		setContentView(R.layout.search_result);
+		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
 	    
-	    searchResult = (ListView)rootView.findViewById(R.id.search_result);
+	    searchResult = (ListView)findViewById(R.id.search_result);
 	    
-	    Bundle bundle = this.getArguments();
-	    if(bundle.containsKey(MainActivity.SEARCH_QUERY)){
-	    	mSearchQuery = bundle.getString(MainActivity.SEARCH_QUERY);
+	    Intent intent = getIntent();
+	    if(intent.hasExtra(MainActivity.SEARCH_QUERY)){
+	    	mSearchQuery = intent.getStringExtra(MainActivity.SEARCH_QUERY);
 	    }
 	    
-	    return rootView;
-	}
-	
-	@Override
-	public void onActivityCreated (Bundle savedInstanceState){
-		super.onActivityCreated(savedInstanceState);
-		
-		
-		loadDrinkizyResults();
+	    loadDrinkizyResults();
 		
 		searchResult.setOnItemClickListener(new OnItemClickListener(){
 			
 		    @Override 
 		    public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){ 
-
-		        Intent intentBarSingle = new Intent(getActivity(), BarActivity.class);
+		    	
+		        Intent intentBarSingle = new Intent(SearchResultActivity.this, BarActivity.class);
 		        intentBarSingle.putExtra("bar_uri", mBarsItems.get(position).getResource_uri());
 		        startActivity(intentBarSingle);
-		        getActivity().overridePendingTransition(R.anim.hold, R.anim.hold);
+		        //		        getActivity().overridePendingTransition(R.anim.hold, R.anim.hold);
 		    }
 		});
+		
+	}
+	
+	@Override
+	public void finish() {
+	    super.finish();
+	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	}
 	
     public void loadDrinkizyResults(){
@@ -105,7 +104,7 @@ public class SearchResultFragment extends Fragment {
 		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
 		    	mBarsItems = (ArrayList<Bar>) barsObject.getObjects();
 	    	    
-		    	searchResult.setAdapter(new BarListAdapter(getActivity(), mBarsItems));
+		    	searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
 	
 		    }
 		});
@@ -152,7 +151,7 @@ public class SearchResultFragment extends Fragment {
 					    	mBarsItems.add(bar);
 
 					    	if(barsCount == 0)
-					    		searchResult.setAdapter(new BarListAdapter(getActivity(), mBarsItems));
+					    		searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
 	    				}
 	    			});
 		    	}
