@@ -5,7 +5,9 @@ import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.view.MenuItem;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -32,7 +34,9 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 		
 		setContentView(R.layout.bar_single);
 		
-		overridePendingTransition(R.anim.slide_in_translate, R.anim.hold);
+		getActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		
 		
 	    viewPager = (ViewPager) findViewById(R.id.pager);
@@ -54,8 +58,23 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	@Override
 	public void onResume(){
 		super.onResume();
-		
-		
+	}
+	
+	@Override
+	public void finish() {
+	    super.finish();
+	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+	    switch (item.getItemId()) {
+	    // Respond to the action bar's Up/Home button
+	    case android.R.id.home:
+	        NavUtils.navigateUpFromSameTask(this);
+	        return true;
+	    }
+	    return super.onOptionsItemSelected(item);
 	}
 	
 	@Override

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
@@ -120,7 +121,37 @@ public class MainActivity extends Activity {
 		return true;
 	}
 	
+	
+	@Override
+	public void finish() {
+	    super.finish();
+	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
+	}
+	
 
+	@Override
+	public void onBackPressed() {
+		FragmentManager fm = getFragmentManager();
+		
+		Log.i("StackCount :", Integer.toString(fm.getBackStackEntryCount())  );
+		
+		if (fm.getBackStackEntryCount() > 2) {
+			
+			Log.i("Back pressed", "popBackStack" );
+			
+            // only show dialog while there's back stack entry
+            fm.popBackStack();
+            setTitle(mTitle);
+            
+        } else {
+        	Log.i("Back pressed", "super" );
+            // or just go back to main activity
+        	// super.onBackPressed();
+            finish();
+            
+        }
+	}
+	
 	private class DrawerItemClickListener implements ListView.OnItemClickListener {
 	    @Override
 	    public void onItemClick(AdapterView parent, View view, int position, long id) {
@@ -135,8 +166,9 @@ public class MainActivity extends Activity {
 	 */
 	private void changeFragment(Fragment frag, int position, int animIn, int animOut){
 		FragmentTransaction ft = getFragmentManager().beginTransaction();
-		ft.setCustomAnimations(animIn, animOut);
+		ft.setCustomAnimations(animIn, animOut, animIn, animOut);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
+		ft.addToBackStack(frag.getClass().toString());
 	    ft.commit();
 	}
 	

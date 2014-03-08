@@ -84,10 +84,12 @@ public class SearchFragment extends Fragment {
 
 	}
 	
+	
 	private void changeFragment(Fragment frag, int position, int actionBarTitle, int animIn, int animOut){
 		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
 		ft.setCustomAnimations(animIn, animOut);
 		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
+		ft.addToBackStack("search_result");
 	    ft.commit();
 	    
 	    getActivity().getActionBar().setTitle(actionBarTitle);
