@@ -22,6 +22,8 @@ public class Bar {
 	
 	private String website;
 	
+	private int distance;
+	
 	private List<Theme> themes;
 	private List<BarImage> images;
 	private transient List<Drinkbar> drinks_list = new ArrayList<Drinkbar>();
@@ -61,6 +63,9 @@ public class Bar {
 	}
 	public String getWebsite() {
 		return website;
+	}
+	public int getDistance() {
+		return distance;
 	}
 	
 	public List<Theme> getThemes() {

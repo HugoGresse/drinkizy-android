@@ -66,6 +66,8 @@ public class SearchFragment extends Fragment {
 					intent.putExtra(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
 				}
 				
+				intent.putExtra(MainActivity.DISTANCE_QUERY, 200000);
+				
 				startActivity(intent);
 				
 			}

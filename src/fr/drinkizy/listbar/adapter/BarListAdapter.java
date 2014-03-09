@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import android.app.Activity;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -23,6 +24,7 @@ public class BarListAdapter extends BaseAdapter {
 	LayoutInflater inflater; // inflater pour charger le XML pour l'item
 	
 	ImageLoader imageLoader;
+	Bar mCurrentBar;
 	
 	public BarListAdapter(Context context, ArrayList<Bar> barItems){
         this.context = context;
@@ -47,15 +49,18 @@ public class BarListAdapter extends BaseAdapter {
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
+		
 		if (convertView == null) {
             LayoutInflater mInflater = (LayoutInflater)
                     context.getSystemService(Activity.LAYOUT_INFLATER_SERVICE);
             convertView = mInflater.inflate(R.layout.bar_list_item, null);
         }
+		
+		mCurrentBar = barItems.get(position);
         
 		ImageView image = (ImageView) convertView.findViewById(R.id.bar_image);
-		if(!barItems.get(position).getImagesUrls().isEmpty()){
-			String url = context.getResources().getString(R.string.app_url)+barItems.get(position).getImagesUrls().get(0);
+		if(!mCurrentBar.getImagesUrls().isEmpty()){
+			String url = context.getResources().getString(R.string.app_url)+mCurrentBar.getImagesUrls().get(0);
 			imageLoader.displayImage(url, image);
 		}
 		
@@ -66,9 +71,13 @@ public class BarListAdapter extends BaseAdapter {
         TextView txtTheme = (TextView) convertView.findViewById(R.id.bar_theme);
            
         //absListViews
-        txtName.setText(barItems.get(position).getName());
-        txtAdress.setText(barItems.get(position).getAddress());
-		txtTheme.setText(barItems.get(position).getThemesAsAString());
+        
+        if(mCurrentBar.getDistance() == 0)
+        	txtName.setText(mCurrentBar.getName());
+        else
+        	txtName.setText(mCurrentBar.getName()+" - "+mCurrentBar.getDistance()+"m");
+        txtAdress.setText(mCurrentBar.getAddress());
+		txtTheme.setText(mCurrentBar.getThemesAsAString());
         
         return convertView;
 	}
