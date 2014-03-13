@@ -34,7 +34,8 @@
         
         <activity
             android:name="fr.drinkizy.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -46,7 +47,7 @@
             android:name="fr.drinkizy.SearchResultActivity"
             android:label="@string/app_name"
             android:parentActivityName="fr.drinkizy.MainActivity" 
-            
+            android:launchMode="singleTop"
             >
             
         </activity>

@@ -7,7 +7,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ProgressBar;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -23,6 +26,7 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	// Tab titles
     private int[] tabs = { R.string.infos_bar, R.string.menu_bar, R.string.avis_bar, R.string.plan_bar };
 	private ViewPager viewPager;
+	private ProgressBar progressBar;
 	private BarTabsPagerAdapter mAdapter;
 	protected Bar bar;
 	protected String barUri;
@@ -34,24 +38,29 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 		
 		setContentView(R.layout.bar_single);
 		
+	    
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		
+
+	    progressBar = (ProgressBar) findViewById(R.id.progessBarSingle);
 	    viewPager = (ViewPager) findViewById(R.id.pager);
+	    
 	    actionBar = getActionBar();
         mAdapter = new BarTabsPagerAdapter(getFragmentManager());
         
         actionBar.setDisplayHomeAsUpEnabled(true);
+	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+        
+	    // Adding Tabs
+        for (int tab_name_id : tabs) {
+            actionBar.addTab(actionBar.newTab().setText(tab_name_id)
+                    .setTabListener(this));
+        }
         
         Intent intent = getIntent();
         barUri = intent.getStringExtra("bar_uri");;
         loadBar();
-                
-	}
-	
-	@Override
-	public void onDestroy(){
-		super.onDestroy();
-//		actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+        
 	}
 	
 	@Override
@@ -60,25 +69,27 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	}
 	
 	@Override
-	public void finish() {
-	    super.finish();
+	public void onPause() {
+	    super.onPause();
 	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	}
 	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
-	    // Respond to the action bar's Up/Home button
-	    case android.R.id.home:
-	        NavUtils.navigateUpFromSameTask(this);
-	        return true;
+		    // Respond to the action bar's Up/Home button
+		    case android.R.id.home:
+		        NavUtils.navigateUpFromSameTask(this);
+		        Log.i("DEV", "optionItem");
+		        overridePendingTransition(R.anim.slide_to_right_translate, R.anim.slide_translate_from_left);
+		        return true;
 	    }
+	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	    return super.onOptionsItemSelected(item);
 	}
 	
 	@Override
 	public void onTabReselected(Tab tab, android.app.FragmentTransaction ft) {
-		
 	}
 
 	@Override
@@ -97,26 +108,19 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	 * Init ViewPager when BarDatas is loaded
 	 */
 	private void initViewPager(){
+		
+		setProgressBarState(View.GONE);
+		
         viewPager.setAdapter(mAdapter);
         
-	    // Specify that tabs should be displayed in the action bar.
-	    actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
-	    
-	    
-	    // Adding Tabs
-        for (int tab_name_id : tabs) {
-            actionBar.addTab(actionBar.newTab().setText(tab_name_id)
-                    .setTabListener(this));
-        }
-	    
         viewPager.setOnPageChangeListener(
-                new ViewPager.SimpleOnPageChangeListener() {
-                    @Override
-                    public void onPageSelected(int position) {
-                        // When swiping between pages, select the corresponding tab.
-                    	actionBar.setSelectedNavigationItem(position);
-                    }
-                });
+	        new ViewPager.SimpleOnPageChangeListener() {
+	            @Override
+	            public void onPageSelected(int position) {
+	                // When swiping between pages, select the corresponding tab.
+	            	actionBar.setSelectedNavigationItem(position);
+	            }
+	        });
         
         
 	}
@@ -148,5 +152,9 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
     	if(bar != null){
     		return bar;
     	} else return new Bar();
+    }
+    
+    public void setProgressBarState(int visibility){
+    	progressBar.setVisibility(visibility);
     }
 }

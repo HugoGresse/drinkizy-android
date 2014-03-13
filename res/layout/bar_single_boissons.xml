@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:layout_marginLeft="@dimen/padding_barsingle"
     android:layout_marginRight="@dimen/padding_barsingle" >
-
+	
     <ListView
         android:id="@+id/drinks_list"
         android:layout_width="match_parent"

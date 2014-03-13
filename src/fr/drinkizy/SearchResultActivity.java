@@ -7,7 +7,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.location.Location;
-import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.util.Log;
@@ -15,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesClient;
@@ -34,6 +34,7 @@ import fr.drinkizy.rest.DrinkizyRestClient;
 public class SearchResultActivity extends Activity implements GooglePlayServicesClient.ConnectionCallbacks, GooglePlayServicesClient.OnConnectionFailedListener{
 	
 	private ListView searchResult;
+	private ProgressBar progressBar;
 	
 	private ArrayList<Bar> mBarsItems;
 	private ArrayList<Drinkbar> mDrinkbars;
@@ -57,10 +58,12 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		
 		setContentView(R.layout.search_result);
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
+		
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setTitle(R.string.search_result);
 	    
 	    searchResult = (ListView)findViewById(R.id.search_result);
+	    progressBar = (ProgressBar)findViewById(R.id.progessBarSearchResult);
 	    
 	    Intent intent = getIntent();
 	    if(intent.hasExtra(MainActivity.SEARCH_QUERY)){
@@ -87,10 +90,10 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		
 		
 	}
-	
+		
 	@Override
-	public void finish() {
-	    super.finish();
+	public void onPause(){
+		super.onPause();
 	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	}
 	
@@ -138,7 +141,8 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		    	mBarsItems = (ArrayList<Bar>) barsObject.getObjects();
 	    	    
 		    	searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
-	
+		    	
+		    	setProgressBar(View.GONE);
 		    }
 		});
 
@@ -194,10 +198,17 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    				}
 	    			});
 		    	}
+		    	
+		    	setProgressBar(View.GONE);
 		    }
 		});
     }
 
+	public void setProgressBar(int visibility){
+		progressBar.setVisibility(visibility);
+		if(visibility == View.GONE)
+			searchResult.setVisibility(View.VISIBLE);
+	}
 	
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {

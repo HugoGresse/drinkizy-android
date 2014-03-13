@@ -104,17 +104,17 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         
         if (savedInstanceState == null && drinkLogo) {
-        	selectItem(0);
+        	selectItem(1); // c'est crade, on changera quand on aura la FAQ
         	Handler handler = new Handler(); 
         	handler.postDelayed(new Runnable() { 
                 public void run() { 
-                	selectItem(1);
+                	selectItem(0);
                 	drinkLogo = false;
                 } 
            }, 600); 
             
         }else if(!drinkLogo){
-        	selectItem(1);
+        	selectItem(0);
         }
        
 	};
@@ -181,15 +181,21 @@ public class MainActivity extends Activity {
 	private void selectItem(int position) {
 		
 		switch (position) {
+			
 			case 0:
+			    changeFragment(new SearchFragment(), position, R.anim.fade_in, R.anim.fade_out);
+				break;
+			case 1:
 				 // Insert the fragment by replacing any existing fragment
 			    // Create new fragment from our own Fragment class
 			    changeFragment(new HomeFragment(), position, R.anim.fade_in, R.anim.fade_out);
 				break;
-			case 1:
-			    changeFragment(new SearchFragment(), position, R.anim.fade_in, R.anim.fade_out);
+			case 2:
+				 // Insert the fragment by replacing any existing fragment
+			    // Create new fragment from our own Fragment class
+			    changeFragment(new AboutFragment(), position, R.anim.fade_in, R.anim.fade_out);
 				break;
-			
+				
 			default:
 				Log.w("Fragment", "No Fragment to change on selectItem");
 				break;
