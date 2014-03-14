@@ -12,8 +12,10 @@
 	    <ImageView
 	        android:id="@+id/bar_image"
 	        android:layout_width="match_parent"
-	        android:layout_height="100dp"
+	        android:layout_height="wrap_content"
 	        android:adjustViewBounds="true"
+	        android:contentDescription="@string/bar_image"
+	        android:maxHeight="250dp"
 	        android:scaleType="centerCrop"
 	        android:src="@drawable/blank" />
 		
@@ -22,24 +24,25 @@
 	        android:layout_height="match_parent"
 	        android:layout_below="@id/bar_image"
 	        android:layout_marginLeft="@dimen/padding_barsingle"
-	        android:layout_marginRight="@dimen/padding_barsingle" >
+	        android:layout_marginRight="@dimen/padding_barsingle"
+	        android:paddingBottom="10dp" >
 	        
 	        <TextView
-		        android:id="@+id/bar_rating"
-		        android:layout_width="40dp"
-		        android:layout_height="wrap_content"
-		        android:layout_marginRight="10dp"
-		        android:background="@color/orange_drinkizy"
-		        android:padding="5dp"
-		        android:text="--"
-		        android:textColor="@android:color/white" />
+	            android:id="@+id/bar_rating"
+	            android:layout_width="40dp"
+	            android:layout_height="wrap_content"
+	            android:layout_marginRight="10dp"
+	            android:background="@color/orange_drinkizy"
+	            android:padding="5dp"
+	            android:text="@string/infos_prix"
+	            android:textColor="@android:color/white" />
 		
 		    <TextView
 		        android:id="@+id/bar_name"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
 		        android:layout_toRightOf="@id/bar_rating"
-		        android:text="Large Text"
+		        android:text="@string/bar_titre"
 		        android:textAppearance="?android:attr/textAppearanceLarge" />
 		
 		    <TextView
@@ -48,7 +51,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_below="@+id/bar_name"
 		        android:layout_toRightOf="@id/bar_rating"
-		        android:text="Medium Text"
+		        android:text="@string/bar_description"
 		        android:textAppearance="?android:attr/textAppearanceMedium" />
 		
 		    <TextView
@@ -57,7 +60,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_alignBaseline="@+id/bar_theme"
 		        android:layout_toRightOf="@+id/bar_theme"
-		        android:text="TextView"
+		        android:text="@string/infos_prix"
 		        android:visibility="invisible" />
 		
 		    <View
@@ -73,33 +76,37 @@
 		    <ImageView
 		        android:id="@+id/image_adress"
 		        android:layout_width="@dimen/rating_width"
-		        android:layout_height="wrap_content"
+		        android:layout_height="@dimen/rating_width"
 		        android:layout_alignParentLeft="true"
 		        android:layout_below="@+id/sep_1"
-		        android:adjustViewBounds="true"
+		        android:contentDescription="@string/infos_adress"
 		        android:padding="@dimen/padding_glyphicon"
-		        android:src="@drawable/blank" />
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/gps" />
 		
 		    <TextView
 		        android:id="@+id/text_adress"
 		        android:layout_width="wrap_content"
 		        android:layout_height="wrap_content"
-		        android:layout_alignBottom="@+id/image_adress"
 		        android:layout_alignTop="@+id/image_adress"
-		        android:layout_centerVertical="true"
 		        android:layout_toRightOf="@+id/image_adress"
+		        android:autoLink="map"
 		        android:gravity="center_vertical"
-		        android:text="TextView" />
+		        android:minHeight="@dimen/rating_width"
+		        android:text="@string/loading"
+		        android:textColorLink="@color/orange_drinkizy" />
 		
 		    <ImageView
 		        android:id="@+id/image_tel"
 		        android:layout_width="@dimen/rating_width"
-		        android:layout_height="wrap_content"
+		        android:layout_height="@dimen/rating_width"
 		        android:layout_alignParentLeft="true"
 		        android:layout_below="@+id/image_adress"
 		        android:adjustViewBounds="true"
+		        android:contentDescription="@string/infos_tel"
 		        android:padding="@dimen/padding_glyphicon"
-		        android:src="@drawable/blank" />
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/tel" />
 		
 		    <TextView
 		        android:id="@+id/text_tel"
@@ -108,18 +115,23 @@
 		        android:layout_alignBottom="@id/image_tel"
 		        android:layout_alignTop="@id/image_tel"
 		        android:layout_toRightOf="@id/image_tel"
+		        android:autoLink="phone"
 		        android:gravity="center_vertical"
-		        android:text="TextView" />
+		        android:minHeight="@dimen/rating_width"
+		        android:text="@string/loading"
+		        android:textColorLink="@color/orange_drinkizy" />
 		
 		    <ImageView
 		        android:id="@+id/image_email"
 		        android:layout_width="@dimen/rating_width"
-		        android:layout_height="wrap_content"
+		        android:layout_height="@dimen/rating_width"
 		        android:layout_alignParentLeft="true"
 		        android:layout_below="@+id/image_tel"
 		        android:adjustViewBounds="true"
+		        android:contentDescription="@string/infos_email"
 		        android:padding="@dimen/padding_glyphicon"
-		        android:src="@drawable/blank" />
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/email" />
 		
 		    <TextView
 		        android:id="@+id/text_email"
@@ -128,18 +140,23 @@
 		        android:layout_alignBottom="@id/image_email"
 		        android:layout_alignTop="@id/image_email"
 		        android:layout_toRightOf="@id/image_email"
+		        android:autoLink="email"
 		        android:gravity="center_vertical"
-		        android:text="TextView" />
+		        android:minHeight="@dimen/rating_width"
+		        android:text="@string/loading"
+		        android:textColorLink="@color/orange_drinkizy" />
 		
 		    <ImageView
 		        android:id="@+id/image_site"
 		        android:layout_width="@dimen/rating_width"
-		        android:layout_height="wrap_content"
+		        android:layout_height="@dimen/rating_width"
 		        android:layout_alignParentLeft="true"
 		        android:layout_below="@+id/image_email"
 		        android:adjustViewBounds="true"
+		        android:contentDescription="@string/infos_web"
 		        android:padding="@dimen/padding_glyphicon"
-		        android:src="@drawable/blank" />
+		        android:scaleType="fitCenter"
+		        android:src="@drawable/earth" />
 		
 		    <TextView
 		        android:id="@+id/text_site"
@@ -148,8 +165,11 @@
 		        android:layout_alignBottom="@id/image_site"
 		        android:layout_alignTop="@id/image_site"
 		        android:layout_toRightOf="@id/image_site"
+		        android:autoLink="web"
 		        android:gravity="center_vertical"
-		        android:text="TextView" />
+		        android:minHeight="@dimen/rating_width"
+		        android:text="@string/loading"
+		        android:textColorLink="@color/orange_drinkizy" />
 		
 		    <View
 		        android:id="@+id/sep_2"
@@ -166,7 +186,7 @@
 		        android:layout_height="wrap_content"
 		        android:layout_alignParentLeft="true"
 		        android:layout_below="@id/sep_2"
-		        android:text="TextView"
+		        android:text="@string/bar_description"
 		        android:textSize="18sp" />
 	
 	    </RelativeLayout>

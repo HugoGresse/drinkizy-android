@@ -1,12 +1,9 @@
 package fr.drinkizy;
 
 import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,7 +62,6 @@ public class BarBoissonsFragment extends Fragment {
     	DrinkizyRestClient.get("/api/v1/drinkbar/", params, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
-		    	Log.d("LIST_BOISSONS", "loadDrinksOfBar onSuccess");
 		    	Gson gson = new Gson();
 		    	DrinkbarsObject drinkbarsObject = gson.fromJson(response, DrinkbarsObject.class);
 		    	mDrinkbarItems = (ArrayList<Drinkbar>) drinkbarsObject.getObjects();
@@ -93,8 +89,6 @@ public class BarBoissonsFragment extends Fragment {
 			ArrayList<Drinkbar> drinkItems = new ArrayList<Drinkbar>(categoryDrinkMap.get(cat));
 			adapter.addSection(cat, new DrinkListAdapter(getActivity(), drinkItems));  
 		}
-		
-		Log.i("DEV", categoryDrinkMap.toString());
 		
 		drinksList.setAdapter(adapter);  
 	}

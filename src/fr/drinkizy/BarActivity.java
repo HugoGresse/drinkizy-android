@@ -7,7 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
@@ -74,15 +74,31 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	}
 	
+
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// Inflate the menu; this adds items to the action bar if it is present.
+		getMenuInflater().inflate(R.menu.main, menu);
+		return true;
+	}
+	
+	
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    switch (item.getItemId()) {
 		    // Respond to the action bar's Up/Home button
 		    case android.R.id.home:
 		        NavUtils.navigateUpFromSameTask(this);
-		        Log.i("DEV", "optionItem");
 		        overridePendingTransition(R.anim.slide_to_right_translate, R.anim.slide_translate_from_left);
 		        return true;
+		    case R.id.action_search:
+		    	Intent intent = new Intent(BarActivity.this, MainActivity.class);
+		    	intent.putExtra("from", "bar");
+		    	NavUtils.navigateUpTo(this, intent);
+		    	overridePendingTransition(R.anim.slide_to_right_translate, R.anim.slide_translate_from_left);
+	            return true;
+
 	    }
 	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	    return super.onOptionsItemSelected(item);

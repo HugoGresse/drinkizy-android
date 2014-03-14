@@ -20,7 +20,7 @@
         android:layout_below="@+id/bar_image"
         android:layout_centerHorizontal="true"
         android:gravity="center_vertical|center_horizontal"
-        android:text="@string/titre"
+        android:text="@string/bar_titre"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
     <TextView
@@ -29,7 +29,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/title"
         android:layout_centerInParent="true"
-        android:text="@string/description"
+        android:text="@string/bar_description"
         android:textSize="10sp" />
 
 </RelativeLayout>

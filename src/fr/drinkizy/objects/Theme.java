@@ -1,6 +1,5 @@
 package fr.drinkizy.objects;
 
-import com.google.gson.annotations.Expose;
 
 public class Theme {
 	private String name;

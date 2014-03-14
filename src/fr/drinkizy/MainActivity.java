@@ -12,8 +12,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
 import android.support.v4.widget.DrawerLayout;
-import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -120,14 +118,6 @@ public class MainActivity extends Activity {
 	};
 	
 	@Override
-	public boolean onCreateOptionsMenu(Menu menu) {
-		// Inflate the menu; this adds items to the action bar if it is present.
-		getMenuInflater().inflate(R.menu.main, menu);
-		return true;
-	}
-	
-	
-	@Override
 	public void finish() {
 	    super.finish();
 	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
@@ -138,22 +128,16 @@ public class MainActivity extends Activity {
 	public void onBackPressed() {
 		FragmentManager fm = getFragmentManager();
 		
-		Log.i("StackCount :", Integer.toString(fm.getBackStackEntryCount())  );
-		
 		if (fm.getBackStackEntryCount() > 2) {
-			
-			Log.i("Back pressed", "popBackStack" );
 			
             // only show dialog while there's back stack entry
             fm.popBackStack();
             setTitle(mTitle);
             
         } else {
-        	Log.i("Back pressed", "super" );
             // or just go back to main activity
         	// super.onBackPressed();
             finish();
-            
         }
 	}
 	
@@ -197,7 +181,6 @@ public class MainActivity extends Activity {
 				break;
 				
 			default:
-				Log.w("Fragment", "No Fragment to change on selectItem");
 				break;
 		}
 	   

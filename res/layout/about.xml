@@ -1,105 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginLeft="10dp"
-    android:layout_marginRight="10dp" >
 
-    <ImageView
-        android:id="@+id/imageView1"
-        android:layout_width="wrap_content"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent"
+	android:layout_height="fill_parent" >
+	
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:adjustViewBounds="true"
-        android:paddingBottom="10dp"
-        android:paddingLeft="80dp"
-        android:paddingRight="80dp"
-        android:paddingTop="20dp"
-        android:scaleType="fitEnd"
-        android:src="@drawable/drinkizy_logo_dark" />
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp" >
 
-    <TextView
-        android:id="@+id/textView1"
-        android:layout_width="200dp"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/imageView1"
-        android:layout_centerHorizontal="true"
-        android:gravity="center_vertical|center_horizontal"
-        android:text="Créer par Lauriane Anthony, Hugo Gresse et Pierre Guilloux"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <ImageView
+	        android:id="@+id/about_logo"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentTop="true"
+	        android:layout_centerHorizontal="true"
+	        android:adjustViewBounds="true"
+	        android:contentDescription="@string/app_name"
+	        android:paddingBottom="10dp"
+	        android:paddingLeft="80dp"
+	        android:paddingRight="80dp"
+	        android:paddingTop="20dp"
+	        android:scaleType="fitEnd"
+	        android:src="@drawable/drinkizy_logo_dark" />
+	
+	    <TextView
+	        android:id="@+id/about_created"
+	        android:layout_width="200dp"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/about_logo"
+	        android:layout_centerHorizontal="true"
+	        android:gravity="center_vertical|center_horizontal"
+	        android:text="@string/about_created"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/about_project"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_below="@+id/about_created"
+	        android:layout_marginBottom="30dp"
+	        android:layout_marginTop="30dp"
+	        android:text="@string/about_project"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
+	
+	    <TextView
+	        android:id="@+id/about_library"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/about_project"
+	        android:text="@string/about_library"
+	        android:textAppearance="?android:attr/textAppearanceMedium" />
 
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/textView1"
-        android:layout_marginBottom="30dp"
-        android:layout_marginTop="30dp"
-        android:text="Drinkizy est un projet étudiant crée à l&apos;école d&apos;ingénieur IMAC en collaboration avec le master CMW. "
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+	    <TextView
+	        android:id="@+id/about_libraries"
+	        android:layout_width="wrap_content"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentLeft="true"
+	        android:layout_below="@+id/about_library"
+	        android:layout_marginBottom="4dp"
+	        android:layout_marginLeft="20dp"
+	        android:layout_marginTop="4dp"
+	        android:autoLink="web"
+	        android:linksClickable="true"
+	        android:text="@string/about_library"
+	        android:textColorLink="@color/orange_drinkizy" />
 
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView2"
-        android:text="Librairies utilisées"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/textView4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView3"
-        android:text="Pixlui https://github.com/neopixl/PixlUI"
-        android:textSize="10sp" />
-
-    <TextView
-        android:id="@+id/textView5"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView4"
-        android:text="Universal Image Loader https://github.com/nostra13/Android-Universal-Image-Loader"
-        android:textSize="10sp" />
-
-    <TextView
-        android:id="@+id/textView6"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView5"
-        android:text="Android Async HTTP http://loopj.com/android-async-http/"
-        android:textSize="10sp" />
-
-    <TextView
-        android:id="@+id/textView7"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView6"
-        android:text="Gson https://code.google.com/p/google-gson/"
-        android:textSize="10sp" />
-
-    <TextView
-        android:id="@+id/textView8"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/textView7"
-        android:text="Guava http://code.google.com/p/guava-libraries/"
-        android:textSize="10sp" />
-
-    <ImageView
-        android:id="@+id/imageView2"
-        android:layout_width="wrap_content"
-        android:layout_height="400dp"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@id/textView8"
-        android:scaleType="centerInside"
-        android:src="@drawable/imac" />
-
-</RelativeLayout>
+	    <ImageView
+	        android:id="@+id/logo_imac"
+	        android:layout_width="wrap_content"
+	        android:layout_height="70dp"
+	        android:layout_below="@id/about_libraries"
+	        android:layout_marginBottom="20dp"
+	        android:layout_marginTop="20dp"
+	        android:contentDescription="@string/about_imaclogo"
+	        android:scaleType="centerInside"
+	        android:src="@drawable/imac" />
+	
+	</RelativeLayout>
+</ScrollView>

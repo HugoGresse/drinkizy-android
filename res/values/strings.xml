@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 	
+     <string name="blank"></string>
+     
     <string name="app_static_url">http://drinkizy.alwaysdata.net/static/medias/bars/</string>
     <string name="app_url">http://drinkizy.alwaysdata.net</string>
     
@@ -10,6 +12,9 @@
     
     <string name="drawer_open">Drawer Open</string>
     <string name="drawer_close">Drawer Close</string>
+    
+    <string name="loading">Chargement&#8230;</string>
+    
 	
     <string name="research_placeholder">Tapez un nom de bar, boisson&#8230;"</string>
     <string name="research_loupe">Rechercher</string>
@@ -22,14 +27,34 @@
     
     <string name="search_result">Résultat de la recherche</string>
     
-    <string name="description">description courte du bar</string>
-    <string name="titre">Titre du bar</string>
+    <string name="bar_image">Image du bar</string>
+    <string name="bar_description">Description courte du bar</string>
+    <string name="bar_titre">Titre du bar</string>
+    <string name="bar_theme_blank">(thèmes du bar)</string>
     
     <string name="infos_bar">Infos</string>
+    <string name="infos_prix">prix&#8230;</string>
+    <string name="infos_adress">Adresse</string>
+    <string name="infos_tel">Téléphone</string>
+    <string name="infos_email">Email</string>
+    <string name="infos_web">Site Internet</string>
+    
     <string name="menu_bar">Boissons</string>
     <string name="avis_bar">Avis</string>
     <string name="plan_bar">Plan</string>
     
+    
+    <string name="about_created">Créer par \n Lauriane Anthony, Hugo Gresse et Pierre Guilloux</string>
+    <string name="about_project">Drinkizy est un projet étudiant crée à l\'école d\'ingénieur IMAC en collaboration avec le master CMW. </string>
+    <string name="about_library">Librairies utilisées</string>
+    <string-array name="about_libraries">
+        <item>Pixlui https://github.com/neopixl/PixlUI</item>
+        <item>Universal Image Loader https://github.com/nostra13/Android-Universal-Image-Loader</item>
+        <item>Android Async HTTP http://loopj.com/android-async-http/</item>
+        <item>Gson https://code.google.com/p/google-gson/</item>
+        <item>Guava http://code.google.com/p/guava-libraries/</item>
+    </string-array>
+    <string name="about_imaclogo">Logo de l\'IMAC</string>
     
     
     <!-- Nav Drawer Menu Items -->
@@ -42,10 +67,9 @@
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
-        <item>@drawable/ic_launcher</item>
-		<item>@drawable/ic_launcher</item>
-		<item>@drawable/ic_launcher</item>
-		<item>@drawable/ic_launcher</item>
+		<item>@drawable/ic_action_search</item>
+        <item>@drawable/ic_action_help</item>
+		<item>@drawable/ic_action_about</item>
     </array>
     
     

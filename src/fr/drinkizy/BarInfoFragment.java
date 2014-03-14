@@ -67,16 +67,41 @@ public class BarInfoFragment extends Fragment {
 		String url = getActivity().getResources().getString(R.string.app_static_url)+bar.getSlug()+".jpg";
 		ImageLoader.getInstance().displayImage(url, image);
 		
+		
+		deleteOrSetInfo();
+	}
+	
+	private void deleteOrSetInfo(){
 		name.setText(bar.getName());
 		themes.setText(bar.getThemesAsAString());
 		
-		text_adress.setText(bar.getAddress());
-		text_tel.setText(bar.getPhone());
-		text_site.setText(bar.getWebsite());
-		text_email.setText(bar.getMail());
+		if(bar.getAddress().isEmpty()){
+			image_adress.setVisibility(View.GONE);
+			text_adress.setVisibility(View.GONE);
+		}
+		else
+			text_adress.setText(bar.getAddress());
+		
+		if(bar.getPhone().isEmpty()){
+			image_tel.setVisibility(View.GONE);
+			text_tel.setVisibility(View.GONE);
+		}else
+			text_tel.setText(bar.getPhone());
+		
+		if(bar.getWebsite().isEmpty()){
+			image_site.setVisibility(View.GONE);
+			text_site.setVisibility(View.GONE);
+		}else
+			text_site.setText(bar.getWebsite());
+		
+		
+		if(bar.getMail().isEmpty()){
+			image_email.setVisibility(View.GONE);
+			text_email.setVisibility(View.GONE);
+		}else
+			text_email.setText(bar.getPhone());
 		
 		description.setText(bar.getDescription());
 	}
-	
 	
 }
