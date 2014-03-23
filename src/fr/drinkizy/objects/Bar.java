@@ -5,6 +5,8 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Bar {
+	private int id;
+	
 	private String address;
 	private int approval;
 	private int disapproval;
@@ -28,6 +30,9 @@ public class Bar {
 	private List<BarImage> images;
 	private transient List<Drinkbar> drinks_list = new ArrayList<Drinkbar>();
 	
+	public int getId() {
+		return id;
+	}
 	public String getAddress() {
 		return address;
 	}
