@@ -11,32 +11,25 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:contentDescription="@string/avis_image"
         android:src="@drawable/blank" />
-
-    <TextView
-        android:id="@+id/user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/user_avatar"
-        android:text="TextView"
-        android:textSize="20sp" />
-
-    <TextView
-        android:id="@+id/date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/name"
-        android:layout_toRightOf="@+id/user_avatar"
-        android:text="TextView" />
 
     <TextView
         android:id="@+id/comment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/date"
-        android:layout_below="@+id/date"
-        android:text="TextView" />
+        android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@id/user_avatar"
+        android:text="@string/avis_comment" />
 
+    <TextView
+        android:id="@+id/avis_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment"
+        android:layout_toRightOf="@id/user_avatar"
+        android:text="@string/avis_info"
+        android:textColor="@color/avis_info"
+        android:textSize="12sp" />
     
 </RelativeLayout>

@@ -6,4 +6,5 @@
     <dimen name="rating_width">50dp</dimen>
 	<dimen name="padding_glyphicon">15dp</dimen>
 	<dimen name="padding_barsingle">10dp</dimen>
+	<dimen name="padding_button_home">10dp</dimen>
 </resources>

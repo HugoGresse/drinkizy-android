@@ -29,10 +29,11 @@
 	        
 	        <TextView
 	            android:id="@+id/bar_rating"
-	            android:layout_width="40dp"
+	            android:layout_width="55dp"
 	            android:layout_height="wrap_content"
 	            android:layout_marginRight="10dp"
 	            android:background="@color/orange_drinkizy"
+	            android:gravity="center"
 	            android:padding="5dp"
 	            android:text="@string/infos_prix"
 	            android:textColor="@android:color/white" />

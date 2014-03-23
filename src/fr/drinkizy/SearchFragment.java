@@ -13,9 +13,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
-import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ListView;
 
 /**
  * @author Hugo
@@ -23,10 +21,8 @@ import android.widget.ListView;
  */
 public class SearchFragment extends Fragment {
 	
-	private Button happyHour;
 	private ImageButton searchButton;
 	private AutoCompleteTextView autoCompleteTextView;
-	private ListView starredListBar;
 	
 	private static final String[] COUNTRIES = new String[] {
 		//TODO récupérer la liste des autocomplétions sur Django
@@ -41,7 +37,6 @@ public class SearchFragment extends Fragment {
 	    View rootView = inflater.inflate(R.layout.search, container, false);
 	    
 	    
-	    happyHour = (Button)rootView.findViewById(R.id.happyHour);
 	    searchButton = (ImageButton)rootView.findViewById(R.id.searchIcon);
 	    
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, COUNTRIES);

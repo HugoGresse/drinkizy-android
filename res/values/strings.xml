@@ -18,12 +18,18 @@
 	
     <string name="research_placeholder">Tapez un nom de bar, boisson&#8230;"</string>
     <string name="research_loupe">Rechercher</string>
-    <string name="let_you_guide">Laissez vous guider</string>
+    <string name="theme_sup">Thèmes supplémentaires</string>
+    <string name="search_proxi">Rechercher à proximité</string>
+    <string name="search_gps">Icone GPS</string>
     <string name="bar_theme">Bars par thème</string>
-    <string name="happy_hour">Happy Hour</string>
-    <string name="closer_to_me">Près de moi</string>
-    <string name="to_not_miss">À ne pas manquer</string>
-    <string name="tops">Les tops</string>
+    <string name="theme_sportif">Sportif</string>
+    <string name="theme_concert">Concert</string>
+    <string name="theme_pub">Pub</string>
+    <string name="theme_geek">Geek</string>
+    <string name="theme_rock">Rock</string>
+    <string name="theme_lounge">Lounge</string>
+    <string name="switch_yes">Oui</string>
+    <string name="switch_no">Non</string>
     
     <string name="search_result">Résultat de la recherche</string>
     
@@ -40,7 +46,16 @@
     <string name="infos_web">Site Internet</string>
     
     <string name="menu_bar">Boissons</string>
+    
     <string name="avis_bar">Avis</string>
+    <string name="avis_image">Avatar</string>
+    <string name="avis_info">Information sur le commentaire</string>
+    <string name="avis_by">par </string>
+    <string name="avis_username">Nom d\'utilisateur</string>
+    <string name="avis_date_prepend">le</string>
+    <string name="avis_date">Date du commentaire</string>
+    <string name="avis_comment">Commentaire (avis)</string>
+    
     <string name="plan_bar">Plan</string>
     
     

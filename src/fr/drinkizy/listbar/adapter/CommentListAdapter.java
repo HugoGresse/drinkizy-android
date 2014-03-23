@@ -1,10 +1,13 @@
 package fr.drinkizy.listbar.adapter;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +28,12 @@ public class CommentListAdapter extends BaseAdapter {
 	private User mUser;
 	LayoutInflater inflater; // inflater pour charger le XML pour l'item
 	
+	private String by;
+	private String date_prepend;
+	
+	SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
+    Date result = new Date();
+	
 	ImageLoader imageLoader;
 	Comment mCurrentComment;
 	
@@ -32,6 +41,8 @@ public class CommentListAdapter extends BaseAdapter {
         this.context = context;
         this.commentItems = commentItems;
         imageLoader = ImageLoader.getInstance();
+        by = context.getResources().getString(R.string.avis_by);
+        date_prepend = context.getResources().getString(R.string.avis_date_prepend);
     }
 	
 	@Override
@@ -69,15 +80,18 @@ public class CommentListAdapter extends BaseAdapter {
 			imageLoader.displayImage(url, image);
 		}
 
-        TextView txtUserName = (TextView) convertView.findViewById(R.id.user_name);
-        TextView txtDate = (TextView) convertView.findViewById(R.id.date);
+        TextView txtInfo = (TextView) convertView.findViewById(R.id.avis_info);
         TextView txtComment = (TextView) convertView.findViewById(R.id.comment);
            
-        //absListViews
         
+		try {
+			result = df.parse(mCurrentComment.getDate());
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}  
        
-        txtUserName.setText(mUser.getUserName());
-        txtDate.setText(mCurrentComment.getDate());
+        txtInfo.setText(by + " " + mCurrentComment.getUser() +", "+ date_prepend + " " + result );
         txtComment.setText(mCurrentComment.getComment());
         
         return convertView;

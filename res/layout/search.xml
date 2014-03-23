@@ -3,19 +3,51 @@
     xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin" >
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/layout_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/homeSearchField"
+        android:layout_marginTop="-5dp"
+        android:background="@color/orange_light"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="5dp" >
+
+        <ImageView
+            android:id="@+id/image_gps"
+            android:layout_width="20dp"
+            android:layout_height="28dp"
+            android:contentDescription="@string/search_gps"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/gps" />
+
+        <Switch
+            android:id="@+id/switch_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/image_gps"
+            android:text="@string/search_proxi"
+            android:textOff="@string/switch_no"
+            android:textOn="@string/switch_yes" />
+    </RelativeLayout>
 
     <AutoCompleteTextView
         android:id="@+id/homeSearchField"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:background="@drawable/bg_searchbar"
         android:ems="10"
-        android:paddingRight="45dp"
-        android:hint="@string/research_placeholder" >
+        android:hint="@string/research_placeholder"
+        android:maxLines="1"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="45dp" >
 
         <requestFocus />
     </AutoCompleteTextView>
@@ -29,53 +61,115 @@
         android:layout_marginBottom="5dp"
         android:background="@android:color/transparent"
         android:contentDescription="@string/research_loupe"
+        android:paddingRight="@dimen/activity_horizontal_margin"
         android:src="@android:drawable/ic_menu_search" />
 
-    <com.neopixl.pixlui.components.textview.TextView
-        android:id="@+id/let_you_guide"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:id="@+id/button_linear_1"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/homeSearchField"
+        android:layout_below="@id/layout_gps"
         android:layout_marginTop="20dp"
-        pixlui:typeface="Ubuntu-R.ttf"
-        android:text="@string/let_you_guide"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <Button
+            android:id="@+id/theme_sportif"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_sportif"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_sportif"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_concert"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_concert"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_concert"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_pub"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_pub"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_pub"
+            android:textColor="@android:color/white" />
+        
+    </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout1"
+        android:id="@+id/button_linear_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_linear_1"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <Button
+            android:id="@+id/theme_geek"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_geek"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_geek"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_lounge"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_lounge"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_lounge"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_rock"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_rock"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_rock"
+            android:textColor="@android:color/white" />
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/theme_list_header"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/let_you_guide"
-        android:layout_marginTop="20dp" >
-
-        <Button
-            android:id="@+id/barTheme"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@color/orange_drinkizy"
-            android:text="@string/bar_theme" />
-
-        <Button
-            android:id="@+id/happyHour"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:background="@color/orange_drinkizy"
-            android:text="@string/happy_hour" />
-
-        <Button
-            android:id="@+id/closeToMe"
-            style="?android:attr/buttonBarButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:background="@color/orange_drinkizy"
-            android:text="@string/closer_to_me" />
-    </LinearLayout>
+        android:layout_below="@id/button_linear_2"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:text="@string/theme_sup" />
 
 </RelativeLayout>
