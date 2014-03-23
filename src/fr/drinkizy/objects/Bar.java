@@ -24,6 +24,7 @@ public class Bar {
 	
 	private String website;
 	
+	private float rank;
 	private int distance;
 	
 	private List<Theme> themes;
@@ -68,6 +69,9 @@ public class Bar {
 	}
 	public String getWebsite() {
 		return website;
+	}
+	public float getRank() {
+		return rank;
 	}
 	public int getDistance() {
 		return distance;

@@ -101,6 +101,11 @@ public class BarInfoFragment extends Fragment {
 		}else
 			text_email.setText(bar.getPhone());
 		
+		if(bar.getRank() != -1){
+			rating.setText(String.valueOf(bar.getRank())+"/10");
+		}else{
+			rating.setText("-/10");
+		}
 		description.setText(bar.getDescription());
 	}
 	
