@@ -3,17 +3,34 @@
  */
 package fr.drinkizy;
 
+import java.util.ArrayList;
+
 import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
+import android.widget.Switch;
+
+import com.google.gson.Gson;
+import com.loopj.android.http.AsyncHttpResponseHandler;
+import com.loopj.android.http.RequestParams;
+
+import fr.drinkizy.listbar.adapter.ThemeListAdapter;
+import fr.drinkizy.objects.Theme;
+import fr.drinkizy.objects.ThemesObject;
+import fr.drinkizy.rest.DrinkizyRestClient;
 
 /**
  * @author Hugo
@@ -21,8 +38,23 @@ import android.widget.ImageButton;
  */
 public class SearchFragment extends Fragment {
 	
+	private static final int DISTANCE = 200000;
+	
 	private ImageButton searchButton;
+	
+	private Button themeSportifButton;
+	private Button themeConcertButton;
+	private Button themePubButton;
+	private Button themeGeekButton;
+	private Button themeLoungeButton;
+	private Button themeRockButton;
+	
 	private AutoCompleteTextView autoCompleteTextView;
+	private Switch proximity;
+	private ListView themesList;
+	private ArrayList<String> bannedThemes;
+	
+	private ArrayList<Theme> mThemesItems;
 	
 	private static final String[] COUNTRIES = new String[] {
 		//TODO récupérer la liste des autocomplétions sur Django
@@ -38,6 +70,16 @@ public class SearchFragment extends Fragment {
 	    
 	    
 	    searchButton = (ImageButton)rootView.findViewById(R.id.searchIcon);
+	    
+	    themeSportifButton = (Button)rootView.findViewById(R.id.theme_sportif);
+		themeConcertButton = (Button)rootView.findViewById(R.id.theme_concert);
+		themePubButton = (Button)rootView.findViewById(R.id.theme_pub);
+		themeGeekButton = (Button)rootView.findViewById(R.id.theme_geek);
+		themeLoungeButton = (Button)rootView.findViewById(R.id.theme_lounge);
+		themeRockButton = (Button)rootView.findViewById(R.id.theme_rock);
+		
+	    proximity = (Switch)rootView.findViewById(R.id.switch_gps);
+	    themesList = (ListView)rootView.findViewById(R.id.themes);
 	    
 	    ArrayAdapter<String> adapter = new ArrayAdapter<String>(this.getActivity(), android.R.layout.simple_dropdown_item_1line, COUNTRIES);
 	    autoCompleteTextView = (AutoCompleteTextView)rootView.findViewById(R.id.homeSearchField);
@@ -61,11 +103,37 @@ public class SearchFragment extends Fragment {
 					intent.putExtra(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
 				}
 				
-				intent.putExtra(MainActivity.DISTANCE_QUERY, 200000);
+				if(proximity.isChecked()){
+					intent.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}	
 				
 				startActivity(intent);
 				
 			}
+		});
+		
+		initializeButtonsThemesListeners();
+		
+		initializeBannedThemes();
+		
+		loadDrinkizyThemes();
+		
+		
+		themesList.setOnItemClickListener(new OnItemClickListener(){
+			
+		    @Override 
+		    public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){ 
+		    	
+		        Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
+		        
+		        if(proximity.isChecked()){
+		        	intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}
+		        
+		        intentBarsForTheme.putExtra("theme_uri", mThemesItems.get(position).getResource_uri());
+		        startActivity(intentBarsForTheme);
+		        //		        getActivity().overridePendingTransition(R.anim.hold, R.anim.hold);
+		    }
 		});
 		
 		
@@ -81,6 +149,41 @@ public class SearchFragment extends Fragment {
 	}
 	
 	
+	public void loadDrinkizyThemes(){
+    	
+		RequestParams params = new RequestParams();
+		params.put("format", "json");
+		String url = "/api/v1/theme/";
+		
+    	DrinkizyRestClient.get(url, params, new AsyncHttpResponseHandler() {
+		    @Override
+		    public void onSuccess(String response) {
+		  
+		    	Gson gson = new Gson();
+		    	ThemesObject themesObject = gson.fromJson(response, ThemesObject.class);
+		    	mThemesItems = (ArrayList<Theme>) themesObject.getObjects();
+	    	    
+		    	
+		    	// on supprime les thèmes principaux qui ont une icône propre
+		    	for(int i = mThemesItems.size()-1; i > -1; i--){
+		    		for(int j = 0; j < bannedThemes.size(); j++){
+		    		Log.d("toto", mThemesItems.get(i).getSlug());
+		    		Log.d("tata", bannedThemes.get(j));
+			    		if(bannedThemes.get(j).equals(mThemesItems.get(i).getSlug())){
+			    			Log.d("trutru", "true");
+			    			mThemesItems.remove(i);
+			    		}
+		    		}
+		    	}
+		    	
+		    	themesList.setAdapter(new ThemeListAdapter(getActivity(), mThemesItems));
+		    	
+		    }
+		});
+
+    }
+	
+	
 	private void changeFragment(Fragment frag, int position, int actionBarTitle, int animIn, int animOut){
 		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
 		ft.setCustomAnimations(animIn, animOut);
@@ -90,5 +193,97 @@ public class SearchFragment extends Fragment {
 	    
 	    getActivity().getActionBar().setTitle(actionBarTitle);
 	}
+	
+	private void initializeBannedThemes(){
+		bannedThemes = new ArrayList<String>();
+        bannedThemes.add("bars-sportifs");
+        bannedThemes.add("bars-concerts");
+        bannedThemes.add("pubs");
+        bannedThemes.add("bars-geek");
+        bannedThemes.add("bars-lounge");
+        bannedThemes.add("bars-rock");
+	}
+	
+	private void initializeButtonsThemesListeners(){
+		themeSportifButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
+				if(proximity.isChecked()){
+					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}	
+				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/6/");
+				startActivity(intentBarsForTheme);
+				
+			}
+		});
+		
+		themeConcertButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
+				if(proximity.isChecked()){
+					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}	
+				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/2/");
+				startActivity(intentBarsForTheme);
+				
+			}
+		});
+		
+		themePubButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
+				if(proximity.isChecked()){
+					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}	
+				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/5/");
+				startActivity(intentBarsForTheme);
+				
+			}
+		});
+		
+		themeGeekButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
+				if(proximity.isChecked()){
+					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}	
+				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/4/");
+				startActivity(intentBarsForTheme);
+				
+			}
+		});
+		
+		themeLoungeButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
+				if(proximity.isChecked()){
+					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}	
+				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/1/");
+				startActivity(intentBarsForTheme);
+				
+			}
+		});
+		
+		themeRockButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
+				if(proximity.isChecked()){
+					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				}	
+				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/10/");
+				startActivity(intentBarsForTheme);
+				
+			}
+		});
+	}
+	
+	
 	
 }
