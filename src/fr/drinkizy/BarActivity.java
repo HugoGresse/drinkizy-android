@@ -4,6 +4,7 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
@@ -11,10 +12,12 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.TabHost;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.objects.Bar;
 import fr.drinkizy.pageradapter.BarTabsPagerAdapter;
@@ -38,6 +41,9 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 		
 		setContentView(R.layout.bar_single);
 		
+		SystemBarTintManager tintManager = new SystemBarTintManager(this);
+	    tintManager.setStatusBarTintEnabled(true);
+	    tintManager.setTintColor(Color.parseColor(getResources().getString(R.color.orange_drinkizy)));
 	    
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		
@@ -60,6 +66,7 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
         Intent intent = getIntent();
         barUri = intent.getStringExtra("bar_uri");;
         loadBar();
+        
         
 	}
 	
@@ -173,4 +180,5 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
     public void setProgressBarState(int visibility){
     	progressBar.setVisibility(visibility);
     }
+    
 }

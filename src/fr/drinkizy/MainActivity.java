@@ -8,6 +8,8 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Configuration;
 import android.content.res.TypedArray;
+import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.ActionBarDrawerToggle;
@@ -18,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.navdrawer.adapter.NavDrawerItem;
 import fr.drinkizy.navdrawer.adapter.NavigationDrawerAdapter;
@@ -52,6 +55,11 @@ public class MainActivity extends Activity {
 
 		setContentView(R.layout.activity_main);
 		
+		SystemBarTintManager tintManager = new SystemBarTintManager(this);
+	    tintManager.setStatusBarTintEnabled(true);
+//	    tintManager.setNavigationBarTintEnabled(false);
+	    tintManager.setTintColor(Color.parseColor(getResources().getString(R.color.orange_drinkizy)));
+	    
 		mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
         mNavMenuIcons = getResources().obtainTypedArray(R.array.nav_drawer_icons);
         
@@ -62,6 +70,7 @@ public class MainActivity extends Activity {
 		
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.navigation_drawer);
+        
 
         // Set the adapter for the list view
         mDrawerList.setAdapter(new NavigationDrawerAdapter(getApplicationContext(), mDrawerItems));
@@ -71,12 +80,13 @@ public class MainActivity extends Activity {
         // Set the list's click listener
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         
-
         getActionBar().setDisplayHomeAsUpEnabled(true);
         getActionBar().setHomeButtonEnabled(true);
         
+        mDrawerList.setClipToPadding(false);
+        setInsets(this, mDrawerList);
+        
         mTitle = mDrawerTitle = getTitle();
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerToggle = new ActionBarDrawerToggle( 
         		this,                  /* host Activity */
                 mDrawerLayout,         /* DrawerLayout object */
@@ -220,6 +230,12 @@ public class MainActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 
+	public static void setInsets(Activity context, View view) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+			SystemBarTintManager tintManager = new SystemBarTintManager(context);
+			SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+			view.setPadding(0, config.getPixelInsetTop(true) , config.getPixelInsetRight(), config.getPixelInsetBottom());
+	}
     
     
 }

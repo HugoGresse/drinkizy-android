@@ -23,7 +23,7 @@ public class User {
 	
 	@Override
 	public String toString() {
-	   return "User [user_name=" + username + "]";
+	   return username;
 	}
 
 	

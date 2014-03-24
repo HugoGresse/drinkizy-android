@@ -2,7 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:animateLayoutChanges="true" >
+    android:animateLayoutChanges="true"
+    >
     
     <ProgressBar
         android:id="@+id/progessBarSearchResult"
@@ -16,7 +17,9 @@
 	    android:layout_width="match_parent"
 	    android:layout_height="wrap_content"
 	    android:animateLayoutChanges="true"
-	    android:visibility="invisible" >
+	    android:visibility="invisible"
+	    android:clipToPadding="false"
+	    android:fitsSystemWindows="true"  >
 
 	</ListView>
 	

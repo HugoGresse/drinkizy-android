@@ -1,14 +1,19 @@
 package fr.drinkizy;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.nostra13.universalimageloader.core.ImageLoader;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.objects.Bar;
 
@@ -17,6 +22,7 @@ public class BarInfoFragment extends Fragment {
 	private Bar bar;
 	
 	//View element
+	private ScrollView scrollview;
 	private ImageView image;
 	private TextView rating;
 	private TextView name;
@@ -38,6 +44,8 @@ public class BarInfoFragment extends Fragment {
 		// Inflate the layout for this fragment
 	    View rootView = inflater.inflate(R.layout.bar_single_info, container, false);	
 	    
+	    scrollview = (ScrollView)rootView.findViewById(R.id.info_scrollview);
+	    		
 	    image = (ImageView)rootView.findViewById(R.id.bar_image);
 	    image_adress = (ImageView)rootView.findViewById(R.id.image_adress);
 	    image_tel = (ImageView)rootView.findViewById(R.id.image_tel);
@@ -54,6 +62,12 @@ public class BarInfoFragment extends Fragment {
 	    text_email = (TextView)rootView.findViewById(R.id.text_email);
 	    description = (TextView)rootView.findViewById(R.id.text_description);
 	    
+
+		// This could also be set in your layout, allows the list items to scroll through the bottom padded area (navigation bar)
+		scrollview.setClipToPadding(false);
+		// Sets the padding to the insets (include action bar and navigation bar padding for the current device and orientation)
+		setInsets(this.getActivity(), scrollview);
+		
 	    return rootView;
 	}
 	
@@ -67,10 +81,9 @@ public class BarInfoFragment extends Fragment {
 		String url = getActivity().getResources().getString(R.string.app_static_url)+bar.getSlug()+".jpg";
 		ImageLoader.getInstance().displayImage(url, image);
 		
-		
 		deleteOrSetInfo();
 	}
-	
+		
 	private void deleteOrSetInfo(){
 		name.setText(bar.getName());
 		themes.setText(bar.getThemesAsAString());
@@ -108,5 +121,15 @@ public class BarInfoFragment extends Fragment {
 		}
 		description.setText(bar.getDescription());
 	}
+	
+	public static void setInsets(Activity context, View view) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+			SystemBarTintManager tintManager = new SystemBarTintManager(context);
+			SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+			//view.setPadding(0, config.getPixelInsetTop(true) + config.getActionBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
+			view.setPadding(0,   config.getPixelInsetTop(true) + config.getNavigationBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
+//			Log.i("DEV", Integer.toString(config.getNavigationBarHeight() ) );
+	}
+	
 	
 }

@@ -6,6 +6,7 @@ import java.util.Set;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
@@ -23,6 +24,7 @@ import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.listbar.adapter.BarListAdapter;
 import fr.drinkizy.objects.Bar;
@@ -57,6 +59,11 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		super.onCreate(savedInstanceState);
 		
 		setContentView(R.layout.search_result);
+		
+		SystemBarTintManager tintManager = new SystemBarTintManager(this);
+	    tintManager.setStatusBarTintEnabled(true);
+	    tintManager.setTintColor(Color.parseColor(getResources().getString(R.color.orange_drinkizy)));
+	    
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		
 		getActionBar().setDisplayHomeAsUpEnabled(true);

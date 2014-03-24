@@ -8,8 +8,6 @@ import android.view.ViewGroup;
 
 public class HomeFragment extends Fragment {
 
-	private View currentView;
-	
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -17,7 +15,6 @@ public class HomeFragment extends Fragment {
 		
 	    // Inflate the layout for this fragment
 	    View rootView = inflater.inflate(R.layout.home_content, container, false);
-	    
 	    return rootView;
 	}
 	
@@ -27,5 +24,6 @@ public class HomeFragment extends Fragment {
 		
 	}
 	
+
 	
 }
