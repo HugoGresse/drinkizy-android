@@ -104,6 +104,7 @@ public class SearchFragment extends Fragment {
 				}
 				
 				if(proximity.isChecked()){
+					Log.d("SearchFragment", "proximity is checked");
 					intent.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}	
 				
@@ -130,7 +131,7 @@ public class SearchFragment extends Fragment {
 		        	intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}
 		        
-		        intentBarsForTheme.putExtra("theme_uri", mThemesItems.get(position).getResource_uri());
+		        intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, mThemesItems.get(position).getSlug());
 		        startActivity(intentBarsForTheme);
 		        //		        getActivity().overridePendingTransition(R.anim.hold, R.anim.hold);
 		    }
@@ -167,10 +168,7 @@ public class SearchFragment extends Fragment {
 		    	// on supprime les thèmes principaux qui ont une icône propre
 		    	for(int i = mThemesItems.size()-1; i > -1; i--){
 		    		for(int j = 0; j < bannedThemes.size(); j++){
-		    		Log.d("toto", mThemesItems.get(i).getSlug());
-		    		Log.d("tata", bannedThemes.get(j));
 			    		if(bannedThemes.get(j).equals(mThemesItems.get(i).getSlug())){
-			    			Log.d("trutru", "true");
 			    			mThemesItems.remove(i);
 			    		}
 		    		}
@@ -212,7 +210,7 @@ public class SearchFragment extends Fragment {
 				if(proximity.isChecked()){
 					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}	
-				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/6/");
+				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-sportifs");
 				startActivity(intentBarsForTheme);
 				
 			}
@@ -225,7 +223,7 @@ public class SearchFragment extends Fragment {
 				if(proximity.isChecked()){
 					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}	
-				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/2/");
+				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-concerts");
 				startActivity(intentBarsForTheme);
 				
 			}
@@ -238,7 +236,7 @@ public class SearchFragment extends Fragment {
 				if(proximity.isChecked()){
 					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}	
-				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/5/");
+				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "pubs");
 				startActivity(intentBarsForTheme);
 				
 			}
@@ -251,7 +249,7 @@ public class SearchFragment extends Fragment {
 				if(proximity.isChecked()){
 					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}	
-				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/4/");
+				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-geek");
 				startActivity(intentBarsForTheme);
 				
 			}
@@ -264,7 +262,7 @@ public class SearchFragment extends Fragment {
 				if(proximity.isChecked()){
 					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}	
-				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/1/");
+				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-lounge");
 				startActivity(intentBarsForTheme);
 				
 			}
@@ -277,7 +275,7 @@ public class SearchFragment extends Fragment {
 				if(proximity.isChecked()){
 					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
 				}	
-				intentBarsForTheme.putExtra("theme_uri", "/api/v1/theme/10/");
+				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-rock");
 				startActivity(intentBarsForTheme);
 				
 			}

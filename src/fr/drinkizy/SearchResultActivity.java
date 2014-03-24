@@ -3,6 +3,8 @@ package fr.drinkizy;
 import java.util.ArrayList;
 import java.util.Set;
 
+import org.apache.http.Header;
+
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -48,6 +50,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	
 	private String mSearchQuery = "";
 	private int mDistanceQuery = 0;
+	private String mThemeQuery = "";
 	
 	// Acquire a reference to the system Location Manager
 	LocationManager locationManager;
@@ -78,6 +81,9 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    }
 	    if(intent.hasExtra(MainActivity.DISTANCE_QUERY)){
 	    	mDistanceQuery = intent.getIntExtra(MainActivity.DISTANCE_QUERY, 200000);
+	    }
+	    if(intent.hasExtra(MainActivity.THEME_QUERY)){
+	    	mThemeQuery = intent.getStringExtra(MainActivity.THEME_QUERY);
 	    }
 	    
 	    loadDrinkizyResults();
@@ -118,20 +124,26 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     	params.put("format", "json");
     	String url = "/api/v1/bar/";
     	
-    	if(!mSearchQuery.isEmpty()){
-    		params.put("q", mSearchQuery);
-    		url = "/api/v1/drinkbar/search/";
-    		loadDrinkizyDrinkbars(params, url);
-    	}else{
-    		if(mDistanceQuery != 0){
-    			params.put("distance",String.valueOf(mDistanceQuery));
-    			params.put("lat", String.valueOf(mLastKnownLocation.getLatitude()));
-    			params.put("long", String.valueOf(mLastKnownLocation.getLongitude()));
-    			Log.d("PARAMS", params.toString());
-	    	}
-    		
+    	
+    	if(!mThemeQuery.isEmpty()){
+    		Log.d("SearchResultActivity", "mThemeQuery : "+mThemeQuery);
+    		params.put("themes__slug", mThemeQuery);
     		loadDrinkizyBars(params, url);
-
+    	}else{
+	    	if(!mSearchQuery.isEmpty()){
+	    		params.put("q", mSearchQuery);
+	    		url = "/api/v1/drinkbar/search/";
+	    		loadDrinkizyDrinkbars(params, url);
+	    	}else{
+	    		if(mDistanceQuery != 0){
+	    			params.put("distance",String.valueOf(mDistanceQuery));
+	    			params.put("lat", String.valueOf(mLastKnownLocation.getLatitude()));
+	    			params.put("long", String.valueOf(mLastKnownLocation.getLongitude()));
+		    	}
+	    		
+	    		loadDrinkizyBars(params, url);
+	
+	    	}
     	}
     	
     }
@@ -142,7 +154,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     	DrinkizyRestClient.get(urlBars, paramsBars, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
-		  
+		    	Log.d("SearchResultActivity", "loadDrinkizyBars : "+response);
 		    	Gson gson = new Gson();
 		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
 		    	mBarsItems = (ArrayList<Bar>) barsObject.getObjects();
@@ -161,7 +173,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     	DrinkizyRestClient.get(urlDrinkbars, paramsDrinkbars, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
-
+		    	//Log.d("SearchResultActivity", "loadDrinkizyBars : "+response);
 		    	Gson gson = new Gson();
 		    	DrinkbarsObject drinkbarsObject = gson.fromJson(response, DrinkbarsObject.class);
 		    	mDrinkbars = (ArrayList<Drinkbar>) drinkbarsObject.getObjects();
@@ -177,6 +189,10 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 
 		    	mBarsUriOfDrinkbars = drinksForBars.keySet();
 		    	barsCount = mBarsUriOfDrinkbars.size();
+		    	
+		    	for(String barUri : mBarsUriOfDrinkbars){
+		    		Log.d("SearchResultActivity", "barUri : "+barUri);
+		    	}
 
 		    	RequestParams paramsBar = new RequestParams();
 		    	paramsBar.put("format", "json");
@@ -188,13 +204,13 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		    	}
 		    	
 		    	for(final String barUri : mBarsUriOfDrinkbars){
-		    		
+		    		Log.d("SearchResultActivity", "DrinkizyRestClient.get : "+barUri);
 		    		DrinkizyRestClient.get(barUri, paramsBar, new AsyncHttpResponseHandler() {
 		    		    		
 					    @Override
 					    public void onSuccess(String response) { 
 					    	barsCount--;
-					    	
+					    	Log.d("SearchResultActivity", "loadDrinkizyBars "+barUri+" : "+response);
 					    	Gson gson = new Gson();
 					    	Bar bar = gson.fromJson(response, Bar.class);
 					    	
@@ -203,6 +219,13 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 					    	if(barsCount == 0)
 					    		searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
 	    				}
+					    
+					    @Override
+					     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+					    	Log.d("SearchResultActivity", "loadDrinkizyBars fail "+barUri+" : "+statusCode);
+					     }
+					    
+					    
 	    			});
 		    	}
 		    	
