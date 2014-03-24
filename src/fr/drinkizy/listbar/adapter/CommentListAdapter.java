@@ -30,9 +30,7 @@ public class CommentListAdapter extends BaseAdapter {
 	
 	private String by;
 	private String date_prepend;
-	
-	SimpleDateFormat df = new SimpleDateFormat("dd/mm/yyyy", Locale.FRENCH);
-    Date result = new Date();
+	private Date result;
 	
 	ImageLoader imageLoader;
 	Comment mCurrentComment;
@@ -83,9 +81,11 @@ public class CommentListAdapter extends BaseAdapter {
         TextView txtInfo = (TextView) convertView.findViewById(R.id.avis_info);
         TextView txtComment = (TextView) convertView.findViewById(R.id.comment);
            
-        
+
+    	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    	
 		try {
-			result = df.parse(mCurrentComment.getDate());
+			Date result = df.parse(mCurrentComment.getDate());
 		} catch (ParseException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

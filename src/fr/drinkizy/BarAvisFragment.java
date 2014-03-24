@@ -2,7 +2,9 @@ package fr.drinkizy;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -13,6 +15,7 @@ import android.widget.ListView;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.listbar.adapter.CommentListAdapter;
 import fr.drinkizy.objects.Bar;
@@ -35,6 +38,12 @@ public class BarAvisFragment extends Fragment {
 	    View rootView = inflater.inflate(R.layout.bar_single_avis, container, false);	
 	    
 	    commentsList = (ListView)rootView.findViewById(R.id.bar_comments);
+	    
+	    // This could also be set in your layout, allows the list items to scroll through the bottom padded area (navigation bar)
+	    commentsList.setClipToPadding(false);
+ 		// Sets the padding to the insets (include action bar and navigation bar padding for the current device and orientation)
+ 		setInsets(this.getActivity(), commentsList);
+ 		
 	    return rootView;
 	}
 	
@@ -47,6 +56,7 @@ public class BarAvisFragment extends Fragment {
 		loadCommentsOfBar();
 		
 	}
+	
 	
 
 	public void loadCommentsOfBar(){
@@ -69,5 +79,12 @@ public class BarAvisFragment extends Fragment {
 		});
 
     }
+	
+	public static void setInsets(Activity context, View view) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+			SystemBarTintManager tintManager = new SystemBarTintManager(context);
+			SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+			view.setPadding(0, config.getPixelInsetTop(true) + config.getNavigationBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
+	}
 	
 }

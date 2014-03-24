@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="Theme.Drinkizy" parent="@android:style/Theme.Holo.Light">
+        <item name="android:windowTranslucentNavigation">@bool/transparent_nav</item>
+   		<item name="android:windowTranslucentStatus">true</item>
+   		
+   		
+   		<item name="android:actionBarItemBackground">@drawable/selectable_background_drinkizy</item>
+        <item name="android:popupMenuStyle">@style/PopupMenu.Drinkizy</item>
+        <item name="android:dropDownListViewStyle">@style/DropDownListView.Drinkizy</item>
+        <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Drinkizy</item>
+        <item name="android:actionDropDownStyle">@style/DropDownNav.Drinkizy</item>
+        <item name="android:actionBarStyle">@style/ActionBar.Solid.Drinkizy</item>
+        <item name="android:actionModeBackground">@drawable/cab_background_top_drinkizy</item>
+        <item name="android:actionModeSplitBackground">@drawable/cab_background_bottom_drinkizy</item>
+        <item name="android:actionModeCloseButtonStyle">@style/ActionButton.CloseMode.Drinkizy</item>
+    </style>
+    
+</resources>

@@ -7,4 +7,5 @@
 	<dimen name="padding_glyphicon">15dp</dimen>
 	<dimen name="padding_barsingle">10dp</dimen>
 	<dimen name="padding_button_home">10dp</dimen>
+	<dimen name="padding_bottom_list">0dp</dimen>
 </resources>

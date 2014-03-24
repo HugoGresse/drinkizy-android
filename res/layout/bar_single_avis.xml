@@ -11,7 +11,9 @@
         android:layout_alignParentTop="true"
         android:layout_marginLeft="@dimen/padding_barsingle"
         android:layout_marginRight="@dimen/padding_barsingle"
-        android:layout_marginTop="@dimen/padding_barsingle" >
+        android:layout_marginTop="@dimen/padding_barsingle"
+	    android:clipToPadding="false"
+	    android:fitsSystemWindows="true" >
 
     </ListView>
 

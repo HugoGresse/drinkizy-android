@@ -2,7 +2,9 @@ package fr.drinkizy;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.Fragment;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,7 @@ import com.google.common.collect.Multimap;
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.listdrink.adapter.DrinkListAdapter;
 import fr.drinkizy.listdrink.adapter.SectionListAdapter;
@@ -38,6 +41,11 @@ public class BarBoissonsFragment extends Fragment {
 	    
 	    drinksList = (ListView)rootView.findViewById(R.id.drinks_list);
 	    
+	    // This could also be set in your layout, allows the list items to scroll through the bottom padded area (navigation bar)
+	    //drinksList.setClipToPadding(false);
+ 		// Sets the padding to the insets (include action bar and navigation bar padding for the current device and orientation)
+ 		//setInsets(this.getActivity(), drinksList);
+	 	
 	    return rootView;
 	}
 	
@@ -48,6 +56,11 @@ public class BarBoissonsFragment extends Fragment {
 		
 		bar =  ((BarActivity) getActivity()).getBar();
 		
+		// This could also be set in your layout, allows the list items to scroll through the bottom padded area (navigation bar)
+		drinksList.setClipToPadding(false);
+ 		// Sets the padding to the insets (include action bar and navigation bar padding for the current device and orientation)
+ 		setInsets(this.getActivity(), drinksList);
+ 		
 		loadDrinksOfBar();
 		
 	}
@@ -94,7 +107,12 @@ public class BarBoissonsFragment extends Fragment {
 	}
 	
 	
-	
+	public static void setInsets(Activity context, View view) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+			SystemBarTintManager tintManager = new SystemBarTintManager(context);
+			SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+			view.setPadding(0,  config.getPixelInsetTop(true) + config.getNavigationBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
+	}
 	
 	
 	
