@@ -56,6 +56,11 @@ public class BarBoissonsFragment extends Fragment {
 		
 		bar =  ((BarActivity) getActivity()).getBar();
 		
+		// This could also be set in your layout, allows the list items to scroll through the bottom padded area (navigation bar)
+		drinksList.setClipToPadding(false);
+ 		// Sets the padding to the insets (include action bar and navigation bar padding for the current device and orientation)
+ 		setInsets(this.getActivity(), drinksList);
+ 		
 		loadDrinksOfBar();
 		
 	}

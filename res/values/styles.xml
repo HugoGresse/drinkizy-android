@@ -62,4 +62,8 @@
         <item name="android:minHeight">25dip</item>
         <item name="android:maxHeight">25dip</item>
     </style>
+    
+    <style name="SwitchTextAppearance" parent="@android:style/TextAppearance.Holo.Small">
+	    <item name="android:textColor">@android:color/black</item>
+	</style>
 </resources>

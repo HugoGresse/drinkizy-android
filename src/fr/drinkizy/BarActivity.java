@@ -67,7 +67,6 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
         barUri = intent.getStringExtra("bar_uri");;
         loadBar();
         
-        
 	}
 	
 	@Override

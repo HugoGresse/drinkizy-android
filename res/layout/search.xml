@@ -29,12 +29,16 @@
 
         <Switch
             android:id="@+id/switch_gps"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_toRightOf="@id/image_gps"
             android:text="@string/search_proxi"
             android:textOff="@string/switch_no"
-            android:textOn="@string/switch_yes" />
+            android:textOn="@string/switch_yes"
+            android:switchTextAppearance="@style/SwitchTextAppearance"
+            android:thumb="@drawable/drinkizytheme_switch_inner_holo_light"
+            android:track="@drawable/drinkizytheme_switch_track_holo_light" />
+
     </RelativeLayout>
 
     <AutoCompleteTextView
@@ -42,6 +46,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
+        android:layout_marginTop="-5dp"
         android:background="@drawable/bg_searchbar"
         android:ems="10"
         android:hint="@string/research_placeholder"
