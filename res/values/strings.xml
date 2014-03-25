@@ -14,7 +14,9 @@
     <string name="drawer_close">Drawer Close</string>
     
     <string name="loading">Chargement&#8230;</string>
-    
+    <string name="load_retry">Réessayer</string>
+    <string name="load_abort">Annuler</string>
+    <string name="load_messagefailed">Il y a eu une erreur lors de la communication avec le serveur. \nPeut-être à cause d\'une perte de connexion \n</string>
 	
     <string name="research_placeholder">Tapez un nom de bar, boisson&#8230;"</string>
     <string name="research_loupe">Rechercher</string>

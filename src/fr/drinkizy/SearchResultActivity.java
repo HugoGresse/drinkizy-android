@@ -6,7 +6,9 @@ import java.util.Set;
 import org.apache.http.Header;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -118,13 +120,17 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	}
 	
+	@Override
+	public void onBackPressed() {
+	    super.onBackPressed();
+	}
 	
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putSerializable("mbars_items", mBarsItems);
         super.onSaveInstanceState(outState);
     }
-
+    
     @Override
     protected void onRestoreInstanceState(Bundle savedInstanceState) {
     	@SuppressWarnings("unchecked")
@@ -178,6 +184,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     
     /**
      * Load bar data depending the research request
+     * Used for empty search, proximity search and theme search
      * @param paramsBars
      * @param urlBars
      */
@@ -195,12 +202,19 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		    	
 		    	setProgressBar(View.GONE);
 		    }
+		    
+		    @Override
+		    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+		    	asyncFailed(statusCode, headers, responseBody, error);
+		    }
+		   
 		});
 
     }
     
     /**
      * Load drink Barand parse Object
+     * used for searching bar 
      * @param paramsDrinkbars
      * @param urlDrinkbars
      */
@@ -257,10 +271,10 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    				}
 					    
 					    @Override
-					     public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+					    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
 					    	Log.d("SearchResultActivity", "loadDrinkizyBars fail "+barUri+" : "+statusCode);
-					     }
-					    
+					    	asyncFailed(statusCode, headers, responseBody, error);
+					    }
 					    
 	    			});
 		    	}
@@ -289,19 +303,34 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	
 	@Override
 	public void onConnectionFailed(ConnectionResult arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onConnected(Bundle arg0) {
-		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void onDisconnected() {
-		// TODO Auto-generated method stub
 		
+	}
+	
+	public void asyncFailed(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
+		new AlertDialog.Builder(this)
+		    .setTitle("La recherche a échoué")
+		    .setMessage(R.string.load_messagefailed)
+		    .setPositiveButton(R.string.load_retry, new DialogInterface.OnClickListener() {
+		        public void onClick(DialogInterface dialog, int which) { 
+		        	loadDrinkizyResults();
+		        }
+		     })
+		     .setNegativeButton(R.string.load_abort, new DialogInterface.OnClickListener() {
+		         public void onClick(DialogInterface dialog, int which) { 
+		        	 onBackPressed();
+		         }
+		      })
+		    .setIcon(R.drawable.drinkizy_logoapp_dark)
+		    .show();
 	}
 }

@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.util.Log;
 
 public class Bar implements Parcelable {
 	private int id;
@@ -59,10 +58,7 @@ public class Bar implements Parcelable {
 		longitude = in.readDouble();
 		rank = in.readFloat();
 		
-		Log.i("DEV", "here good");
 		in.readTypedList(themes, Theme.CREATOR);
-		Log.i("DEV", "here better");
-		
 		in.readTypedList(images, BarImage.CREATOR);
 		in.readTypedList(drinks_list, Drinkbar.CREATOR);
 	}

@@ -71,6 +71,7 @@ public class BarListAdapter extends BaseAdapter {
         
         if(mCurrentBar.getDistance() != 0)
         	txtDistance.setText(mCurrentBar.getDistance()/1000+" km");
+        else txtDistance.setText("");
         
         txtName.setText(mCurrentBar.getName());
         txtAdress.setText(mCurrentBar.getAddress());

@@ -3,13 +3,14 @@
     xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true" >
 
     <RelativeLayout
         android:id="@+id/layout_gps"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/homeSearchField"
+        android:layout_below="@+id/layout_search_bar"
         android:layout_marginTop="-5dp"
         android:background="@color/orange_light"
         android:paddingBottom="5dp"
@@ -52,33 +53,41 @@
 
     </RelativeLayout>
 
-    <AutoCompleteTextView
-        android:id="@+id/homeSearchField"
+    <RelativeLayout
+        android:id="@+id/layout_search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="-5dp"
-        android:background="@drawable/bg_searchbar"
-        android:ems="10"
-        android:hint="@string/research_placeholder"
-        android:maxLines="1"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="45dp" >
+        android:layout_height="wrap_content">
+        
+	    <AutoCompleteTextView
+	        android:id="@+id/homeSearchField"
+	        android:layout_width="match_parent"
+	        android:layout_height="60dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginTop="-5dp"
+	        android:background="@drawable/bg_searchbar"
+	        android:ems="10"
+	        android:hint="@string/research_placeholder"
+	        android:maxLines="1"
+	        android:paddingLeft="@dimen/activity_horizontal_margin"
+	        android:paddingRight="45dp" >
+	
+	        <requestFocus />
+	    </AutoCompleteTextView>
+	
+	    <ImageButton
+	        android:id="@+id/searchIcon"
+	        android:layout_width="40dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="5dp"
+	        android:background="@android:color/transparent"
+	        android:contentDescription="@string/research_loupe"
+	        android:paddingRight="@dimen/activity_horizontal_margin"
+	        android:src="@android:drawable/ic_menu_search" />
 
-        <requestFocus />
-    </AutoCompleteTextView>
-
-    <ImageButton
-        android:id="@+id/searchIcon"
-        android:layout_width="40dp"
-        android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/homeSearchField"
-        android:layout_alignParentRight="true"
-        android:layout_marginBottom="5dp"
-        android:background="@android:color/transparent"
-        android:contentDescription="@string/research_loupe"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:src="@android:drawable/ic_menu_search" />
+    </RelativeLayout>
+    
 
     <LinearLayout
         android:id="@+id/button_linear_1"
@@ -180,22 +189,27 @@
 
     <TextView
         android:id="@+id/theme_list_header"
+        style="?android:attr/listSeparatorTextViewStyle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/button_linear_2"
         android:layout_marginTop="15dp"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
-        android:text="@string/theme_sup" />
+        android:text="@string/theme_sup"
+        android:textAppearance="?android:attr/textAppearance"
+        android:textSize="16sp" />
     
     <ListView
         android:id="@+id/themes"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/theme_list_header"
-	    android:choiceMode="singleChoice"
-	    android:divider="@android:color/transparent"
-	    android:dividerHeight="0dp" >
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
+
     </ListView>
 
 </RelativeLayout>
