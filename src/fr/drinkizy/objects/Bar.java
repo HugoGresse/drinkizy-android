@@ -31,9 +31,43 @@ public class Bar implements Parcelable {
 	private float rank;
 	private int distance;
 	
-	private List<Theme> themes;
-	private List<BarImage> images;
+	private List<Theme> themes = new ArrayList<Theme>();
+	private List<BarImage> images = new ArrayList<BarImage>();
 	private transient List<Drinkbar> drinks_list = new ArrayList<Drinkbar>();
+	
+	
+	public Bar(){
+		
+	}
+	
+	public Bar(Parcel in){
+	    address = in.readString(); 
+	    description = in.readString(); 
+	    mail = in.readString(); 
+	    name = in.readString(); 
+		phone = in.readString(); 
+		resource_uri = in.readString(); 
+		slug = in.readString(); 
+		website = in.readString();
+		
+		id = in.readInt();
+		approval = in.readInt();
+		disapproval = in.readInt();
+		distance = in.readInt();
+		
+		latitude = in.readDouble();
+		longitude = in.readDouble();
+		rank = in.readFloat();
+		
+		Log.i("DEV", "here good");
+		in.readTypedList(themes, Theme.CREATOR);
+		Log.i("DEV", "here better");
+		
+		in.readTypedList(images, BarImage.CREATOR);
+		in.readTypedList(drinks_list, Drinkbar.CREATOR);
+	}
+	
+	
 	
 	public int getId() {
 		return id;
@@ -123,46 +157,13 @@ public class Bar implements Parcelable {
 	   return "Bar [name=" + name + ", address=" + address +"]";
 	}
 	
-	public static final Parcelable.Creator<Bar> CREATOR = new Creator<Bar>() { 
-		public Bar createFromParcel(Parcel source) { 
-		    Bar mBar = new Bar(); 
-		    mBar.address = source.readString(); 
-		    mBar.description = source.readString(); 
-		    mBar.mail = source.readString(); 
-		    mBar.name = source.readString(); 
-			mBar.phone = source.readString(); 
-			mBar.resource_uri = source.readString(); 
-			mBar.slug = source.readString(); 
-			mBar.website = source.readString();
-			
-			mBar.id = source.readInt();
-			mBar.approval = source.readInt();
-			mBar.disapproval = source.readInt();
-			mBar.distance = source.readInt();
-			
-			mBar.latitude = source.readDouble();
-			mBar.longitude = source.readDouble();
-			mBar.rank = source.readFloat();
-			
 
-			Log.i("DEV", "here good");
-			mBar.themes = source.readParcelable(Theme.class.getClassLoader());
-			mBar.images = source.readParcelable(BarImage.class.getClassLoader());
-			mBar.drinks_list = source.readParcelable(Drinkbar.class.getClassLoader());
-		    return mBar; 
-		}
 
-		@Override
-		public Bar[] newArray(int size) {
-			return new Bar[size];
-		}
-		
-	};
-		
 	@Override
 	public int describeContents() {
 		return 0;
 	}
+	
 	@Override
 	public void writeToParcel(Parcel parcel, int flags) {
 		parcel.writeString(address); 
@@ -187,6 +188,19 @@ public class Bar implements Parcelable {
 		parcel.writeTypedList(images);
 		parcel.writeTypedList(drinks_list);
 	}
+	
+	public static final Parcelable.Creator<Bar> CREATOR = new Creator<Bar>() { 
+		public Bar createFromParcel(Parcel source) { 
+			return new Bar(source);
+		}
+
+		@Override
+		public Bar[] newArray(int size) {
+			return new Bar[size];
+		}
+		
+	};
+		
 
 	
 	

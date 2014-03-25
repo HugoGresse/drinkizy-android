@@ -10,6 +10,14 @@ public class BarImage implements Parcelable{
 	private String image;
 	private String resource_uri;
 	
+	public BarImage(){
+		
+	}
+	public BarImage(Parcel in){
+		id = in.readInt(); 
+		image = in.readString(); 
+		resource_uri = in.readString(); 
+	}
 	
 	public int getId() {
 		return id;
@@ -25,14 +33,18 @@ public class BarImage implements Parcelable{
 	public String toString() {
 	   return "BarImage [url=" + image+"]";
 	}
+
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
+		dest.writeString(image);
+		dest.writeString(resource_uri);
+		
+	}
 	
 	public static final Parcelable.Creator<BarImage> CREATOR = new Creator<BarImage>() { 
 		public BarImage createFromParcel(Parcel source) { 
-			BarImage mBarImage = new BarImage(); 
-			mBarImage.id = source.readInt(); 
-			mBarImage.image = source.readString(); 
-			mBarImage.resource_uri = source.readString(); 
-		    return mBarImage; 
+			return new BarImage(source); 
 		}
 
 		@Override
@@ -44,13 +56,6 @@ public class BarImage implements Parcelable{
 	@Override
 	public int describeContents() {
 		return 0;
-	}
-	@Override
-	public void writeToParcel(Parcel dest, int flags) {
-		dest.writeInt(id);
-		dest.writeString(image);
-		dest.writeString(resource_uri);
-		
 	}
 
 	
