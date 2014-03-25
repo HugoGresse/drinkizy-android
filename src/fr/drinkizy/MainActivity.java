@@ -32,6 +32,7 @@ public class MainActivity extends Activity {
 	
 	public static final String SEARCH_QUERY = "search_query";
 	public static final String DISTANCE_QUERY = "distance_query";
+	public static final String THEME_QUERY = "theme_query";
 	public static boolean drinkLogo = true;
 	
 	private ArrayList<NavDrawerItem> mDrawerItems;
