@@ -38,7 +38,7 @@
 	            android:background="@color/orange_drinkizy"
 	            android:gravity="center"
 	            android:padding="5dp"
-	            android:text="@string/infos_prix"
+	            android:text="@string/bar_rating"
 	            android:textColor="@android:color/white" />
 		
 		    <TextView

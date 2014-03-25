@@ -1,10 +1,6 @@
 package fr.drinkizy.listbar.adapter;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Locale;
 
 import android.app.Activity;
 import android.content.Context;
@@ -30,7 +26,6 @@ public class CommentListAdapter extends BaseAdapter {
 	
 	private String by;
 	private String date_prepend;
-	private Date result;
 	
 	ImageLoader imageLoader;
 	Comment mCurrentComment;
@@ -82,16 +77,10 @@ public class CommentListAdapter extends BaseAdapter {
         TextView txtComment = (TextView) convertView.findViewById(R.id.comment);
            
 
-    	SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
+    	String date = mCurrentComment.getDate();
     	
-		try {
-			Date result = df.parse(mCurrentComment.getDate());
-		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}  
        
-        txtInfo.setText(by + " " + mCurrentComment.getUser() +", "+ date_prepend + " " + result );
+        txtInfo.setText(by + " " + mCurrentComment.getUser() +", "+ date_prepend + " " + date );
         txtComment.setText(mCurrentComment.getComment());
         
         return convertView;

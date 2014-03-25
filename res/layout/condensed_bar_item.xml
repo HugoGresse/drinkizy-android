@@ -10,6 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
+        android:contentDescription="@string/bar_image"
         android:scaleType="fitCenter"
         android:src="@drawable/blank" />
 
@@ -30,6 +31,6 @@
         android:layout_below="@id/title"
         android:layout_centerInParent="true"
         android:text="@string/bar_description"
-        android:textSize="10sp" />
+        android:textSize="12sp" />
 
 </RelativeLayout>

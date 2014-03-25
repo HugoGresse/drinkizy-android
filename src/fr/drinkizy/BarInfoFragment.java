@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ public class BarInfoFragment extends Fragment {
 	private TextView rating;
 	private TextView name;
 	private TextView themes;
-	private TextView price;
 	private ImageView image_adress;
 	private ImageView image_tel;
 	private ImageView image_site;
@@ -55,7 +53,6 @@ public class BarInfoFragment extends Fragment {
 	    rating = (TextView)rootView.findViewById(R.id.bar_rating);
 	    name = (TextView)rootView.findViewById(R.id.bar_name);
 	    themes = (TextView)rootView.findViewById(R.id.bar_theme);
-	    price = (TextView)rootView.findViewById(R.id.bar_price);
 	    text_adress = (TextView)rootView.findViewById(R.id.text_adress);
 	    text_tel = (TextView)rootView.findViewById(R.id.text_tel);
 	    text_site = (TextView)rootView.findViewById(R.id.text_site);
@@ -116,9 +113,8 @@ public class BarInfoFragment extends Fragment {
 		
 		if(bar.getRank() != -1){
 			rating.setText(String.valueOf(bar.getRank())+"/10");
-		}else{
-			rating.setText("-/10");
 		}
+		
 		description.setText(bar.getDescription());
 	}
 	

@@ -4,7 +4,6 @@
 package fr.drinkizy;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -69,26 +68,8 @@ public class SearchFragment extends Fragment {
 		});
 		
 		
-//		happyHour.setOnClickListener(new OnClickListener() {
-//			
-//			@Override
-//			public void onClick(View v) {
-//				Log.i("DEV", "happy hour clicked");
-//				
-//			}
-//		});
 
 	}
 	
-	
-	private void changeFragment(Fragment frag, int position, int actionBarTitle, int animIn, int animOut){
-		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-		ft.setCustomAnimations(animIn, animOut);
-		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
-		ft.addToBackStack("search_result");
-	    ft.commit();
-	    
-	    getActivity().getActionBar().setTitle(actionBarTitle);
-	}
 	
 }

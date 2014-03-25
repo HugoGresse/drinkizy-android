@@ -63,20 +63,22 @@ public class BarListAdapter extends BaseAdapter {
 			imageLoader.displayImage(url, image);
 		}
 		
-		
-
         TextView txtName = (TextView) convertView.findViewById(R.id.name);
         TextView txtAdress = (TextView) convertView.findViewById(R.id.adress);
         TextView txtTheme = (TextView) convertView.findViewById(R.id.bar_theme);
-           
-        //absListViews
+        TextView txtRating = (TextView) convertView.findViewById(R.id.search_bar_rating);
+        TextView txtDistance = (TextView) convertView.findViewById(R.id.bar_distance);
         
-        if(mCurrentBar.getDistance() == 0)
-        	txtName.setText(mCurrentBar.getName());
-        else
-        	txtName.setText(mCurrentBar.getName()+" - "+mCurrentBar.getDistance()+"m");
+        if(mCurrentBar.getDistance() != 0)
+        	txtDistance.setText(mCurrentBar.getDistance()/1000+" km");
+        
+        txtName.setText(mCurrentBar.getName());
         txtAdress.setText(mCurrentBar.getAddress());
 		txtTheme.setText(mCurrentBar.getThemesAsAString());
+        
+        String rating = String.valueOf(mCurrentBar.getRank());
+        if(rating != null && !rating.isEmpty() )
+        	txtRating.setText(rating);
         
         return convertView;
 	}

@@ -32,11 +32,12 @@
     <string name="switch_no">Non</string>
     
     <string name="search_result">Résultat de la recherche</string>
-    
     <string name="bar_image">Image du bar</string>
     <string name="bar_description">Description courte du bar</string>
     <string name="bar_titre">Titre du bar</string>
     <string name="bar_theme_blank">(thèmes du bar)</string>
+    <string name="bar_rating">-/10</string>
+    <string name="bar_distance">-</string>
     
     <string name="infos_bar">Infos</string>
     <string name="infos_prix">prix&#8230;</string>

@@ -2,15 +2,18 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp" >
+    android:layout_marginBottom="10dp"
+    android:paddingRight="5dp" >
 
     <ImageView
         android:id="@+id/bar_image"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
+        android:layout_width="80dp"
+        android:layout_height="90dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:contentDescription="@string/bar_image"
+        android:scaleType="centerCrop"
         android:src="@drawable/blank" />
 
     <TextView
@@ -19,7 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_toRightOf="@+id/bar_image"
-        android:text="TextView"
+        android:text="@string/bar_titre"
         android:textSize="20sp" />
 
     <TextView
@@ -28,7 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/name"
         android:layout_toRightOf="@+id/bar_image"
-        android:text="TextView" />
+        android:text="@string/infos_adress" />
 
     <TextView
         android:id="@+id/bar_theme"
@@ -36,7 +39,36 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/adress"
         android:layout_below="@+id/adress"
-        android:text="TextView" />
+        android:text="@string/bar_theme_blank" />
 
+    <TextView
+        android:id="@+id/search_bar_rating"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/bar_theme"
+        android:layout_toRightOf="@id/bar_image"
+        android:background="@color/orange_drinkizy"
+        android:padding="6dp"
+        android:text="@string/bar_rating"
+        android:textColor="@android:color/white" />
+
+    <TextView
+        android:id="@+id/bar_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/search_bar_rating"
+        android:layout_alignParentRight="false"
+        android:layout_marginLeft="20dp"
+        android:layout_toRightOf="@id/search_bar_rating"
+        android:text="@string/bar_distance" />
+
+    <ImageView
+        android:id="@+id/imageView1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:contentDescription="@string/blank"
+        android:src="@drawable/arrow_orange" />
     
 </RelativeLayout>

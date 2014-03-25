@@ -21,23 +21,32 @@
             android:id="@+id/image_gps"
             android:layout_width="20dp"
             android:layout_height="28dp"
+            android:layout_centerVertical="true"
             android:contentDescription="@string/search_gps"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
             android:scaleType="fitStart"
             android:src="@drawable/gps" />
 
-        <Switch
-            android:id="@+id/switch_gps"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+        <Button
+            android:id="@+id/b_search_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignBaseline="@id/image_gps"
             android:layout_toRightOf="@id/image_gps"
-            android:text="@string/search_proxi"
-            android:textOff="@string/switch_no"
-            android:textOn="@string/switch_yes"
-            android:switchTextAppearance="@style/SwitchTextAppearance"
-            android:thumb="@drawable/drinkizytheme_switch_inner_holo_light"
-            android:track="@drawable/drinkizytheme_switch_track_holo_light" />
+            android:background="@color/orange_light"
+            android:text="@string/search_proxi" />
+
+        <ImageView
+            android:id="@+id/arrow_tiny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="27dp"
+            android:contentDescription="@string/blank"
+            android:scaleType="fitEnd"
+            android:src="@drawable/arrow_tiny" />
 
     </RelativeLayout>
 
