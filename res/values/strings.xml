@@ -71,6 +71,7 @@
         <item>Android Async HTTP http://loopj.com/android-async-http/</item>
         <item>Gson https://code.google.com/p/google-gson/</item>
         <item>Guava http://code.google.com/p/guava-libraries/</item>
+        <item>System Bar Tint https://github.com/jgilfelt/SystemBarTint</item>
     </string-array>
     <string name="about_imaclogo">Logo de l\'IMAC</string>
     
