@@ -6,10 +6,8 @@ package fr.drinkizy;
 import java.util.ArrayList;
 
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,7 +19,6 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.Switch;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
@@ -41,6 +38,7 @@ public class SearchFragment extends Fragment {
 	private static final int DISTANCE = 200000;
 	
 	private ImageButton searchButton;
+	private Button searchGpsButton;
 	
 	private Button themeSportifButton;
 	private Button themeConcertButton;
@@ -50,7 +48,6 @@ public class SearchFragment extends Fragment {
 	private Button themeRockButton;
 	
 	private AutoCompleteTextView autoCompleteTextView;
-	private Switch proximity;
 	private ListView themesList;
 	private ArrayList<String> bannedThemes;
 	
@@ -70,6 +67,7 @@ public class SearchFragment extends Fragment {
 	    
 	    
 	    searchButton = (ImageButton)rootView.findViewById(R.id.searchIcon);
+	    searchGpsButton = (Button) rootView.findViewById(R.id.b_search_gps);
 	    
 	    themeSportifButton = (Button)rootView.findViewById(R.id.theme_sportif);
 		themeConcertButton = (Button)rootView.findViewById(R.id.theme_concert);
@@ -102,13 +100,19 @@ public class SearchFragment extends Fragment {
 					intent.putExtra(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
 				}
 				
-				if(proximity.isChecked()){
-					Log.d("SearchFragment", "proximity is checked");
-					intent.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}	
-				
 				startActivity(intent);
 				
+			}
+		});
+		
+		// search near current Location
+		searchGpsButton.setOnClickListener(new OnClickListener() {
+			@Override
+			public void onClick(View v) {
+				Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+				intent.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
+				
+				startActivity(intent);
 			}
 		});
 		
@@ -118,17 +122,12 @@ public class SearchFragment extends Fragment {
 		
 		loadDrinkizyThemes();
 		
-		
 		themesList.setOnItemClickListener(new OnItemClickListener(){
 			
 		    @Override 
 		    public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){ 
 		    	
 		        Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
-		        
-		        if(proximity.isChecked()){
-		        	intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}
 		        
 		        intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, mThemesItems.get(position).getSlug());
 		        startActivity(intentBarsForTheme);
@@ -171,18 +170,7 @@ public class SearchFragment extends Fragment {
 		});
 
     }
-	
-	
-	private void changeFragment(Fragment frag, int position, int actionBarTitle, int animIn, int animOut){
-		FragmentTransaction ft = getActivity().getFragmentManager().beginTransaction();
-		ft.setCustomAnimations(animIn, animOut);
-		ft.replace(R.id.drawer_content, frag, Integer.toString(position));
-		ft.addToBackStack("search_result");
-	    ft.commit();
-	    
-	    getActivity().getActionBar().setTitle(actionBarTitle);
-	}
-	
+		
 	private void initializeBannedThemes(){
 		bannedThemes = new ArrayList<String>();
         bannedThemes.add("bars-sportifs");
@@ -198,9 +186,7 @@ public class SearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
-				if(proximity.isChecked()){
-					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}	
+
 				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-sportifs");
 				startActivity(intentBarsForTheme);
 				
@@ -211,9 +197,7 @@ public class SearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
-				if(proximity.isChecked()){
-					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}	
+				
 				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-concerts");
 				startActivity(intentBarsForTheme);
 				
@@ -224,9 +208,7 @@ public class SearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
-				if(proximity.isChecked()){
-					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}	
+				
 				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "pubs");
 				startActivity(intentBarsForTheme);
 				
@@ -237,9 +219,7 @@ public class SearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
-				if(proximity.isChecked()){
-					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}	
+				
 				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-geek");
 				startActivity(intentBarsForTheme);
 				
@@ -250,9 +230,7 @@ public class SearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
-				if(proximity.isChecked()){
-					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}	
+				
 				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-lounge");
 				startActivity(intentBarsForTheme);
 				
@@ -263,9 +241,7 @@ public class SearchFragment extends Fragment {
 			@Override
 			public void onClick(View v) {
 				Intent intentBarsForTheme = new Intent(getActivity(), SearchResultActivity.class);
-				if(proximity.isChecked()){
-					intentBarsForTheme.putExtra(MainActivity.DISTANCE_QUERY, DISTANCE);
-				}	
+				
 				intentBarsForTheme.putExtra(MainActivity.THEME_QUERY, "bars-rock");
 				startActivity(intentBarsForTheme);
 				

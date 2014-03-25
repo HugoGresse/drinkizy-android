@@ -63,18 +63,23 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		
 		setContentView(R.layout.search_result);
 		
+		// Change color of status bar and enable Translucent on 4.4
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 	    tintManager.setStatusBarTintEnabled(true);
 	    tintManager.setTintColor(Color.parseColor(getResources().getString(R.color.orange_drinkizy)));
 	    
+	    // Override default triansition between this activity and the others
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		
+		// Eneble home button and change ActionBar Title
 		getActionBar().setDisplayHomeAsUpEnabled(true);
 		getActionBar().setTitle(R.string.search_result);
 	    
+		
 	    searchResult = (ListView)findViewById(R.id.search_result);
 	    progressBar = (ProgressBar)findViewById(R.id.progessBarSearchResult);
 	    
+	    // Get receiving intent
 	    Intent intent = getIntent();
 	    if(intent.hasExtra(MainActivity.SEARCH_QUERY)){
 	    	mSearchQuery = intent.getStringExtra(MainActivity.SEARCH_QUERY);
@@ -86,17 +91,20 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    	mThemeQuery = intent.getStringExtra(MainActivity.THEME_QUERY);
 	    }
 	    
-	    loadDrinkizyResults();
+	    if (savedInstanceState == null)
+	    	loadDrinkizyResults();
+	    	
 		
+	    //Listener on List item to load BarActivity
 		searchResult.setOnItemClickListener(new OnItemClickListener(){
 			
 		    @Override 
 		    public void onItemClick(AdapterView<?> arg0, View arg1,int position, long arg3){ 
 		    	
 		        Intent intentBarSingle = new Intent(SearchResultActivity.this, BarActivity.class);
-		        intentBarSingle.putExtra("bar_uri", mBarsItems.get(position).getResource_uri());
+		        intentBarSingle.putExtra("fr.drinkizy.bar", mBarsItems.get(position));
+		        //intentBarSingle.setExtrasClassLoader(getClass().getClassLoader());
 		        startActivity(intentBarSingle);
-		        //		        getActivity().overridePendingTransition(R.anim.hold, R.anim.hold);
 		    }
 		});
 		
@@ -110,6 +118,26 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    overridePendingTransition(R.anim.slide_translate_from_left, R.anim.slide_to_right_translate);
 	}
 	
+	
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putSerializable("mbars_items", mBarsItems);
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Bundle savedInstanceState) {
+    	@SuppressWarnings("unchecked")
+    	ArrayList<Bar> serializable =  (ArrayList<Bar>) savedInstanceState.getSerializable("mbars_items");
+    	mBarsItems = serializable;
+    	setBarListAdapter();
+    	setProgressBar(View.GONE);
+        super.onRestoreInstanceState(savedInstanceState);
+    }
+    
+	/**
+	 * Load data from API 
+	 */
     public void loadDrinkizyResults(){
     	
     	String locationProvider = LocationManager.NETWORK_PROVIDER;
@@ -148,7 +176,11 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     	
     }
     
-    
+    /**
+     * Load bar data depending the research request
+     * @param paramsBars
+     * @param urlBars
+     */
     public void loadDrinkizyBars(RequestParams paramsBars, String urlBars){
     	
     	DrinkizyRestClient.get(urlBars, paramsBars, new AsyncHttpResponseHandler() {
@@ -167,7 +199,11 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 
     }
     
-    
+    /**
+     * Load drink Barand parse Object
+     * @param paramsDrinkbars
+     * @param urlDrinkbars
+     */
     public void loadDrinkizyDrinkbars(RequestParams paramsDrinkbars, String urlDrinkbars){
     	
     	DrinkizyRestClient.get(urlDrinkbars, paramsDrinkbars, new AsyncHttpResponseHandler() {
@@ -217,7 +253,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 					    	mBarsItems.add(bar);
 
 					    	if(barsCount == 0)
-					    		searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
+					    		setBarListAdapter();
 	    				}
 					    
 					    @Override
@@ -233,11 +269,22 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		    }
 		});
     }
-
+    
+    /**
+     * Toggle visibility of loader and visibility of list
+     * @param visibility
+     */
 	public void setProgressBar(int visibility){
 		progressBar.setVisibility(visibility);
 		if(visibility == View.GONE)
 			searchResult.setVisibility(View.VISIBLE);
+	}
+	
+	/**
+	 * Set adapter for the result list
+	 */
+	private void setBarListAdapter(){
+		searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
 	}
 	
 	@Override

@@ -1,6 +1,9 @@
 package fr.drinkizy.objects;
 
-public class DrinkCategory {
+import android.os.Parcel;
+import android.os.Parcelable;
+
+public class DrinkCategory implements Parcelable {
 	
 	private String description;
 	private String name;
@@ -26,6 +29,35 @@ public class DrinkCategory {
 	public String toString() {
 		return "DrinkCategory [name=" + name + ", description=" + description
 				+ "]";
+	}
+	
+	public static final Parcelable.Creator<DrinkCategory> CREATOR = new Creator<DrinkCategory>() { 
+		public DrinkCategory createFromParcel(Parcel source) { 
+			DrinkCategory mDrinkCategory = new DrinkCategory(); 
+			mDrinkCategory.description = source.readString();
+			mDrinkCategory.name = source.readString(); 
+			mDrinkCategory.slug = source.readString();
+			mDrinkCategory.resource_uri = source.readString(); 
+		    return mDrinkCategory; 
+		}
+
+		@Override
+		public DrinkCategory[] newArray(int size) {
+			return new DrinkCategory[size];
+		}
+		
+	};
+	
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeString(description);
+		dest.writeString(name);
+		dest.writeString(slug);
+		dest.writeString(resource_uri);
 	}
 	
 }

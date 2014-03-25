@@ -33,8 +33,10 @@
             android:layout_width="wrap_content"
             android:layout_height="30dp"
             android:layout_alignBaseline="@id/image_gps"
+            android:layout_alignParentRight="true"
             android:layout_toRightOf="@id/image_gps"
             android:background="@color/orange_light"
+            android:gravity="left|center_vertical"
             android:text="@string/search_proxi" />
 
         <ImageView

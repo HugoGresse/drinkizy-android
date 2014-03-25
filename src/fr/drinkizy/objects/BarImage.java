@@ -1,7 +1,10 @@
 package fr.drinkizy.objects;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 
-public class BarImage {
+
+public class BarImage implements Parcelable{
 
 	private int id;
 	private String image;
@@ -21,6 +24,33 @@ public class BarImage {
 	@Override
 	public String toString() {
 	   return "BarImage [url=" + image+"]";
+	}
+	
+	public static final Parcelable.Creator<BarImage> CREATOR = new Creator<BarImage>() { 
+		public BarImage createFromParcel(Parcel source) { 
+			BarImage mBarImage = new BarImage(); 
+			mBarImage.id = source.readInt(); 
+			mBarImage.image = source.readString(); 
+			mBarImage.resource_uri = source.readString(); 
+		    return mBarImage; 
+		}
+
+		@Override
+		public BarImage[] newArray(int size) {
+			return new BarImage[size];
+		}
+		
+	};
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel dest, int flags) {
+		dest.writeInt(id);
+		dest.writeString(image);
+		dest.writeString(resource_uri);
+		
 	}
 
 	

@@ -10,17 +10,11 @@ import android.support.v4.app.NavUtils;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ProgressBar;
 
-import com.google.gson.Gson;
-import com.loopj.android.http.AsyncHttpResponseHandler;
-import com.loopj.android.http.RequestParams;
 import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.objects.Bar;
 import fr.drinkizy.pageradapter.BarTabsPagerAdapter;
-import fr.drinkizy.rest.DrinkizyRestClient;
 
 public class BarActivity extends Activity implements ActionBar.TabListener  {
 	
@@ -28,7 +22,6 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	// Tab titles
     private int[] tabs = { R.string.infos_bar, R.string.menu_bar, R.string.avis_bar, R.string.plan_bar };
 	private ViewPager viewPager;
-	private ProgressBar progressBar;
 	private BarTabsPagerAdapter mAdapter;
 	protected Bar bar;
 	protected String barUri;
@@ -46,8 +39,6 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	    
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		
-
-	    progressBar = (ProgressBar) findViewById(R.id.progessBarSingle);
 	    viewPager = (ViewPager) findViewById(R.id.pager);
 	    
 	    actionBar = getActionBar();
@@ -62,9 +53,16 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
                     .setTabListener(this));
         }
         
-        Intent intent = getIntent();
-        barUri = intent.getStringExtra("bar_uri");;
-        loadBar();
+        
+        Bundle extras = getIntent().getExtras();;
+        extras.setClassLoader(Bar.class.getClassLoader());
+        bar =  extras.getParcelable("fr.drinkizy.bar");
+        
+
+    	actionBar.setTitle(bar.getName());
+    	actionBar.setSubtitle(bar.getAddress()); 
+    	
+		initViewPager();
         
 	}
 	
@@ -120,7 +118,6 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 
 	@Override
 	public void onTabUnselected(Tab tab, android.app.FragmentTransaction ft) {
-		// TODO Auto-generated method stub
 		
 	}
 	
@@ -129,8 +126,6 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
 	 * Init ViewPager when BarDatas is loaded
 	 */
 	private void initViewPager(){
-		
-		setProgressBarState(View.GONE);
 		
         viewPager.setAdapter(mAdapter);
         
@@ -146,37 +141,11 @@ public class BarActivity extends Activity implements ActionBar.TabListener  {
         
 	}
 	
-    public void loadBar(){
-    	
-    	RequestParams params = new RequestParams();
-    	params.put("format", "json");
-    	    	
-    	DrinkizyRestClient.get(barUri, params, new AsyncHttpResponseHandler() {
-		    @Override
-		    public void onSuccess(String response) {
-		    	Gson gson = new Gson();
-		    	bar = gson.fromJson(response, Bar.class);
-		    	
-		    	actionBar.setTitle(bar.getName());
-		    	actionBar.setSubtitle(bar.getAddress()); 
-		    	
-				initViewPager();
-		        
-		    }
-		});
-    	
-        //new JSONObject("{\"phonetype\":\"N95\",\"cat\":\"WP\"}")
-
-    }
     
     public Bar getBar(){
     	if(bar != null){
     		return bar;
     	} else return new Bar();
-    }
-    
-    public void setProgressBarState(int visibility){
-    	progressBar.setVisibility(visibility);
     }
     
 }

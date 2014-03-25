@@ -4,7 +4,11 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
-public class Bar {
+import android.os.Parcel;
+import android.os.Parcelable;
+import android.util.Log;
+
+public class Bar implements Parcelable {
 	private int id;
 	
 	private String address;
@@ -117,6 +121,71 @@ public class Bar {
 	@Override
 	public String toString() {
 	   return "Bar [name=" + name + ", address=" + address +"]";
+	}
+	
+	public static final Parcelable.Creator<Bar> CREATOR = new Creator<Bar>() { 
+		public Bar createFromParcel(Parcel source) { 
+		    Bar mBar = new Bar(); 
+		    mBar.address = source.readString(); 
+		    mBar.description = source.readString(); 
+		    mBar.mail = source.readString(); 
+		    mBar.name = source.readString(); 
+			mBar.phone = source.readString(); 
+			mBar.resource_uri = source.readString(); 
+			mBar.slug = source.readString(); 
+			mBar.website = source.readString();
+			
+			mBar.id = source.readInt();
+			mBar.approval = source.readInt();
+			mBar.disapproval = source.readInt();
+			mBar.distance = source.readInt();
+			
+			mBar.latitude = source.readDouble();
+			mBar.longitude = source.readDouble();
+			mBar.rank = source.readFloat();
+			
+
+			Log.i("DEV", "here good");
+			mBar.themes = source.readParcelable(Theme.class.getClassLoader());
+			mBar.images = source.readParcelable(BarImage.class.getClassLoader());
+			mBar.drinks_list = source.readParcelable(Drinkbar.class.getClassLoader());
+		    return mBar; 
+		}
+
+		@Override
+		public Bar[] newArray(int size) {
+			return new Bar[size];
+		}
+		
+	};
+		
+	@Override
+	public int describeContents() {
+		return 0;
+	}
+	@Override
+	public void writeToParcel(Parcel parcel, int flags) {
+		parcel.writeString(address); 
+		parcel.writeString(description); 
+		parcel.writeString(mail); 
+		parcel.writeString(name); 
+		parcel.writeString(phone); 
+		parcel.writeString(resource_uri); 
+		parcel.writeString(slug); 
+		parcel.writeString(website);
+		
+		parcel.writeInt(id);
+		parcel.writeInt(approval);
+		parcel.writeInt(disapproval);
+		parcel.writeInt(distance);
+		
+		parcel.writeDouble(latitude);
+		parcel.writeDouble(longitude);
+		parcel.writeFloat(rank);
+		
+		parcel.writeTypedList(themes);
+		parcel.writeTypedList(images);
+		parcel.writeTypedList(drinks_list);
 	}
 
 	
