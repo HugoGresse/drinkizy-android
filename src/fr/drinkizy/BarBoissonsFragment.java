@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -89,7 +88,6 @@ public class BarBoissonsFragment extends Fragment {
 	
 	private void displayDrink(){
 		
-		Log.i("BarBoissonsFragment", "display drink");
 		setProgressBar(View.GONE);
 		
 		//drinksList.setAdapter();

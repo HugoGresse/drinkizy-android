@@ -1,5 +1,7 @@
 package fr.drinkizy;
 
+import java.text.DecimalFormat;
+
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Build;
@@ -75,7 +77,8 @@ public class BarInfoFragment extends Fragment {
 		//		Bar myBar = ((BarFragment) getParentFragment()).getBar();
 		bar =  ((BarActivity) getActivity()).getBar();
 		
-		String url = getActivity().getResources().getString(R.string.app_static_url)+bar.getSlug()+".jpg";
+		String url = getActivity().getResources().getString(R.string.app_url)+bar.getImagesUrls().get(0);
+		
 		ImageLoader.getInstance().displayImage(url, image);
 		
 		deleteOrSetInfo();
@@ -112,7 +115,10 @@ public class BarInfoFragment extends Fragment {
 			text_email.setText(bar.getPhone());
 		
 		if(bar.getRank() != -1){
-			rating.setText(String.valueOf(bar.getRank())+"/10");
+			String ratingNote = String.valueOf(bar.getRank());
+        	DecimalFormat df = new DecimalFormat("#.0");
+        	ratingNote = df.format(bar.getRank());
+        	rating.setText(ratingNote+"/10");
 		}
 		
 		description.setText(bar.getDescription());
@@ -122,9 +128,7 @@ public class BarInfoFragment extends Fragment {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
 			SystemBarTintManager tintManager = new SystemBarTintManager(context);
 			SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
-			//view.setPadding(0, config.getPixelInsetTop(true) + config.getActionBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
 			view.setPadding(0,   config.getPixelInsetTop(true) + config.getNavigationBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
-//			Log.i("DEV", Integer.toString(config.getNavigationBarHeight() ) );
 	}
 	
 	

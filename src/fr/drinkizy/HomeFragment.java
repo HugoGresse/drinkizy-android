@@ -42,9 +42,7 @@ public class HomeFragment extends Fragment {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
 			SystemBarTintManager tintManager = new SystemBarTintManager(context);
 			SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
-			//view.setPadding(0, config.getPixelInsetTop(true) + config.getActionBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
-			view.setPadding(0,   config.getPixelInsetTop(true) + config.getNavigationBarHeight(), config.getPixelInsetRight(), config.getPixelInsetBottom());
-//			Log.i("DEV", Integer.toString(config.getNavigationBarHeight() ) );
+			view.setPadding(0,   config.getPixelInsetTop(true), config.getPixelInsetRight(), config.getPixelInsetBottom());
 	}
 	
 }

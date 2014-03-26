@@ -5,6 +5,7 @@ import java.util.Set;
 
 import org.apache.http.Header;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
@@ -14,7 +15,6 @@ import android.graphics.Color;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -41,6 +41,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	
 	private ListView searchResult;
 	private ProgressBar progressBar;
+	private ActionBar actionBar;
 	
 	private ArrayList<Bar> mBarsItems;
 	private ArrayList<Drinkbar> mDrinkbars;
@@ -73,9 +74,11 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    // Override default triansition between this activity and the others
 		overridePendingTransition(R.anim.slide_in_translate, R.anim.slide_out_translate);
 		
+		actionBar = getActionBar();
+		
 		// Eneble home button and change ActionBar Title
-		getActionBar().setDisplayHomeAsUpEnabled(true);
-		getActionBar().setTitle(R.string.search_result);
+		actionBar.setDisplayHomeAsUpEnabled(true);
+		actionBar.setTitle(R.string.search_result);
 	    
 		
 	    searchResult = (ListView)findViewById(R.id.search_result);
@@ -88,6 +91,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	    }
 	    if(intent.hasExtra(MainActivity.DISTANCE_QUERY)){
 	    	mDistanceQuery = intent.getIntExtra(MainActivity.DISTANCE_QUERY, 200000);
+	    	actionBar.setSubtitle("A proximité");
 	    }
 	    if(intent.hasExtra(MainActivity.THEME_QUERY)){
 	    	mThemeQuery = intent.getStringExtra(MainActivity.THEME_QUERY);
@@ -160,14 +164,16 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     	
     	
     	if(!mThemeQuery.isEmpty()){
-    		Log.d("SearchResultActivity", "mThemeQuery : "+mThemeQuery);
     		params.put("themes__slug", mThemeQuery);
     		loadDrinkizyBars(params, url);
+
+	    	actionBar.setSubtitle(mThemeQuery);
     	}else{
 	    	if(!mSearchQuery.isEmpty()){
 	    		params.put("q", mSearchQuery);
 	    		url = "/api/v1/drinkbar/search/";
 	    		loadDrinkizyDrinkbars(params, url);
+		    	actionBar.setSubtitle(mSearchQuery);
 	    	}else{
 	    		if(mDistanceQuery != 0){
 	    			params.put("distance",String.valueOf(mDistanceQuery));
@@ -193,14 +199,11 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     	DrinkizyRestClient.get(urlBars, paramsBars, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
-		    	Log.d("SearchResultActivity", "loadDrinkizyBars : "+response);
 		    	Gson gson = new Gson();
 		    	BarsObject barsObject = gson.fromJson(response, BarsObject.class);
 		    	mBarsItems = (ArrayList<Bar>) barsObject.getObjects();
 	    	    
-		    	searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
-		    	
-		    	setProgressBar(View.GONE);
+		    	setBarListAdapter();
 		    }
 		    
 		    @Override
@@ -223,7 +226,6 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
     	DrinkizyRestClient.get(urlDrinkbars, paramsDrinkbars, new AsyncHttpResponseHandler() {
 		    @Override
 		    public void onSuccess(String response) {
-		    	//Log.d("SearchResultActivity", "loadDrinkizyBars : "+response);
 		    	Gson gson = new Gson();
 		    	DrinkbarsObject drinkbarsObject = gson.fromJson(response, DrinkbarsObject.class);
 		    	mDrinkbars = (ArrayList<Drinkbar>) drinkbarsObject.getObjects();
@@ -240,27 +242,20 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 		    	mBarsUriOfDrinkbars = drinksForBars.keySet();
 		    	barsCount = mBarsUriOfDrinkbars.size();
 		    	
-		    	for(String barUri : mBarsUriOfDrinkbars){
-		    		Log.d("SearchResultActivity", "barUri : "+barUri);
-		    	}
-
 		    	RequestParams paramsBar = new RequestParams();
 		    	paramsBar.put("format", "json");
 		    	if(mDistanceQuery != 0){
-		    		Log.d("LOCATION_OF_USER", "search query and distance query != 0");
 		    		paramsBar.put("distance", mDistanceQuery);
 		    		paramsBar.put("lat", mLastKnownLocation.getLatitude());
 		    		paramsBar.put("long", mLastKnownLocation.getLongitude());
 		    	}
 		    	
 		    	for(final String barUri : mBarsUriOfDrinkbars){
-		    		Log.d("SearchResultActivity", "DrinkizyRestClient.get : "+barUri);
 		    		DrinkizyRestClient.get(barUri, paramsBar, new AsyncHttpResponseHandler() {
 		    		    		
 					    @Override
 					    public void onSuccess(String response) { 
 					    	barsCount--;
-					    	Log.d("SearchResultActivity", "loadDrinkizyBars "+barUri+" : "+response);
 					    	Gson gson = new Gson();
 					    	Bar bar = gson.fromJson(response, Bar.class);
 					    	
@@ -272,14 +267,12 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 					    
 					    @Override
 					    public void onFailure(int statusCode, Header[] headers, byte[] responseBody, Throwable error){
-					    	Log.d("SearchResultActivity", "loadDrinkizyBars fail "+barUri+" : "+statusCode);
 					    	asyncFailed(statusCode, headers, responseBody, error);
 					    }
 					    
 	    			});
 		    	}
 		    	
-		    	setProgressBar(View.GONE);
 		    }
 		});
     }
@@ -298,6 +291,7 @@ public class SearchResultActivity extends Activity implements GooglePlayServices
 	 * Set adapter for the result list
 	 */
 	private void setBarListAdapter(){
+    	setProgressBar(View.GONE);
 		searchResult.setAdapter(new BarListAdapter(SearchResultActivity.this, mBarsItems));
 	}
 	

@@ -5,12 +5,16 @@ package fr.drinkizy;
 
 import java.util.ArrayList;
 
+import android.app.Activity;
 import android.app.Fragment;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnKeyListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -19,10 +23,12 @@ import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 
 import com.google.gson.Gson;
 import com.loopj.android.http.AsyncHttpResponseHandler;
 import com.loopj.android.http.RequestParams;
+import com.readystatesoftware.systembartint.SystemBarTintManager;
 
 import fr.drinkizy.listbar.adapter.ThemeListAdapter;
 import fr.drinkizy.objects.Theme;
@@ -36,6 +42,8 @@ import fr.drinkizy.rest.DrinkizyRestClient;
 public class SearchFragment extends Fragment {
 	
 	private static final int DISTANCE = 200000;
+	
+	private RelativeLayout searchContainer;
 	
 	private ImageButton searchButton;
 	private Button searchGpsButton;
@@ -65,6 +73,7 @@ public class SearchFragment extends Fragment {
 	    // Inflate the layout for this fragment
 	    View rootView = inflater.inflate(R.layout.search, container, false);
 	    
+	    searchContainer = (RelativeLayout)rootView.findViewById(R.id.search_container);
 	    
 	    searchButton = (ImageButton)rootView.findViewById(R.id.searchIcon);
 	    searchGpsButton = (Button) rootView.findViewById(R.id.b_search_gps);
@@ -82,6 +91,11 @@ public class SearchFragment extends Fragment {
 	    autoCompleteTextView = (AutoCompleteTextView)rootView.findViewById(R.id.homeSearchField);
 	    autoCompleteTextView.setAdapter(adapter);
         
+	    // This could also be set in your layout, allows the list items to scroll through the bottom padded area (navigation bar)
+	    searchContainer.setClipToPadding(false);
+	 	// Sets the padding to the insets (include action bar and navigation bar padding for the current device and orientation)
+	 	setInsets(this.getActivity(), searchContainer);
+	 		
 	    	    
 	    return rootView;
 	}
@@ -93,16 +107,23 @@ public class SearchFragment extends Fragment {
 		searchButton.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				
-				Intent intent = new Intent(getActivity(), SearchResultActivity.class);
-				
-				if(autoCompleteTextView.getText().toString() != ""){
-					intent.putExtra(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
-				}
-				
-				startActivity(intent);
-				
+				sendResearch();
 			}
+		});
+		autoCompleteTextView.setOnKeyListener(new OnKeyListener(){
+		    public boolean onKey(View v, int keyCode, KeyEvent event){
+		        if (event.getAction() == KeyEvent.ACTION_DOWN){
+		            switch (keyCode){
+		                case KeyEvent.KEYCODE_DPAD_CENTER:
+		                case KeyEvent.KEYCODE_ENTER:
+		                	sendResearch();
+		                    return true;
+		                default:
+		                    break;
+		            }
+		        }
+		        return false;
+		    }
 		});
 		
 		// search near current Location
@@ -139,6 +160,15 @@ public class SearchFragment extends Fragment {
 
 	}
 	
+	public void sendResearch(){
+		Intent intent = new Intent(getActivity(), SearchResultActivity.class);
+		
+		if(autoCompleteTextView.getText().toString() != ""){
+			intent.putExtra(MainActivity.SEARCH_QUERY, autoCompleteTextView.getText().toString());
+		}
+		
+		startActivity(intent);
+	}
 	
 	public void loadDrinkizyThemes(){
     	
@@ -249,4 +279,10 @@ public class SearchFragment extends Fragment {
 		});
 	}
 	
+	public static void setInsets(Activity context, View view) {
+		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
+			SystemBarTintManager tintManager = new SystemBarTintManager(context);
+			SystemBarTintManager.SystemBarConfig config = tintManager.getConfig();
+			view.setPadding(0,   config.getPixelInsetTop(true), config.getPixelInsetRight(), config.getPixelInsetBottom());
+	}
 }

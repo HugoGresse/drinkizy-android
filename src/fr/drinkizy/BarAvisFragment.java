@@ -11,7 +11,6 @@ import android.content.IntentFilter;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.content.LocalBroadcastManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -67,7 +66,6 @@ public class BarAvisFragment extends Fragment {
 			
 			
 			getAndDisplayComment();
-			Log.i("DEV", "data loaded");
 		}
 	};
 	
@@ -80,8 +78,9 @@ public class BarAvisFragment extends Fragment {
 	
 	public void getAndDisplayComment(){
 		if(getActivity() == null) return;
-		
 		mCommentItems = ((BarActivity) getActivity()).getAvis();
+		if(mCommentItems == null || mCommentItems.isEmpty())
+			return;
 		setProgressBar(View.GONE);
 		commentsList.setAdapter(new CommentListAdapter(getActivity(), mCommentItems));
 	}

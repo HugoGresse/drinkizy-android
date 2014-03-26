@@ -78,8 +78,10 @@ public class CommentListAdapter extends BaseAdapter {
            
 
     	String date = mCurrentComment.getDate();
-    	
-       
+    	String str[]= date.split("T");
+        str = str[0].split("-");
+        date = str[2]+"/"+str[1]+"/"+str[0];
+        
         txtInfo.setText(by + " " + mCurrentComment.getUser() +", "+ date_prepend + " " + date );
         txtComment.setText(mCurrentComment.getComment());
         

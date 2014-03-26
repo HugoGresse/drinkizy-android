@@ -12,7 +12,9 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
         android:layout_marginRight="10dp"
+        android:adjustViewBounds="true"
         android:contentDescription="@string/avis_image"
+        android:scaleType="centerCrop"
         android:src="@drawable/blank" />
 
     <TextView

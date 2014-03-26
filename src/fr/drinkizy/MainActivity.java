@@ -58,7 +58,7 @@ public class MainActivity extends Activity {
 		
 		SystemBarTintManager tintManager = new SystemBarTintManager(this);
 	    tintManager.setStatusBarTintEnabled(true);
-//	    tintManager.setNavigationBarTintEnabled(false);
+	    tintManager.setNavigationBarTintEnabled(false);
 	    tintManager.setTintColor(Color.parseColor(getResources().getString(R.color.orange_drinkizy)));
 	    
 		mNavMenuTitles = getResources().getStringArray(R.array.nav_drawer_items);
@@ -113,7 +113,7 @@ public class MainActivity extends Activity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
         
         if (savedInstanceState == null && drinkLogo) {
-        	selectItem(1); // c'est crade, on changera quand on aura la FAQ
+        	changeFragment(new HomeFragment(), 0, R.anim.fade_in, R.anim.fade_out);
         	Handler handler = new Handler(); 
         	handler.postDelayed(new Runnable() { 
                 public void run() { 
@@ -124,6 +124,7 @@ public class MainActivity extends Activity {
             
         }else if(!drinkLogo){
         	selectItem(0);
+        	
         }
        
 	};
@@ -181,9 +182,9 @@ public class MainActivity extends Activity {
 			    changeFragment(new SearchFragment(), position, R.anim.fade_in, R.anim.fade_out);
 				break;
 			case 1:
-				 // Insert the fragment by replacing any existing fragment
+				// Insert the fragment by replacing any existing fragment
 			    // Create new fragment from our own Fragment class
-			    changeFragment(new HomeFragment(), position, R.anim.fade_in, R.anim.fade_out);
+			    changeFragment(new FaqFragment(), position, R.anim.fade_in, R.anim.fade_out);
 				break;
 			case 2:
 				 // Insert the fragment by replacing any existing fragment

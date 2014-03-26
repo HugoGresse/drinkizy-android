@@ -1,5 +1,6 @@
 package fr.drinkizy.listbar.adapter;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 import android.app.Activity;
@@ -70,17 +71,21 @@ public class BarListAdapter extends BaseAdapter {
         TextView txtDistance = (TextView) convertView.findViewById(R.id.bar_distance);
         
         if(mCurrentBar.getDistance() != 0)
-        	txtDistance.setText(mCurrentBar.getDistance()/1000+" km");
+        	txtDistance.setText("à "+mCurrentBar.getDistance()/1000+" km");
         else txtDistance.setText("");
         
         txtName.setText(mCurrentBar.getName());
         txtAdress.setText(mCurrentBar.getAddress());
 		txtTheme.setText(mCurrentBar.getThemesAsAString());
         
-        String rating = String.valueOf(mCurrentBar.getRank());
-        if(rating != null && !rating.isEmpty() )
+		String rating = String.valueOf(mCurrentBar.getRank());
+		if( !rating.equals("-1.0") ){
+        	DecimalFormat df = new DecimalFormat("#.0");
+        	rating = df.format(mCurrentBar.getRank());
         	txtRating.setText(rating);
-        
+        } else {
+        	txtRating.setText("-/10");
+        }
         return convertView;
 	}
 

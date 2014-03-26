@@ -1,5 +1,8 @@
 package fr.drinkizy;
 
+import com.readystatesoftware.systembartint.SystemBarTintManager;
+
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Build;
@@ -7,47 +10,42 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ScrollView;
-import android.widget.TextView;
+import android.webkit.WebSettings;
+import android.webkit.WebView;
 
-import com.readystatesoftware.systembartint.SystemBarTintManager;
+public class FaqFragment extends Fragment {
 
-public class AboutFragment extends Fragment {
-	
-	private TextView librariesList;
-	private ScrollView aboutScrollView;
+	private WebView webview;
 	
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 	                         Bundle savedInstanceState) {
 		
 	    // Inflate the layout for this fragment
-	    View rootView = inflater.inflate(R.layout.about, container, false);
-	    librariesList = (TextView)rootView.findViewById(R.id.about_libraries);
-	    aboutScrollView = (ScrollView)rootView.findViewById(R.id.scrollViewAbout);
+	    View rootView = inflater.inflate(R.layout.webview, container, false);
+	    webview = (WebView)rootView.findViewById(R.id.webview);
 	    
 	    // This could also be set in your layout, allows the list items to scroll through the bottom padded area (navigation bar)
-	    aboutScrollView.setClipToPadding(false);
+	    webview.setClipToPadding(false);
 	 	// Sets the padding to the insets (include action bar and navigation bar padding for the current device and orientation)
-	 	setInsets(this.getActivity(), aboutScrollView);
-	 	
+	 	setInsets(this.getActivity(), webview);
+	 		
 	    return rootView;
 	}
 	
+	@SuppressLint("SetJavaScriptEnabled")
 	@Override
 	public void onActivityCreated (Bundle savedInstanceState){
 		super.onActivityCreated(savedInstanceState);
 		
-		StringBuilder builder = new StringBuilder();
-		String[] libraries = getResources().getStringArray(R.array.about_libraries);
-		for (String s : libraries){
-			builder.append(s+" \n");
-			librariesList.setText(builder.toString());
-		}
+		final FaqWebClient faqClient = new FaqWebClient();
+		webview.setWebViewClient(faqClient);
+		WebSettings webSettings = webview.getSettings();
+		webSettings.setJavaScriptEnabled(true);
+		
+		webview.loadUrl("http://drinkizy.alwaysdata.net/faq/");
 	}
 	
-	
-
 	public static void setInsets(Activity context, View view) {
 		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.KITKAT) return;
 			SystemBarTintManager tintManager = new SystemBarTintManager(context);
