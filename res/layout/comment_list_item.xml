@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    android:paddingRight="5dp" >
+
+    <ImageView
+        android:id="@+id/user_avatar"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="10dp"
+        android:adjustViewBounds="true"
+        android:contentDescription="@string/avis_image"
+        android:scaleType="centerCrop"
+        android:src="@drawable/blank" />
+
+    <TextView
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_toRightOf="@id/user_avatar"
+        android:text="@string/avis_comment"
+        android:textSize="16sp" />
+
+    <TextView
+        android:id="@+id/avis_info"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/comment"
+        android:layout_toRightOf="@id/user_avatar"
+        android:text="@string/avis_info"
+        android:textColor="@color/avis_info"
+        android:textSize="15sp" />
+    
+</RelativeLayout>

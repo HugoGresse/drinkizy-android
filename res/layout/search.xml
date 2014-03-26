@@ -1,0 +1,216 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:pixlui="http://schemas.android.com/apk/com.neopixl.pixlui"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/search_container"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:animateLayoutChanges="true" >
+
+    <RelativeLayout
+        android:id="@+id/layout_gps"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layout_search_bar"
+        android:layout_marginTop="-5dp"
+        android:background="@color/orange_light"
+        android:paddingBottom="5dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="5dp" >
+
+        <ImageView
+            android:id="@+id/image_gps"
+            android:layout_width="20dp"
+            android:layout_height="28dp"
+            android:layout_centerVertical="true"
+            android:contentDescription="@string/search_gps"
+            android:paddingBottom="5dp"
+            android:paddingTop="5dp"
+            android:scaleType="fitStart"
+            android:src="@drawable/gps" />
+
+        <Button
+            android:id="@+id/b_search_gps"
+            android:layout_width="wrap_content"
+            android:layout_height="30dp"
+            android:layout_alignBaseline="@id/image_gps"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@id/image_gps"
+            android:background="@color/orange_light"
+            android:gravity="left|center_vertical"
+            android:text="@string/search_proxi" />
+
+        <ImageView
+            android:id="@+id/arrow_tiny"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="27dp"
+            android:contentDescription="@string/blank"
+            android:scaleType="fitEnd"
+            android:src="@drawable/arrow_tiny" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layout_search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        
+	    <AutoCompleteTextView
+	        android:id="@+id/homeSearchField"
+	        android:layout_width="match_parent"
+	        android:layout_height="60dp"
+	        android:layout_alignParentTop="true"
+	        android:layout_marginTop="-5dp"
+	        android:background="@drawable/bg_searchbar"
+	        android:ems="10"
+	        android:hint="@string/research_placeholder"
+	        android:maxLines="1"
+	        android:paddingLeft="@dimen/activity_horizontal_margin"
+	        android:paddingRight="45dp" >
+	
+	        <requestFocus />
+	    </AutoCompleteTextView>
+	
+	    <ImageButton
+	        android:id="@+id/searchIcon"
+	        android:layout_width="40dp"
+	        android:layout_height="wrap_content"
+	        android:layout_alignParentRight="true"
+	        android:layout_centerVertical="true"
+	        android:layout_marginBottom="5dp"
+	        android:background="@android:color/transparent"
+	        android:contentDescription="@string/research_loupe"
+	        android:paddingRight="@dimen/activity_horizontal_margin"
+	        android:src="@android:drawable/ic_menu_search" />
+
+    </RelativeLayout>
+    
+
+    <LinearLayout
+        android:id="@+id/button_linear_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/layout_gps"
+        android:layout_marginTop="20dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <Button
+            android:id="@+id/theme_sportif"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_sportif"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_sportif"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_concert"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_concert"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_concert"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_pub"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_pub"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_pub"
+            android:textColor="@android:color/white" />
+        
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/button_linear_2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_linear_1"
+        android:layout_marginTop="10dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin" >
+
+        <Button
+            android:id="@+id/theme_geek"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_geek"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_geek"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_lounge"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_lounge"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_lounge"
+            android:textColor="@android:color/white" />
+
+        <Button
+            android:id="@+id/theme_rock"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@color/orange_drinkizy"
+            android:drawableTop="@drawable/theme_rock"
+            android:padding="@dimen/padding_button_home"
+            android:text="@string/theme_rock"
+            android:textColor="@android:color/white" />
+        
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/theme_list_header"
+        style="?android:attr/listSeparatorTextViewStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/button_linear_2"
+        android:layout_marginTop="15dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:text="@string/theme_sup"
+        android:textAppearance="?android:attr/textAppearance"
+        android:textSize="16sp" />
+    
+    <ListView
+        android:id="@+id/themes"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/theme_list_header"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        android:paddingLeft="@dimen/activity_horizontal_margin" >
+
+    </ListView>
+
+</RelativeLayout>

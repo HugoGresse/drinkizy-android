@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background_drawer">#2F2F2F</color>
+    <color name="orange_drinkizy">#F2B219</color>
+    <color name="orange_light">#F2BB5A</color>
+    <color name="separator">#BBBBBB</color>
+    <color name="avis_info">#999999</color>
+</resources>
